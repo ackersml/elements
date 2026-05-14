@@ -1,0 +1,57 @@
+{
+  "brand": {
+    "name": "Elements",
+    "tagline": "Handpans & sound healing instruments"
+  },
+  "nav": {
+    "home": "Home",
+    "shop": "Shop",
+    "journal": "Journal",
+    "aboutHandpans": "About Handpans",
+    "learn": "Learn",
+    "showrooms": "Showrooms",
+    "cart": "Cart",
+    "account": "Account",
+    "language": "Language",
+    "currency": "Currency",
+    "shopBeginner": "Beginner",
+    "shopExtended": "Extended",
+    "shopRare": "Rare",
+    "shopBundles": "Bundles",
+    "shopAccessories": "Accessories",
+    "shopTongue": "Tongue drums",
+    "shopSoundHealing": "Sound healing tools"
+  },
+  "hero": {
+    "eyebrow": "Ceremonial steel",
+    "titleLine1": "Find the instrument",
+    "titleItalic": "that holds your tone",
+    "sub": "Elements sells hand-tuned handpans and sound tools for players seeking depth, ritual, and presence. Insured shipping, human guidance, transparent builds.",
+    "ctaShop": "Shop instruments",
+    "ctaLearn": "How ordering works",
+    "hintSound": "Tap to hear a single tone (muted until you unmute)"
+  },
+  "footer": {
+    "rights": "© {year} Elements Inc. All rights reserved.",
+    "shipping": "Shipping",
+    "returns": "Returns",
+    "contact": "Contact",
+    "privacy": "Privacy",
+    "track": "Track order"
+  },
+  "cart": {
+    "title": "Cart",
+    "empty": "Your cart is empty.",
+    "checkout": "Checkout",
+    "continue": "Continue shopping"
+  },
+  "product": {
+    "quickBuy": "Quick buy",
+    "from": "From",
+    "details": "Details"
+  },
+  "designSystem": {
+    "title": "Design system",
+    "intro": "Primitives for Elements storefront QA."
+  }
+}

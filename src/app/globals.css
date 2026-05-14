@@ -1,0 +1,200 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap");
+
+@import "tailwindcss";
+
+/* Elements Handpan Store — brand board: forest green + cream, Cinzel + DM Sans */
+@theme inline {
+  --color-background: #2d362e;
+  --color-foreground: #e8e3d5;
+  --color-card: #343e36;
+  --color-card-foreground: #e8e3d5;
+  --color-primary: #e8e3d5;
+  --color-primary-foreground: #2d362e;
+  --color-secondary: #3d4a40;
+  --color-secondary-foreground: #e8e3d5;
+  --color-muted: #3a443c;
+  --color-muted-foreground: #b8b09e;
+  --color-accent: #c9bc9f;
+  --color-accent-foreground: #2d362e;
+  --color-border: rgb(232 227 213 / 0.18);
+  --color-input: rgb(232 227 213 / 0.14);
+  --color-ring: #e8e3d5;
+  --color-destructive: #b54a4a;
+  --color-parchment: #e8e3d5;
+  --color-ink: #2d362e;
+  --radius-lg: 0.25rem;
+  --radius-md: 0.25rem;
+  --radius-sm: 0.125rem;
+  --font-display: "Cinzel", ui-serif, Georgia, serif;
+  --font-body: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --ease-elements: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-hero: 800ms;
+  --duration-hover: 250ms;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+    outline-color: var(--color-ring);
+  }
+
+  body {
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-body);
+    font-optical-sizing: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-body {
+    font-family: var(--font-body);
+  }
+
+  .elements-grain {
+    position: relative;
+  }
+
+  .elements-grain::after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E");
+  }
+
+  .elements-brushed-dark {
+    background-image: linear-gradient(
+      145deg,
+      #2d362e 0%,
+      #323c34 45%,
+      #283026 100%
+    );
+  }
+
+  .text-gradient-gold {
+    background: linear-gradient(
+      125deg,
+      #f0ebe0,
+      #d4cbb8,
+      #e8e3d5
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-bronze {
+    background: linear-gradient(
+      125deg,
+      #f5f1e8,
+      #c9bc9f,
+      #e8e3d5
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .bg-gradient-warm {
+    background: linear-gradient(
+      180deg,
+      #2d362e 0%,
+      #323934 50%,
+      #2d362e 100%
+    );
+  }
+
+  .bg-gradient-card {
+    background: linear-gradient(145deg, #3a443c, #2f382f);
+  }
+
+  .shadow-elements-soft {
+    box-shadow: 0 1px 0 0 rgb(232 227 213 / 0.1);
+  }
+
+  .hairline-rule {
+    border: none;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgb(232 227 213 / 0.25),
+      transparent
+    );
+  }
+
+  .motion-hero {
+    transition-duration: var(--duration-hero);
+    transition-timing-function: var(--ease-elements);
+  }
+
+  .motion-hover {
+    transition-duration: var(--duration-hover);
+    transition-timing-function: var(--ease-elements);
+  }
+
+  .animate-fade-up {
+    animation: fade-up 0.8s var(--ease-elements) forwards;
+  }
+
+  .border-gold {
+    border-color: rgb(232 227 213 / 0.22);
+  }
+
+  .glow-gold {
+    box-shadow:
+      0 0 48px -14px rgb(232 227 213 / 0.18),
+      0 0 96px -28px rgb(232 227 213 / 0.08);
+  }
+
+  .text-destructive {
+    color: var(--color-destructive);
+  }
+}
+
+@keyframes marquee-x {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee-x 42s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
