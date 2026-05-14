@@ -54,9 +54,18 @@ export function SiteFooter() {
               <Link href="/track" className="block text-muted-foreground hover:text-foreground">
                 {t("track")}
               </Link>
-              <span className="block text-muted-foreground/60">{t("shipping")}</span>
-              <span className="block text-muted-foreground/60">{t("returns")}</span>
-              <span className="block text-muted-foreground/60">{t("privacy")}</span>
+              <Link href="/shipping" className="block text-muted-foreground hover:text-foreground">
+                {t("shipping")}
+              </Link>
+              <Link href="/returns" className="block text-muted-foreground hover:text-foreground">
+                {t("returns")}
+              </Link>
+              <Link href="/privacy" className="block text-muted-foreground hover:text-foreground">
+                {t("privacy")}
+              </Link>
+              <Link href="/contact" className="block text-muted-foreground hover:text-foreground">
+                {t("contact")}
+              </Link>
             </div>
           </div>
           <div className="md:col-span-3 md:text-right">

@@ -61,7 +61,7 @@ export function SiteHeader() {
           </Dropdown.Root>
 
           <Link
-            href="/#journal"
+            href="/journal"
             className="text-sm uppercase tracking-[0.14em] text-muted-foreground transition hover:text-foreground"
           >
             {t("journal")}
@@ -73,7 +73,7 @@ export function SiteHeader() {
             {t("learn")}
           </Link>
           <Link
-            href="/#showrooms"
+            href="/showrooms"
             className="text-sm uppercase tracking-[0.14em] text-muted-foreground transition hover:text-foreground"
           >
             {t("showrooms")}
@@ -176,6 +176,20 @@ export function SiteHeader() {
             onClick={() => setMobileOpen(false)}
           >
             {t("learn")}
+          </Link>
+          <Link
+            href="/journal"
+            className="block py-2 text-sm"
+            onClick={() => setMobileOpen(false)}
+          >
+            {t("journal")}
+          </Link>
+          <Link
+            href="/showrooms"
+            className="block py-2 text-sm"
+            onClick={() => setMobileOpen(false)}
+          >
+            {t("showrooms")}
           </Link>
         </div>
       </div>

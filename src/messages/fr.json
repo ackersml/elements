@@ -44,15 +44,48 @@
     "catCases": "Cases & bags",
     "catSound": "Sound healing tools",
     "seeMore": "See more",
-    "lifestyleEyebrow": "Field notes",
-    "lifestyleTitle": "Playing where tone meets place",
-    "lifestyleBody": "Auditions and slow sessions happen outside the showroom too. These moments are how we think about shipping stability and the voice you bring home.",
-    "lifestyleAltField": "Player standing in a green rice field holding a handpan beneath an overcast sky",
-    "lifestyleAltPlaying": "Player seated outdoors with eyes closed, hands on a bronze handpan in a tropical garden",
     "warrantyEyebrow": "Care after delivery",
     "warrantyTitle": "Tuning promise and voice check",
     "warrantyBody": "We document how each build leaves the bench and how it should settle in your space. If travel or humidity shifts the profile, you get clear guidance and a path to correction—not radio silence.",
     "warrantyCta": "How ordering works"
+  },
+  "pages": {
+    "journal": {
+      "title": "Journal",
+      "p1": "Dispatch notes on scales, room acoustics, and how builds settle after travel. No growth hacks: only what helps you choose and care for an instrument.",
+      "p2": "Field recordings and builder conversations land here first. Subscribe from the home page when you want the thread in your inbox.",
+      "p3": "Editorial calendar is intentionally light so each piece earns its place."
+    },
+    "showrooms": {
+      "title": "Showrooms",
+      "p1": "Berlin, Bali, and Portland host audition slots by appointment. Calendars open in phases so each visit gets tuned time and a quiet room.",
+      "p2": "Use the contact page to request a city and preferred window. You will receive logistics for humidity-controlled storage and bench-ready instruments.",
+      "p3": "Remote voicing checks remain available if travel is not practical."
+    },
+    "shipping": {
+      "title": "Shipping",
+      "p1": "Insured carriers handle handpans as fragile freight with signature release where regulations allow. Tracking syncs to the same thread as your order confirmation.",
+      "p2": "Lead times on product pages reflect bench and curing windows, not marketing buffers. If customs holds a shipment, support receives the carrier feed and responds with next steps.",
+      "p3": "Consolidated invoices list declared value for insurance alignment."
+    },
+    "returns": {
+      "title": "Returns",
+      "p1": "A 30-day return window applies to eligible instruments listed as in stock, provided the handpan returns in the same condition with supplied accessories and packaging.",
+      "p2": "Custom or preordered builds may carry different terms noted at checkout. Initiate a return from your order receipt or the track order flow so the bench can expect the package.",
+      "p3": "Refund timing follows your payment method once inspection confirms condition."
+    },
+    "privacy": {
+      "title": "Privacy",
+      "p1": "Elements processes checkout data to fulfill orders and send transactional updates. Payment card details stay with the processor; Elements stores what is required for taxes and support.",
+      "p2": "Analytics runs on aggregated traffic without selling personal data. Newsletter signup on the home page is opt-in and separate from checkout email.",
+      "p3": "You may request deletion of non-financial records where law permits retention exceptions for accounting."
+    },
+    "contact": {
+      "title": "Contact",
+      "p1": "Order updates, tuning questions, and showroom requests share one queue so nothing fragments across inboxes. Reference your order number when writing.",
+      "p2": "A dedicated public inbox will publish here once DNS and abuse controls are finalized. Until then, use the email on your Stripe receipt for the same thread.",
+      "p3": "Press and partnership inquiries: include distribution region and timeline so routing stays accurate."
+    }
   },
   "footer": {
     "rights": "© {year} Elements Inc.",

@@ -159,71 +159,6 @@ export function ElementsHomeView() {
         </div>
       </section>
 
-      <section
-        className="border-b border-border/50 bg-secondary/15"
-        aria-labelledby={`${id}-lifestyle`}
-      >
-        <div className="mx-auto max-w-[1400px] px-4 py-16 md:px-8 md:py-24">
-          <p className="text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground">
-            <span className="mr-3 inline-block h-px w-10 align-middle bg-primary" />
-            {tm("lifestyleEyebrow")}
-          </p>
-          <h2
-            id={`${id}-lifestyle`}
-            className="mt-4 max-w-2xl font-display text-3xl tracking-tight text-foreground md:text-4xl"
-          >
-            {tm("lifestyleTitle")}
-          </h2>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            {tm("lifestyleBody")}
-          </p>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 md:gap-5">
-            <motion.figure
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.65, ease: [0.4, 0, 0.2, 1] }}
-              className="m-0"
-            >
-              <div className="relative aspect-[3/4] overflow-hidden rounded-sm border border-border/40 bg-card/20">
-                <Image
-                  src="/images/handpan-lifestyle-field.png"
-                  alt={tm("lifestyleAltField")}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 640px) 100vw, 50vw"
-                />
-                <div
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/35 via-transparent to-background/10"
-                  aria-hidden
-                />
-              </div>
-            </motion.figure>
-            <motion.figure
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ delay: 0.08, duration: 0.65, ease: [0.4, 0, 0.2, 1] }}
-              className="m-0 sm:mt-0 md:mt-12"
-            >
-              <div className="relative aspect-[3/4] overflow-hidden rounded-sm border border-border/40 bg-card/20">
-                <Image
-                  src="/images/handpan-lifestyle-playing.png"
-                  alt={tm("lifestyleAltPlaying")}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 640px) 100vw, 50vw"
-                />
-                <div
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/35 via-transparent to-background/10"
-                  aria-hidden
-                />
-              </div>
-            </motion.figure>
-          </div>
-        </div>
-      </section>
-
       <section className="border-b border-border/40 py-24 md:py-32" aria-labelledby={`${id}-mag-cat`}>
         <div className="mx-auto max-w-[1400px] px-4 md:px-8">
           <p className="text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground">
@@ -427,7 +362,7 @@ export function ElementsHomeView() {
       )}
 
       {/* 7 — Customer voices (pull quotes) */}
-      <section className="border-b border-border/40 py-16 overflow-hidden" id="journal">
+      <section className="border-b border-border/40 py-16 overflow-hidden" id="voices">
         <div className="mx-auto max-w-[1400px] px-4 md:px-8">
           <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
             Customer voices · aggregate 4.9 / 5
@@ -522,7 +457,11 @@ export function ElementsHomeView() {
           <div className="border border-border/50 bg-secondary/20 p-8 md:p-12">
             <h2 className="font-display text-3xl text-foreground">Journal dispatch</h2>
             <p className="mt-3 max-w-xl text-muted-foreground">
-              Scale guides, recording notes, and builder interviews — inline signup only (no modal).
+              Scale guides, recording notes, and builder interviews — inline signup only (no modal).{" "}
+              <Link href="/journal" className="text-primary underline-offset-4 hover:underline">
+                Open the Journal page
+              </Link>
+              .
             </p>
             <form className="mt-8 flex max-w-md flex-col gap-3 sm:flex-row" onSubmit={(e) => e.preventDefault()}>
               <label htmlFor="news-email" className="sr-only">
@@ -550,8 +489,12 @@ export function ElementsHomeView() {
         <div className="mx-auto max-w-[1400px] px-4 md:px-8">
           <h2 className="font-display text-3xl">Buying guide</h2>
           <p className="mt-4 max-w-2xl text-muted-foreground leading-relaxed">
-            Long-form guide lives as a journal route later — here is the essence: choose scale by voice you already hum,
-            confirm logistics tier, then lock build slot. No rush tactics.
+            Long-form essays live on the{" "}
+            <Link href="/journal" className="text-primary underline-offset-4 hover:underline">
+              Journal
+            </Link>
+            . Here is the essence: choose scale by voice you already hum, confirm logistics tier, then lock build slot.
+            No rush tactics.
           </p>
           <Link href="/handpan-scales" className="mt-6 inline-block text-sm uppercase tracking-[0.14em] text-primary">
             Explore scales interactively →
@@ -570,11 +513,15 @@ export function ElementsHomeView() {
       </section>
 
       {/* 15 — Showrooms anchor */}
-      <section className="py-20" id="showrooms">
+      <section className="py-20">
         <div className="mx-auto max-w-[1400px] px-4 md:px-8">
           <h2 className="font-display text-3xl">Showrooms</h2>
-          <p className="mt-4 text-muted-foreground">
-            Berlin · Bali · Portland — request an audition slot via contact once calendar opens.
+          <p className="mt-4 max-w-2xl text-muted-foreground leading-relaxed">
+            Berlin · Bali · Portland — request an audition slot via contact once calendar opens.{" "}
+            <Link href="/showrooms" className="text-primary underline-offset-4 hover:underline">
+              Showrooms detail
+            </Link>
+            .
           </p>
         </div>
       </section>

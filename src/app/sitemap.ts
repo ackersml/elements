@@ -8,10 +8,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const products = getProducts();
   const lastModified = new Date();
 
+  const staticPaths = [
+    "",
+    "/shop",
+    "/handpan-scales",
+    "/journal",
+    "/showrooms",
+    "/shipping",
+    "/returns",
+    "/privacy",
+    "/contact",
+    "/track",
+  ];
+
   return [
-    { url: base, lastModified },
-    { url: `${base}/shop`, lastModified },
-    { url: `${base}/handpan-scales`, lastModified },
+    ...staticPaths.map((path) => ({
+      url: `${base}${path}`,
+      lastModified,
+    })),
     ...products.map((p) => ({
       url: `${base}/shop/${p.slug}`,
       lastModified,
