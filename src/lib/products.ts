@@ -38,10 +38,6 @@ export type Product = {
   heroImageUrl: string;
 };
 
-/** Brand PDF extractions: `public/brand/from-pdf/` (resized for web). */
-const HS = (n: string) => `/brand/from-pdf/handpan-store/hs-${n}.png`;
-const SH = (n: string) => `/brand/from-pdf/sound-healing/sh-${n}.png`;
-
 /** Product photography: `public/products/` (filenames aligned to scale names). */
 const PHOTO = (file: string) => `/products/${file}`;
 
@@ -126,8 +122,8 @@ export const products: Product[] = [
     priceCents: 108_000,
     compareAtPriceCents: null,
     currency: "eur",
-    images: [HS("009"), HS("010")],
-    heroImageUrl: HS("009"),
+    images: [PHOTO("f-sharp-pygmy-17.jpg"), PHOTO("f-sharp-pygmy-17-back.jpg")],
+    heroImageUrl: PHOTO("f-sharp-pygmy-17.jpg"),
     modelUrl: null,
     audioSamples: [],
     scale: "D Celtic",
@@ -150,7 +146,7 @@ export const products: Product[] = [
     priceCents: 132_000,
     compareAtPriceCents: 142_000,
     currency: "eur",
-    images: [PHOTO("handpan-bag.jpg"), HS("012")],
+    images: [PHOTO("handpan-bag.jpg"), PHOTO("d-kurd-10.jpg")],
     heroImageUrl: PHOTO("handpan-bag.jpg"),
     modelUrl: null,
     audioSamples: [],
@@ -174,8 +170,8 @@ export const products: Product[] = [
     priceCents: 280_00,
     compareAtPriceCents: null,
     currency: "eur",
-    images: [HS("013")],
-    heroImageUrl: HS("013"),
+    images: [PHOTO("handpan-bag.jpg"), PHOTO("d-kurd-10-back.jpg")],
+    heroImageUrl: PHOTO("handpan-bag.jpg"),
     modelUrl: null,
     audioSamples: [],
     scale: "—",
@@ -198,8 +194,8 @@ export const products: Product[] = [
     priceCents: 420_00,
     compareAtPriceCents: null,
     currency: "eur",
-    images: [HS("014"), HS("000")],
-    heroImageUrl: HS("014"),
+    images: [PHOTO("d-kurd-12.jpg"), PHOTO("d-kurd-12-back.jpg")],
+    heroImageUrl: PHOTO("d-kurd-12.jpg"),
     modelUrl: null,
     audioSamples: [],
     scale: "C Major",
@@ -222,8 +218,8 @@ export const products: Product[] = [
     priceCents: 180_00,
     compareAtPriceCents: null,
     currency: "eur",
-    images: [SH("002"), SH("003")],
-    heroImageUrl: SH("002"),
+    images: [PHOTO("c-sharp-pygmy-17.jpg"), PHOTO("c-sharp-pygmy-17-back.jpg")],
+    heroImageUrl: PHOTO("c-sharp-pygmy-17.jpg"),
     modelUrl: null,
     audioSamples: [],
     scale: "Planetary set",

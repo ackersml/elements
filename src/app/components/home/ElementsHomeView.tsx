@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useId } from "react";
@@ -16,23 +15,6 @@ import {
 } from "@/lib/products";
 import { cn } from "@/lib/utils";
 import { HeroAudioGate } from "./HeroAudioGate";
-
-const HandpanHeroScene = dynamic(
-  () => import("@/app/components/three/HandpanHeroScene"),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="flex h-[min(520px,68vh)] w-full items-center justify-center text-sm text-muted-foreground">
-        Loading 3D…
-      </div>
-    ),
-  }
-);
-
-const ShaderBackdrop = dynamic(
-  () => import("@/components/ui/shader-animation").then((m) => m.ShaderAnimation),
-  { ssr: false }
-);
 
 function QuickBuy({ slug }: { slug: string }) {
   const add = useCartStore((s) => s.add);
@@ -97,11 +79,26 @@ export function ElementsHomeView() {
 
   return (
     <div className="bg-background text-foreground">
-      {/* 2 — Hero (asymmetric) */}
+      {/* 2 — Hero (photo lower half + tint, no 3D column) */}
       <section className="relative elements-grain overflow-hidden border-b border-border/50">
-        <div className="absolute inset-0 elements-brushed-dark opacity-70" />
-        <div className="relative z-10 mx-auto grid max-w-[1400px] items-center gap-6 px-4 py-24 md:grid-cols-12 md:gap-10 md:px-8 md:py-32">
-          <div className="md:col-span-5 md:col-start-1">
+        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden>
+          <div
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-[200%] bg-cover bg-bottom bg-no-repeat opacity-[0.38] mix-blend-soft-light md:opacity-[0.44]"
+            style={{
+              backgroundImage: "url(/images/handpan-lifestyle-field.png)",
+            }}
+          />
+        </div>
+        <div
+          className="pointer-events-none absolute inset-0 z-[1] elements-brushed-dark opacity-[0.28] md:opacity-[0.22]"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute inset-0 z-[2] bg-gradient-to-r from-background from-40% via-background/88 to-background/25 md:from-35% md:via-background/70 md:to-transparent"
+          aria-hidden
+        />
+        <div className="relative z-10 mx-auto max-w-[1400px] px-4 py-24 md:px-8 md:py-32">
+          <div className="max-w-xl md:max-w-2xl">
             <p className="text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground">
               <span className="mr-3 inline-block h-px w-10 align-middle bg-primary" />
               {t("eyebrow")}
@@ -144,41 +141,6 @@ export function ElementsHomeView() {
               </a>
             </div>
             <HeroAudioGate />
-          </div>
-          <div className="relative md:col-span-6 md:col-start-7">
-            <div className="relative hidden min-h-[min(520px,68vh)] overflow-hidden rounded-sm border border-border/25 md:block">
-              <ShaderBackdrop className="pointer-events-none absolute inset-0 z-0 h-full w-full min-h-[inherit] opacity-[0.28]" />
-              <div
-                className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-br from-background/25 via-transparent to-background/50"
-                aria-hidden
-              />
-              <div className="relative z-[2] opacity-[0.92]">
-                <HandpanHeroScene />
-              </div>
-            </div>
-            <div className="md:hidden">
-              <div className="relative min-h-[280px] overflow-hidden rounded-sm border border-border/25">
-                <ShaderBackdrop className="pointer-events-none absolute inset-0 z-0 h-full min-h-[280px] w-full opacity-[0.22]" />
-                <div
-                  className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-background/45 via-background/10 to-transparent"
-                  aria-hidden
-                />
-                <div className="relative z-[2]">
-                  <Image
-                    src={getProducts()[0]?.heroImageUrl ?? ""}
-                    alt="Handpan instrument in warm light"
-                    width={900}
-                    height={700}
-                    className="w-full object-cover"
-                    style={{ maxHeight: "70vh" }}
-                    priority
-                  />
-                </div>
-              </div>
-            </div>
-            <p className="mt-2 text-center text-[10px] uppercase tracking-[0.2em] text-muted-foreground/80">
-              3D: placeholder geometry — replace with Draco GLB
-            </p>
           </div>
         </div>
       </section>
