@@ -35,8 +35,8 @@ export function ShaderAnimation({ className }: ShaderAnimationProps) {
 
       void main(void) {
         vec2 uv = (gl_FragCoord.xy * 2.0 - resolution.xy) / min(resolution.x, resolution.y);
-        float t = time * 0.05;
-        float lineWidth = 0.002;
+        float t = time * 0.04;
+        float lineWidth = 0.0014;
 
         vec3 color = vec3(0.0);
         for (int j = 0; j < 3; j++) {
@@ -49,9 +49,9 @@ export function ShaderAnimation({ className }: ShaderAnimationProps) {
         vec3 accent = vec3(0.788, 0.737, 0.624);
         vec3 cream = vec3(0.910, 0.890, 0.835);
 
-        float energy = clamp((color.r + color.g + color.b) * 0.35, 0.0, 1.0);
+        float energy = clamp((color.r + color.g + color.b) * 0.26, 0.0, 1.0);
         vec3 glow = mix(dark, accent, energy);
-        glow = mix(glow, cream, energy * energy * 0.42);
+        glow = mix(glow, cream, energy * energy * 0.32);
 
         gl_FragColor = vec4(glow, 1.0);
       }
@@ -99,7 +99,7 @@ export function ShaderAnimation({ className }: ShaderAnimationProps) {
     window.addEventListener("resize", onWindowResize, false);
 
     const tick = () => {
-      uniforms.time.value += reduced ? 0.02 : 0.05;
+      uniforms.time.value += reduced ? 0.015 : 0.035;
       renderer.render(scene, camera);
       if (!reduced) {
         raf.id = window.requestAnimationFrame(tick);

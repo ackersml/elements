@@ -59,7 +59,9 @@ export function ElementsHomeView() {
   const bundles = getProductsByCollection("bundles");
   const cases = getProductsByTag("accessory");
   const findYourSound = getProducts().slice(0, 3);
-  const instrumentMonth = getProducts().find((p) => p.slug === "copper-veil-c-major-12");
+  const instrumentMonth = getProducts().find(
+    (p) => p.slug === "copper-veil-d-kurd-12"
+  );
 
   const catHandpan = beginners[0] ?? getProducts()[0];
   const catTongue = getProductsByCollection("tongue-drums")[0];
@@ -97,7 +99,7 @@ export function ElementsHomeView() {
     <div className="bg-background text-foreground">
       {/* 2 — Hero (asymmetric) */}
       <section className="relative elements-grain overflow-hidden border-b border-border/50">
-        <div className="absolute inset-0 elements-brushed-dark" />
+        <div className="absolute inset-0 elements-brushed-dark opacity-70" />
         <div className="relative z-10 mx-auto grid max-w-[1400px] items-center gap-6 px-4 py-24 md:grid-cols-12 md:gap-10 md:px-8 md:py-32">
           <div className="md:col-span-5 md:col-start-1">
             <p className="text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground">
@@ -144,21 +146,21 @@ export function ElementsHomeView() {
             <HeroAudioGate />
           </div>
           <div className="relative md:col-span-6 md:col-start-7">
-            <div className="relative hidden min-h-[min(520px,68vh)] overflow-hidden rounded-sm border border-border/40 md:block">
-              <ShaderBackdrop className="pointer-events-none absolute inset-0 z-0 h-full w-full min-h-[inherit] opacity-[0.72]" />
+            <div className="relative hidden min-h-[min(520px,68vh)] overflow-hidden rounded-sm border border-border/25 md:block">
+              <ShaderBackdrop className="pointer-events-none absolute inset-0 z-0 h-full w-full min-h-[inherit] opacity-[0.28]" />
               <div
-                className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-br from-background/55 via-transparent to-background/90"
+                className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-br from-background/25 via-transparent to-background/50"
                 aria-hidden
               />
-              <div className="relative z-[2]">
+              <div className="relative z-[2] opacity-[0.92]">
                 <HandpanHeroScene />
               </div>
             </div>
             <div className="md:hidden">
-              <div className="relative min-h-[280px] overflow-hidden rounded-sm border border-border/40">
-                <ShaderBackdrop className="pointer-events-none absolute inset-0 z-0 h-full min-h-[280px] w-full opacity-50" />
+              <div className="relative min-h-[280px] overflow-hidden rounded-sm border border-border/25">
+                <ShaderBackdrop className="pointer-events-none absolute inset-0 z-0 h-full min-h-[280px] w-full opacity-[0.22]" />
                 <div
-                  className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-background/80 via-background/20 to-transparent"
+                  className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-background/45 via-background/10 to-transparent"
                   aria-hidden
                 />
                 <div className="relative z-[2]">
@@ -192,6 +194,71 @@ export function ElementsHomeView() {
           >
             {tm("stripCta")}
           </Link>
+        </div>
+      </section>
+
+      <section
+        className="border-b border-border/50 bg-secondary/15"
+        aria-labelledby={`${id}-lifestyle`}
+      >
+        <div className="mx-auto max-w-[1400px] px-4 py-16 md:px-8 md:py-24">
+          <p className="text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground">
+            <span className="mr-3 inline-block h-px w-10 align-middle bg-primary" />
+            {tm("lifestyleEyebrow")}
+          </p>
+          <h2
+            id={`${id}-lifestyle`}
+            className="mt-4 max-w-2xl font-display text-3xl tracking-tight text-foreground md:text-4xl"
+          >
+            {tm("lifestyleTitle")}
+          </h2>
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
+            {tm("lifestyleBody")}
+          </p>
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 md:gap-5">
+            <motion.figure
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.65, ease: [0.4, 0, 0.2, 1] }}
+              className="m-0"
+            >
+              <div className="relative aspect-[3/4] overflow-hidden rounded-sm border border-border/40 bg-card/20">
+                <Image
+                  src="/images/handpan-lifestyle-field.png"
+                  alt={tm("lifestyleAltField")}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, 50vw"
+                />
+                <div
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/35 via-transparent to-background/10"
+                  aria-hidden
+                />
+              </div>
+            </motion.figure>
+            <motion.figure
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ delay: 0.08, duration: 0.65, ease: [0.4, 0, 0.2, 1] }}
+              className="m-0 sm:mt-0 md:mt-12"
+            >
+              <div className="relative aspect-[3/4] overflow-hidden rounded-sm border border-border/40 bg-card/20">
+                <Image
+                  src="/images/handpan-lifestyle-playing.png"
+                  alt={tm("lifestyleAltPlaying")}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, 50vw"
+                />
+                <div
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/35 via-transparent to-background/10"
+                  aria-hidden
+                />
+              </div>
+            </motion.figure>
+          </div>
         </div>
       </section>
 

@@ -6,13 +6,13 @@ import { Suspense } from "react";
 
 function BronzeProbe() {
   return (
-    <mesh rotation={[0.35, 0.6, 0]} castShadow receiveShadow>
+      <mesh rotation={[0.35, 0.6, 0]} castShadow receiveShadow>
       <sphereGeometry args={[1, 64, 64]} />
       <meshStandardMaterial
-        color="#8a7d6b"
-        metalness={0.85}
-        roughness={0.32}
-        envMapIntensity={1.05}
+        color="#7a7062"
+        metalness={0.62}
+        roughness={0.44}
+        envMapIntensity={0.72}
       />
     </mesh>
   );
@@ -27,8 +27,8 @@ export default function HandpanHeroScene() {
       gl={{ antialias: true, alpha: true }}
     >
       <color attach="background" args={["transparent"]} />
-      <ambientLight intensity={0.35} />
-      <directionalLight castShadow position={[3.5, 5, 4]} intensity={1.15} />
+      <ambientLight intensity={0.26} />
+      <directionalLight castShadow position={[3.5, 5, 4]} intensity={0.88} />
       <Suspense fallback={null}>
         <BronzeProbe />
         <Environment preset="warehouse" />
