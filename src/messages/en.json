@@ -31,6 +31,24 @@
     "ctaLearn": "How ordering works",
     "hintSound": "Tap to hear a single tone (muted until you unmute)"
   },
+  "mag": {
+    "heroKicker": "Your tone, kept honest in the room you play.",
+    "ctaJourney": "Start your Elements journey",
+    "ctaInStock": "In stock now",
+    "stripLabel": "Builds ready to ship this month",
+    "stripCta": "Browse in-stock instruments",
+    "categoriesEyebrow": "Explore by craft",
+    "categoriesTitle": "Which path fits how you play?",
+    "catHandpans": "Handpans",
+    "catTongue": "Tongue drums",
+    "catCases": "Cases & bags",
+    "catSound": "Sound healing tools",
+    "seeMore": "See more",
+    "warrantyEyebrow": "Care after delivery",
+    "warrantyTitle": "Tuning promise and voice check",
+    "warrantyBody": "We document how each build leaves the bench and how it should settle in your space. If travel or humidity shifts the profile, you get clear guidance and a path to correction—not radio silence.",
+    "warrantyCta": "How ordering works"
+  },
   "footer": {
     "rights": "© {year} Elements Inc. All rights reserved.",
     "shipping": "Shipping",

@@ -29,6 +29,11 @@ const HandpanHeroScene = dynamic(
   }
 );
 
+const ShaderBackdrop = dynamic(
+  () => import("@/components/ui/shader-animation").then((m) => m.ShaderAnimation),
+  { ssr: false }
+);
+
 function QuickBuy({ slug }: { slug: string }) {
   const add = useCartStore((s) => s.add);
   const currency = useCartStore((s) => s.currency);
@@ -47,6 +52,7 @@ function QuickBuy({ slug }: { slug: string }) {
 
 export function ElementsHomeView() {
   const t = useTranslations("hero");
+  const tm = useTranslations("mag");
   const id = useId();
   const beginners = getProductsByTag("beginner");
   const rarities = getProductsByCollection("rare");
@@ -55,12 +61,44 @@ export function ElementsHomeView() {
   const findYourSound = getProducts().slice(0, 3);
   const instrumentMonth = getProducts().find((p) => p.slug === "copper-veil-c-major-12");
 
+  const catHandpan = beginners[0] ?? getProducts()[0];
+  const catTongue = getProductsByCollection("tongue-drums")[0];
+  const catCase = cases[0];
+  const catSound = getProductsByCollection("sound-healing")[0];
+
+  const categoryTiles = [
+    {
+      key: "handpans",
+      title: tm("catHandpans"),
+      href: "/shop?collection=beginner",
+      image: catHandpan?.heroImageUrl,
+    },
+    {
+      key: "tongue",
+      title: tm("catTongue"),
+      href: "/shop?collection=tongue-drums",
+      image: catTongue?.heroImageUrl,
+    },
+    {
+      key: "cases",
+      title: tm("catCases"),
+      href: "/shop?collection=accessories",
+      image: catCase?.heroImageUrl,
+    },
+    {
+      key: "sound",
+      title: tm("catSound"),
+      href: "/shop?collection=sound-healing",
+      image: catSound?.heroImageUrl,
+    },
+  ].filter((c): c is typeof c & { image: string } => Boolean(c.image));
+
   return (
     <div className="bg-background text-foreground">
       {/* 2 — Hero (asymmetric) */}
       <section className="relative elements-grain overflow-hidden border-b border-border/50">
         <div className="absolute inset-0 elements-brushed-dark" />
-        <div className="relative z-10 mx-auto grid max-w-[1400px] items-center gap-6 px-4 py-20 md:grid-cols-12 md:gap-10 md:px-8 md:py-28">
+        <div className="relative z-10 mx-auto grid max-w-[1400px] items-center gap-6 px-4 py-24 md:grid-cols-12 md:gap-10 md:px-8 md:py-32">
           <div className="md:col-span-5 md:col-start-1">
             <p className="text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground">
               <span className="mr-3 inline-block h-px w-10 align-middle bg-primary" />
@@ -74,16 +112,31 @@ export function ElementsHomeView() {
             <p className="mt-8 max-w-lg text-base leading-relaxed text-muted-foreground md:text-lg">
               {t("sub")}
             </p>
-            <div className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+            <p className="mt-5 max-w-lg text-sm leading-relaxed text-muted-foreground/90 md:text-base">
+              {tm("heroKicker")}
+            </p>
+            <div className="mt-10 flex flex-col items-stretch gap-4 sm:flex-row sm:flex-wrap sm:items-center">
               <Link
                 href="/shop"
-                className="inline-block border-b-2 border-primary pb-1 text-sm font-medium uppercase tracking-[0.16em] text-foreground transition motion-hover hover:text-primary"
+                className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-primary bg-primary px-8 py-3 text-center text-xs font-semibold uppercase tracking-[0.2em] text-primary-foreground transition motion-hover hover:bg-primary/90"
+              >
+                {tm("ctaJourney")}
+              </Link>
+              <Link
+                href="/shop?collection=beginner"
+                className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-border/90 bg-transparent px-8 py-3 text-center text-xs font-semibold uppercase tracking-[0.2em] text-foreground transition motion-hover hover:bg-secondary/45"
+              >
+                {tm("ctaInStock")}
+              </Link>
+              <Link
+                href="/shop"
+                className="inline-flex min-h-[48px] items-center justify-center border-b-2 border-transparent pb-1 text-center text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground transition motion-hover hover:border-primary hover:text-foreground sm:px-2"
               >
                 {t("ctaShop")}
               </Link>
               <a
                 href="#how-order"
-                className="text-sm uppercase tracking-[0.14em] text-muted-foreground underline-offset-4 transition hover:text-foreground hover:underline"
+                className="inline-flex min-h-[48px] items-center justify-center text-center text-xs uppercase tracking-[0.14em] text-muted-foreground underline-offset-4 transition hover:text-foreground hover:underline sm:ml-1"
               >
                 {t("ctaLearn")}
               </a>
@@ -91,19 +144,35 @@ export function ElementsHomeView() {
             <HeroAudioGate />
           </div>
           <div className="relative md:col-span-6 md:col-start-7">
-            <div className="hidden md:block">
-              <HandpanHeroScene />
+            <div className="relative hidden min-h-[min(520px,68vh)] overflow-hidden rounded-sm border border-border/40 md:block">
+              <ShaderBackdrop className="pointer-events-none absolute inset-0 z-0 h-full w-full min-h-[inherit] opacity-[0.72]" />
+              <div
+                className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-br from-background/55 via-transparent to-background/90"
+                aria-hidden
+              />
+              <div className="relative z-[2]">
+                <HandpanHeroScene />
+              </div>
             </div>
             <div className="md:hidden">
-              <Image
-                src={getProducts()[0]?.heroImageUrl ?? ""}
-                alt="Handpan instrument in warm light"
-                width={900}
-                height={700}
-                className="w-full object-cover"
-                style={{ maxHeight: "70vh" }}
-                priority
-              />
+              <div className="relative min-h-[280px] overflow-hidden rounded-sm border border-border/40">
+                <ShaderBackdrop className="pointer-events-none absolute inset-0 z-0 h-full min-h-[280px] w-full opacity-50" />
+                <div
+                  className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-background/80 via-background/20 to-transparent"
+                  aria-hidden
+                />
+                <div className="relative z-[2]">
+                  <Image
+                    src={getProducts()[0]?.heroImageUrl ?? ""}
+                    alt="Handpan instrument in warm light"
+                    width={900}
+                    height={700}
+                    className="w-full object-cover"
+                    style={{ maxHeight: "70vh" }}
+                    priority
+                  />
+                </div>
+              </div>
             </div>
             <p className="mt-2 text-center text-[10px] uppercase tracking-[0.2em] text-muted-foreground/80">
               3D: placeholder geometry — replace with Draco GLB
@@ -112,8 +181,70 @@ export function ElementsHomeView() {
         </div>
       </section>
 
+      <section className="border-b border-border/50 bg-secondary/20">
+        <div className="mx-auto flex max-w-[1400px] flex-col gap-3 px-4 py-4 md:flex-row md:items-center md:justify-between md:px-8">
+          <p className="text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground">
+            {tm("stripLabel")}
+          </p>
+          <Link
+            href="/shop?collection=beginner"
+            className="text-xs font-semibold uppercase tracking-[0.18em] text-foreground underline-offset-4 transition hover:text-primary hover:underline"
+          >
+            {tm("stripCta")}
+          </Link>
+        </div>
+      </section>
+
+      <section className="border-b border-border/40 py-24 md:py-32" aria-labelledby={`${id}-mag-cat`}>
+        <div className="mx-auto max-w-[1400px] px-4 md:px-8">
+          <p className="text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground">
+            <span className="mr-3 inline-block h-px w-10 align-middle bg-primary" />
+            {tm("categoriesEyebrow")}
+          </p>
+          <h2
+            id={`${id}-mag-cat`}
+            className="mt-4 max-w-3xl font-display text-3xl tracking-tight text-foreground md:text-5xl"
+          >
+            {tm("categoriesTitle")}
+          </h2>
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+            {categoryTiles.map((tile, i) => (
+              <motion.div
+                key={tile.key}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ delay: i * 0.06, duration: 0.65, ease: [0.4, 0, 0.2, 1] }}
+              >
+                <Link
+                  href={tile.href}
+                  className="group relative block aspect-[3/4] overflow-hidden rounded-2xl border border-border/45 bg-card/30 md:aspect-[4/5]"
+                >
+                  <Image
+                    src={tile.image}
+                    alt=""
+                    fill
+                    className="object-cover transition duration-[650ms] ease-out group-hover:scale-[1.04]"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/25 to-transparent opacity-95 md:opacity-90" />
+                  <div className="absolute inset-x-0 bottom-0 flex flex-col p-5 md:p-6">
+                    <span className="font-display text-2xl tracking-tight text-foreground md:text-3xl">
+                      {tile.title}
+                    </span>
+                    <span className="mt-3 inline-flex w-max border-b border-primary/70 pb-1 text-[10px] font-semibold uppercase tracking-[0.28em] text-primary transition group-hover:border-primary group-hover:text-foreground">
+                      {tm("seeMore")}
+                    </span>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* 3 — Find your sound */}
-      <section className="border-b border-border/40 py-20 md:py-28" aria-labelledby={`${id}-fys`}>
+      <section className="border-b border-border/40 py-24 md:py-32" aria-labelledby={`${id}-fys`}>
         <div className="mx-auto max-w-[1400px] px-4 md:px-8">
           <h2
             id={`${id}-fys`}
@@ -156,7 +287,7 @@ export function ElementsHomeView() {
       </section>
 
       {/* 4 — Beginner grid */}
-      <section className="border-b border-border/40 py-20 md:py-24" id="beginner">
+      <section className="border-b border-border/40 py-24 md:py-28" id="beginner">
         <div className="mx-auto max-w-[1400px] px-4 md:px-8">
           <h2 className="font-display text-3xl tracking-tight md:max-w-md md:text-4xl">
             Beginner handpans
@@ -214,6 +345,24 @@ export function ElementsHomeView() {
               {line}
             </p>
           ))}
+        </div>
+      </section>
+
+      <section className="border-b border-border/40 py-24 md:py-32">
+        <div className="mx-auto max-w-3xl px-4 text-center md:px-8">
+          <p className="text-xs font-medium uppercase tracking-[0.22em] text-primary">{tm("warrantyEyebrow")}</p>
+          <h2 className="mt-5 font-display text-3xl tracking-tight text-foreground md:text-5xl">
+            {tm("warrantyTitle")}
+          </h2>
+          <p className="mt-6 text-base leading-relaxed text-muted-foreground md:text-lg">
+            {tm("warrantyBody")}
+          </p>
+          <Link
+            href="#how-order"
+            className="mt-10 inline-flex min-h-[48px] items-center justify-center rounded-full border border-primary bg-primary px-10 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-primary-foreground transition motion-hover hover:bg-primary/90"
+          >
+            {tm("warrantyCta")}
+          </Link>
         </div>
       </section>
 
@@ -335,34 +484,6 @@ export function ElementsHomeView() {
               </Link>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* 11 — Category tiles */}
-      <section className="border-b border-border/40 py-20">
-        <div className="mx-auto grid max-w-[1400px] gap-4 px-4 md:grid-cols-2 md:px-8">
-          {[
-            { label: "Beginner path", href: "/shop?collection=beginner", src: beginners[0]?.heroImageUrl },
-            { label: "Extended scales", href: "/shop?collection=extended", src: findYourSound[1]?.heroImageUrl },
-            { label: "Sound healing", href: "/shop?collection=sound-healing", src: getProductsByCollection("sound-healing")[0]?.heroImageUrl },
-            { label: "Accessories", href: "/shop?collection=accessories", src: cases[0]?.heroImageUrl },
-          ]
-            .filter((tile): tile is typeof tile & { src: string } => Boolean(tile.src))
-            .map((tile, i) => (
-              <Link
-                key={tile.label}
-                href={tile.href}
-                className={cn(
-                  "group relative block aspect-[16/10] overflow-hidden border border-border/30",
-                  i % 2 === 1 && "md:translate-y-10"
-                )}
-              >
-                <Image src={tile.src} alt="" fill className="object-cover transition duration-700 group-hover:scale-[1.03]" />
-                <span className="absolute bottom-4 left-4 font-display text-2xl text-white drop-shadow-md">
-                  {tile.label}
-                </span>
-              </Link>
-            ))}
         </div>
       </section>
 
