@@ -182,7 +182,7 @@ export function VirtualHandpanPlayground() {
             alt=""
             fill
             sizes="(max-width: 1024px) 90vw, 420px"
-            className="product-photo pointer-events-none z-0 select-none !p-6"
+            className="pointer-events-none z-0 object-contain p-6 select-none"
             aria-hidden
             priority={false}
           />

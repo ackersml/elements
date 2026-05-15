@@ -169,19 +169,27 @@
     overflow: hidden;
     border-radius: var(--radius);
     border: 1px solid var(--color-border);
-    background: transparent;
+    background: var(--color-card);
   }
 
   .product-photo {
     object-fit: contain;
     object-position: center;
-    padding: 1rem;
+    padding: 0.75rem;
     transition: transform 700ms var(--ease-elements);
+  }
+
+  .product-photo--tile {
+    padding: 0.35rem;
   }
 
   @media (min-width: 768px) {
     .product-photo {
-      padding: 1.5rem;
+      padding: 1rem;
+    }
+
+    .product-photo--tile {
+      padding: 0.5rem;
     }
   }
 

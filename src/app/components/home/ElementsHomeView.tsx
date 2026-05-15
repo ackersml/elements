@@ -288,9 +288,9 @@ export function ElementsHomeView() {
                   src={tile.image}
                   alt=""
                   aspect="3/4"
+                  variant="tile"
                   sizes="(max-width: 640px) 50vw, 25vw"
-                  className="group-hover:scale-[1.04]"
-                  frameClassName="!rounded-none !border-0 aspect-[3/4] lg:aspect-[4/5]"
+                  frameClassName="!rounded-none !border-0 aspect-[3/4] lg:aspect-[4/5] transition-transform duration-700 group-hover:scale-[1.02]"
                 />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
