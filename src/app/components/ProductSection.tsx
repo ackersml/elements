@@ -26,7 +26,7 @@ export function ProductSection() {
                 alt="Top view of a bronze handpan with tone fields around a central dome"
                 width={800}
                 height={600}
-                className="h-auto w-full object-cover rounded-2xl"
+                className="h-auto w-full object-contain rounded-2xl"
               />
             </div>
           </div>

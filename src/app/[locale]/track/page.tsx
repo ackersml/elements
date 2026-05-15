@@ -59,8 +59,8 @@ function TrackForm() {
 
   return (
     <div className="min-h-screen bg-gradient-warm">
-      <main className="mx-auto max-w-lg px-4 py-16">
-        <h1 className="text-center text-2xl font-semibold text-foreground sm:text-3xl">
+      <main className="container-x max-w-lg py-16">
+        <h1 className="font-display text-center text-2xl font-medium text-foreground sm:text-3xl">
           Track your order
         </h1>
         <p className="mt-2 text-center text-muted-foreground">
@@ -80,7 +80,7 @@ function TrackForm() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full border border-input bg-background px-4 py-2 text-foreground"
+              className="w-full rounded-full border border-border bg-background px-4 py-3 text-foreground outline-none focus:border-[color:var(--accent-c)]"
               placeholder="you@example.com"
               required
             />
@@ -97,7 +97,7 @@ function TrackForm() {
               type="text"
               value={orderRef}
               onChange={(e) => setOrderRef(e.target.value)}
-              className="w-full border border-input bg-background px-4 py-2 text-foreground"
+              className="w-full rounded-full border border-border bg-background px-4 py-3 text-foreground outline-none focus:border-[color:var(--accent-c)]"
               placeholder="From confirmation email or success page"
               required
             />
@@ -106,14 +106,14 @@ function TrackForm() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full border border-primary bg-primary px-6 py-3 font-medium text-primary-foreground hover:brightness-110 disabled:opacity-70"
+            className="btn-pill btn-primary w-full disabled:opacity-70"
           >
             {loading ? "Looking up…" : "Look up order"}
           </button>
         </form>
 
         {order && (
-          <div className="mt-8 border border-border bg-card p-4 text-foreground">
+          <div className="mt-8 rounded-2xl border border-border bg-card p-4 text-foreground">
             <p className="font-medium">Order status: {order.status}</p>
             <p className="mt-1 text-sm text-muted-foreground">
               Placed: {new Date(order.created_at).toLocaleString()}
@@ -133,7 +133,7 @@ function TrackForm() {
                 href={order.tracking_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 inline-block border border-primary bg-primary px-4 py-2 font-medium text-primary-foreground hover:brightness-110"
+                className="btn-pill btn-primary mt-4 inline-block"
               >
                 Track package
               </a>
@@ -146,7 +146,7 @@ function TrackForm() {
         )}
 
         <p className="mt-8 text-center">
-          <Link href="/" className="text-primary hover:underline">
+          <Link href="/" className="link-arrow">
             Back to home
           </Link>
         </p>

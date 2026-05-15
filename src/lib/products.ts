@@ -38,8 +38,9 @@ export type Product = {
   heroImageUrl: string;
 };
 
-/** Product photography: `public/products/` (filenames aligned to scale names). */
-const PHOTO = (file: string) => `/products/${file}`;
+/** Product photography: `public/products/` (PNG with transparent background). */
+const PHOTO = (file: string) =>
+  `/products/${file.replace(/\.jpe?g$/i, ".png")}`;
 
 /** Seed catalog — replace with CMS when wired */
 export const products: Product[] = [

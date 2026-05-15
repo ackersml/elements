@@ -46,38 +46,59 @@ export default async function ProductPage({ params }: Props) {
   };
 
   return (
-    <div className="border-b border-border/40 py-16 md:py-24">
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="mx-auto max-w-[1100px] px-4 md:px-8">
-        <nav className="mb-8 text-xs uppercase tracking-[0.14em] text-muted-foreground">
-          <Link href="/shop" className="hover:text-foreground">
+      <div className="container-x max-w-[1100px] py-16 md:py-24">
+        <nav className="smallcaps text-muted-foreground" aria-label="Breadcrumb">
+          <Link href="/shop" className="transition hover:text-foreground">
             Shop
-          </Link>
-          <span className="mx-2">/</span>
-          <span className="text-foreground">{product.title}</span>
+          </Link>{" "}
+          <span className="mx-2">/</span> <span>{product.title}</span>
         </nav>
-        <h1 className="font-display text-4xl tracking-tight md:text-5xl">
+        <h1 className="mt-6 font-display text-4xl leading-tight tracking-tight md:text-5xl">
           {product.title}
         </h1>
-        <p className="mt-4 max-w-2xl text-muted-foreground leading-relaxed">
+        <p className="mt-5 max-w-2xl leading-relaxed text-muted-foreground">
           {product.description}
         </p>
-        <div className="mt-10 space-y-6">
-          <ProductModelSection product={product} />
-          <div className="flex flex-wrap gap-6 text-sm text-muted-foreground">
-            <span>Scale: {product.scale}</span>
-            <span>Notes: {product.noteCount}</span>
-            <span>Maker: {product.maker}</span>
-            <span>
-              {product.weightKg} kg · {product.dimensionsCm}
-            </span>
+
+        <dl className="mt-6 flex flex-wrap gap-x-8 gap-y-2 text-sm">
+          <div>
+            <dt className="smallcaps inline text-muted-foreground">Scale:</dt>{" "}
+            <dd className="inline">{product.scale}</dd>
           </div>
+          <div>
+            <dt className="smallcaps inline text-muted-foreground">Notes:</dt>{" "}
+            <dd className="inline">{product.noteCount}</dd>
+          </div>
+          <div>
+            <dt className="smallcaps inline text-muted-foreground">Maker:</dt>{" "}
+            <dd className="inline">{product.maker}</dd>
+          </div>
+          <div>
+            <dt className="smallcaps inline text-muted-foreground">
+              Weight / dimensions:
+            </dt>{" "}
+            <dd className="inline">
+              {product.weightKg} kg · {product.dimensionsCm}
+            </dd>
+          </div>
+        </dl>
+
+        <div className="mt-12">
+          <ProductModelSection product={product} />
+        </div>
+
+        <div className="mt-12 flex flex-wrap items-center gap-4">
           <CheckoutButtonProduct slug={product.slug} />
+          <Link href="/shop" className="link-arrow">
+            Back to shop
+          </Link>
         </div>
       </div>
-    </div>
+    </>
   );
 }

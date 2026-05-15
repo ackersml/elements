@@ -1,8 +1,9 @@
 "use client";
 
 import * as Dialog from "@radix-ui/react-dialog";
+import { Minus, Plus, X } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useCartStore } from "@/lib/cart-store";
 import {
   formatProductDisplay,
@@ -21,6 +22,15 @@ export function CartDrawer({ children }: { children: React.ReactNode }) {
   const clear = useCartStore((s) => s.clear);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<string | null>(null);
+
+  const subtotalCents = useMemo(
+    () =>
+      lines.reduce((sum, line) => {
+        const p = getProductBySlug(line.slug);
+        return sum + (p ? p.priceCents * line.quantity : 0);
+      }, 0),
+    [lines]
+  );
 
   async function checkout() {
     setLoading(true);
@@ -67,92 +77,106 @@ export function CartDrawer({ children }: { children: React.ReactNode }) {
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-[90] bg-background/80 backdrop-blur-sm data-[state=open]:animate-in fade-in-0" />
+        <Dialog.Overlay className="fixed inset-0 z-[90] bg-black/60 data-[state=open]:animate-in fade-in-0" />
         <Dialog.Content
           className={cn(
-            "fixed right-0 top-0 z-[95] flex h-full w-full max-w-md flex-col border-l border-border bg-card p-6 shadow-elements-soft",
+            "fixed right-0 top-0 z-[95] flex h-full w-full max-w-md flex-col border-l border-border bg-background",
             "data-[state=open]:animate-in slide-in-from-right duration-300"
           )}
         >
-          <div className="mb-6 flex items-center justify-between border-b border-border pb-4">
+          <div className="flex items-center justify-between border-b border-border p-6">
             <Dialog.Title className="font-display text-2xl tracking-tight text-foreground">
               {t("title")}
             </Dialog.Title>
-            <Dialog.Close className="text-sm text-muted-foreground hover:text-foreground">
-              Close
+            <Dialog.Close
+              className="p-2 text-muted-foreground transition hover:text-[color:var(--accent-c)]"
+              aria-label="Close"
+            >
+              <X size={20} />
             </Dialog.Close>
           </div>
 
-          <div className="flex-1 space-y-4 overflow-y-auto">
-            {(lines.length === 0 ? [] : lines).map((line) => {
-              const p = getProductBySlug(line.slug);
-              if (!p) return null;
-              return (
-                <div
-                  key={line.slug}
-                  className="flex gap-4 border-b border-border/60 pb-4"
-                >
-                  <div className="min-w-0 flex-1">
-                    <p className="font-display text-lg leading-tight text-foreground">
-                      {p.title}
-                    </p>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      {formatProductDisplay(p.priceCents, currency)} · ×
-                      {line.quantity}
-                    </p>
-                    <div className="mt-2 flex gap-2">
-                      <button
-                        type="button"
-                        className="text-xs uppercase tracking-wide text-primary hover:underline"
-                        onClick={() => setQty(line.slug, line.quantity - 1)}
-                      >
-                        −
-                      </button>
-                      <button
-                        type="button"
-                        className="text-xs uppercase tracking-wide text-primary hover:underline"
-                        onClick={() => setQty(line.slug, line.quantity + 1)}
-                      >
-                        +
-                      </button>
-                      <button
-                        type="button"
-                        className="text-xs uppercase tracking-wide text-muted-foreground hover:text-foreground"
-                        onClick={() => remove(line.slug)}
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-            {lines.length === 0 && (
+          <div className="flex-1 overflow-y-auto p-6">
+            {lines.length === 0 ? (
               <p className="text-sm text-muted-foreground">{t("empty")}</p>
+            ) : (
+              <ul className="space-y-6">
+                {lines.map((line) => {
+                  const p = getProductBySlug(line.slug);
+                  if (!p) return null;
+                  return (
+                    <li
+                      key={line.slug}
+                      className="flex flex-col gap-2 border-b border-border pb-6"
+                    >
+                      <div className="flex justify-between gap-3">
+                        <p className="font-display text-base leading-tight text-foreground">
+                          {p.title}
+                        </p>
+                        <p className="text-sm text-foreground">
+                          {formatProductDisplay(p.priceCents * line.quantity, currency)}
+                        </p>
+                      </div>
+                      <div className="flex items-center justify-between text-sm">
+                        <div className="inline-flex items-center rounded-full border border-border">
+                          <button
+                            type="button"
+                            onClick={() => setQty(line.slug, line.quantity - 1)}
+                            className="grid size-9 place-items-center transition hover:text-[color:var(--accent-c)]"
+                            aria-label="Decrease"
+                          >
+                            <Minus size={14} />
+                          </button>
+                          <span className="w-8 text-center">{line.quantity}</span>
+                          <button
+                            type="button"
+                            onClick={() => setQty(line.slug, line.quantity + 1)}
+                            className="grid size-9 place-items-center transition hover:text-[color:var(--accent-c)]"
+                            aria-label="Increase"
+                          >
+                            <Plus size={14} />
+                          </button>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => remove(line.slug)}
+                          className="text-muted-foreground underline-offset-4 transition hover:text-foreground hover:underline"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
             )}
           </div>
 
-          {err && <p className="text-destructive py-2 text-sm">{err}</p>}
+          {err && <p className="text-destructive px-6 py-2 text-sm">{err}</p>}
 
-          <div className="mt-4 space-y-3 border-t border-border pt-4">
-            <button
-              type="button"
-              onClick={checkout}
-              disabled={loading}
-              className="w-full border border-primary bg-primary px-6 py-3 text-sm font-medium uppercase tracking-[0.12em] text-primary-foreground transition hover:brightness-110 disabled:opacity-60"
-            >
-              {loading ? "…" : t("checkout")}
-            </button>
-            {lines.length > 0 && (
+          {lines.length > 0 && (
+            <div className="space-y-3 border-t border-border p-6">
+              <div className="flex justify-between text-sm">
+                <span className="smallcaps text-muted-foreground">Subtotal</span>
+                <span>{formatProductDisplay(subtotalCents, currency)}</span>
+              </div>
+              <button
+                type="button"
+                onClick={checkout}
+                disabled={loading}
+                className="btn-pill btn-primary w-full"
+              >
+                {loading ? "…" : t("checkout")}
+              </button>
               <button
                 type="button"
                 onClick={() => clear()}
-                className="w-full py-2 text-xs text-muted-foreground hover:text-foreground"
+                className="mx-auto block text-xs text-muted-foreground transition hover:text-foreground"
               >
                 Clear cart
               </button>
-            )}
-          </div>
+            </div>
+          )}
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

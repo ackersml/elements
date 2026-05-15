@@ -1,6 +1,7 @@
 "use client";
 
 import * as Dropdown from "@radix-ui/react-dropdown-menu";
+import { ChevronDown, Coins, Globe, Menu, ShoppingBag, X } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { Link, usePathname } from "@/i18n/navigation";
@@ -8,7 +9,6 @@ import { routing } from "@/i18n/routing";
 import { checkoutCurrencies, type CheckoutCurrency } from "@/lib/currency";
 import { useCartStore } from "@/lib/cart-store";
 import { cn } from "@/lib/utils";
-import { ElementsLogoLink } from "@/app/components/brand/ElementsLogo";
 import { CartDrawer } from "./CartDrawer";
 
 const shopLinks: { key: string; href: string }[] = [
@@ -21,7 +21,9 @@ const shopLinks: { key: string; href: string }[] = [
   { key: "shopSoundHealing", href: "/shop?collection=sound-healing" },
 ];
 
-export function SiteHeader() {
+export type SiteHeaderVariant = "sticky" | "overlay";
+
+export function SiteHeader({ variant = "sticky" }: { variant?: SiteHeaderVariant }) {
   const t = useTranslations("nav");
   const pathname = usePathname();
   const locale = useLocale();
@@ -31,70 +33,79 @@ export function SiteHeader() {
   const count = lines.reduce((n, l) => n + l.quantity, 0);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  return (
-    <header className="sticky top-0 z-50 border-b border-border/80 bg-background/90 backdrop-blur-md">
-      <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-4 px-4 py-4 md:px-8">
-        <ElementsLogoLink href="/" />
+  const shell =
+    variant === "overlay"
+      ? "absolute inset-x-0 top-0 z-30"
+      : "sticky top-0 z-30 border-b border-border bg-background/80 backdrop-blur";
 
-        <nav className="hidden items-center gap-8 lg:flex">
-          <Dropdown.Root>
-            <Dropdown.Trigger className="flex items-center gap-1 text-sm uppercase tracking-[0.14em] text-muted-foreground transition hover:text-foreground">
-              {t("shop")}
-              <span className="text-[10px]">▾</span>
-            </Dropdown.Trigger>
-            <Dropdown.Content
-              className="z-[80] min-w-[240px] border border-border bg-card p-2 shadow-elements-soft"
-              align="start"
-              sideOffset={8}
+  return (
+    <header className={shell}>
+      <div className="container-x flex items-center justify-between py-4 md:py-6">
+        <Link href="/" className="font-display text-xl tracking-[0.3em] text-foreground">
+          ELEMENTS
+        </Link>
+
+        <nav className="hidden items-center gap-8 text-sm lg:flex">
+          <div className="group relative">
+            <button
+              type="button"
+              className="inline-flex items-center gap-1 text-muted-foreground transition hover:text-[color:var(--accent-c)]"
             >
-              {shopLinks.map((item) => (
-                <Dropdown.Item key={item.key} asChild>
+              {t("shop")}
+              <ChevronDown size={14} aria-hidden />
+            </button>
+            <div className="invisible absolute left-1/2 top-full z-[80] -translate-x-1/2 pt-4 opacity-0 transition group-hover:visible group-hover:opacity-100">
+              <div className="grid min-w-[360px] grid-cols-2 gap-x-8 gap-y-2 rounded-2xl border border-border bg-card p-5 shadow-2xl">
+                {shopLinks.map((item) => (
                   <Link
+                    key={item.key}
                     href={item.href}
-                    className="block px-3 py-2 text-sm text-foreground outline-none hover:bg-secondary"
+                    className="text-sm text-foreground transition hover:text-[color:var(--accent-c)]"
                   >
                     {t(item.key as "shopBeginner")}
                   </Link>
-                </Dropdown.Item>
-              ))}
-            </Dropdown.Content>
-          </Dropdown.Root>
+                ))}
+              </div>
+            </div>
+          </div>
 
           <Link
             href="/journal"
-            className="text-sm uppercase tracking-[0.14em] text-muted-foreground transition hover:text-foreground"
+            className="text-muted-foreground transition hover:text-[color:var(--accent-c)]"
           >
             {t("journal")}
           </Link>
           <Link
             href="/handpan-scales"
-            className="text-sm uppercase tracking-[0.14em] text-muted-foreground transition hover:text-foreground"
+            className="text-muted-foreground transition hover:text-[color:var(--accent-c)]"
           >
             {t("learn")}
           </Link>
           <Link
             href="/showrooms"
-            className="text-sm uppercase tracking-[0.14em] text-muted-foreground transition hover:text-foreground"
+            className="text-muted-foreground transition hover:text-[color:var(--accent-c)]"
           >
             {t("showrooms")}
           </Link>
         </nav>
 
-        <div className="flex items-center gap-2 md:gap-4">
+        <div className="flex items-center gap-4 text-sm md:gap-5">
           <Dropdown.Root>
-            <Dropdown.Trigger className="hidden items-center gap-1 border border-border bg-secondary/40 px-3 py-1.5 text-xs uppercase tracking-[0.12em] text-muted-foreground transition hover:border-primary/40 sm:flex">
+            <Dropdown.Trigger className="hidden items-center gap-1 text-muted-foreground transition hover:text-foreground md:inline-flex">
+              <Globe size={14} aria-hidden />
               {locale.toUpperCase()}
             </Dropdown.Trigger>
             <Dropdown.Content
-              className="z-[80] min-w-[120px] border border-border bg-card p-1 shadow-elements-soft"
+              className="z-[80] min-w-[120px] rounded-xl border border-border bg-card p-1 shadow-2xl"
               align="end"
+              sideOffset={8}
             >
               {routing.locales.map((loc) => (
                 <Dropdown.Item key={loc} asChild>
                   <Link
                     href={pathname}
                     locale={loc}
-                    className="block px-3 py-2 text-sm capitalize outline-none hover:bg-secondary"
+                    className="block rounded-lg px-3 py-2 text-sm capitalize outline-none hover:bg-secondary"
                   >
                     {loc}
                   </Link>
@@ -104,17 +115,19 @@ export function SiteHeader() {
           </Dropdown.Root>
 
           <Dropdown.Root>
-            <Dropdown.Trigger className="flex items-center gap-1 border border-border bg-secondary/40 px-3 py-1.5 text-xs uppercase tracking-[0.12em] text-muted-foreground transition hover:border-primary/40">
+            <Dropdown.Trigger className="inline-flex items-center gap-1 text-muted-foreground transition hover:text-foreground">
+              <Coins size={14} aria-hidden />
               {currency}
             </Dropdown.Trigger>
             <Dropdown.Content
-              className="z-[80] min-w-[100px] border border-border bg-card p-1 shadow-elements-soft"
+              className="z-[80] min-w-[100px] rounded-xl border border-border bg-card p-1 shadow-2xl"
               align="end"
+              sideOffset={8}
             >
               {checkoutCurrencies.map((c) => (
                 <Dropdown.Item
                   key={c}
-                  className="px-3 py-2 text-sm capitalize outline-none hover:bg-secondary"
+                  className="cursor-pointer rounded-lg px-3 py-2 text-sm capitalize outline-none hover:bg-secondary"
                   onSelect={() => setCurrency(c as CheckoutCurrency)}
                 >
                   {c}
@@ -126,14 +139,13 @@ export function SiteHeader() {
           <CartDrawer>
             <button
               type="button"
-              className="relative border border-border bg-transparent px-4 py-2 text-xs uppercase tracking-[0.14em] text-foreground transition hover:border-primary/50"
+              aria-label={t("cart")}
+              className="relative text-muted-foreground transition hover:text-[color:var(--accent-c)]"
             >
-              {t("cart")}
-              {count > 0 && (
-                <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-medium text-primary-foreground">
-                  {count}
-                </span>
-              )}
+              <ShoppingBag size={18} />
+              <span className="absolute -right-2 -top-1.5 min-w-[1.25rem] rounded-full bg-[color:var(--accent-c)] px-1.5 text-center text-[10px] font-medium text-[color:var(--background)]">
+                {count}
+              </span>
             </button>
           </CartDrawer>
 
@@ -142,56 +154,59 @@ export function SiteHeader() {
             className="border border-border px-3 py-2 text-xs uppercase tracking-[0.14em] text-muted-foreground lg:hidden"
             onClick={() => setMobileOpen((v) => !v)}
             aria-expanded={mobileOpen}
+            aria-label="Menu"
           >
-            Menu
+            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </div>
 
       <div
         className={cn(
-          "border-t border-border lg:hidden",
+          "border-t border-border bg-background lg:hidden",
           mobileOpen ? "block" : "hidden"
         )}
       >
-        <div className="mx-auto max-w-[1400px] space-y-3 px-4 py-4">
-          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            {t("shop")}
-          </p>
-          <div className="grid gap-2">
-            {shopLinks.map((item) => (
+        <ul className="container-x space-y-1 py-6 text-sm">
+          {shopLinks.map((item) => (
+            <li key={item.key}>
               <Link
-                key={item.key}
                 href={item.href}
-                className="py-1 text-sm text-foreground"
+                className="block py-2.5 text-foreground"
                 onClick={() => setMobileOpen(false)}
               >
                 {t(item.key as "shopBeginner")}
               </Link>
-            ))}
-          </div>
-          <Link
-            href="/handpan-scales"
-            className="block py-2 text-sm"
-            onClick={() => setMobileOpen(false)}
-          >
-            {t("learn")}
-          </Link>
-          <Link
-            href="/journal"
-            className="block py-2 text-sm"
-            onClick={() => setMobileOpen(false)}
-          >
-            {t("journal")}
-          </Link>
-          <Link
-            href="/showrooms"
-            className="block py-2 text-sm"
-            onClick={() => setMobileOpen(false)}
-          >
-            {t("showrooms")}
-          </Link>
-        </div>
+            </li>
+          ))}
+          <li>
+            <Link
+              href="/journal"
+              className="block py-2.5"
+              onClick={() => setMobileOpen(false)}
+            >
+              {t("journal")}
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/handpan-scales"
+              className="block py-2.5"
+              onClick={() => setMobileOpen(false)}
+            >
+              {t("learn")}
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/showrooms"
+              className="block py-2.5"
+              onClick={() => setMobileOpen(false)}
+            >
+              {t("showrooms")}
+            </Link>
+          </li>
+        </ul>
       </div>
     </header>
   );

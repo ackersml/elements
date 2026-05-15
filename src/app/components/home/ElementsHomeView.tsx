@@ -1,9 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import type { ReactNode } from "react";
+import { useId, useState } from "react";
 import { useTranslations } from "next-intl";
-import { useId } from "react";
 import { Link } from "@/i18n/navigation";
 import { useCartStore } from "@/lib/cart-store";
 import {
@@ -14,7 +15,10 @@ import {
   getProductsByTag,
 } from "@/lib/products";
 import { cn } from "@/lib/utils";
+import { SiteHeader } from "@/app/components/layout/SiteHeader";
+import { ProductPhoto } from "@/app/components/shop/ProductPhoto";
 import { HeroAudioGate } from "./HeroAudioGate";
+import { useFadeUp } from "./useFadeUp";
 
 function QuickBuy({ slug }: { slug: string }) {
   const add = useCartStore((s) => s.add);
@@ -25,25 +29,151 @@ function QuickBuy({ slug }: { slug: string }) {
     <button
       type="button"
       onClick={() => add(slug, 1)}
-      className="mt-3 border border-primary/50 px-4 py-2 text-xs uppercase tracking-[0.14em] text-primary transition hover:bg-primary hover:text-primary-foreground"
+      className="btn-pill btn-ghost !min-h-10 whitespace-nowrap !px-4 text-xs"
     >
       Quick buy · {formatProductDisplay(p.priceCents, currency)}
     </button>
   );
 }
 
+function SectionHeading({
+  eyebrow,
+  title,
+  rule = true,
+  center = false,
+  eyebrowAccent = false,
+}: {
+  eyebrow?: string;
+  title: ReactNode;
+  rule?: boolean;
+  center?: boolean;
+  eyebrowAccent?: boolean;
+}) {
+  return (
+    <div
+      className={cn(
+        "mb-12 md:mb-16",
+        center ? "mx-auto max-w-2xl text-center" : "max-w-3xl"
+      )}
+    >
+      {eyebrow && (
+        <p
+          className={cn(
+            "eyebrow",
+            rule && "eyebrow-rule",
+            eyebrowAccent && "!text-[color:var(--accent-c)]"
+          )}
+        >
+          {eyebrow}
+        </p>
+      )}
+      <h2 className="mt-4 font-display text-3xl leading-[1.05] tracking-tight md:text-5xl">
+        {title}
+      </h2>
+    </div>
+  );
+}
+
+function HomePageFooter() {
+  const t = useTranslations("mag");
+  const tf = useTranslations("footer");
+  const tn = useTranslations("nav");
+  const year = new Date().getFullYear();
+
+  const shopLinks: { label: string; href: string }[] = [
+    { label: tn("shopBeginner"), href: "/shop?collection=beginner" },
+    { label: tn("shopExtended"), href: "/shop?collection=extended" },
+    { label: tn("shopRare"), href: "/shop?collection=rare" },
+    { label: tn("shopBundles"), href: "/shop?collection=bundles" },
+    { label: tn("shopAccessories"), href: "/shop?collection=accessories" },
+  ];
+
+  const readLinks: { label: string; href: string }[] = [
+    { label: tn("journal"), href: "/journal" },
+    { label: tn("aboutHandpans"), href: "/journal" },
+    { label: tn("learn"), href: "/handpan-scales" },
+    { label: tn("showrooms"), href: "/showrooms" },
+  ];
+
+  const legalLinks: { label: string; href: string | null }[] = [
+    { label: "Privacy", href: "/privacy" },
+    { label: "Terms", href: null },
+    { label: tf("shipping"), href: "/shipping" },
+    { label: tf("returns"), href: "/returns" },
+  ];
+
+  return (
+    <footer className="border-t border-border">
+      <div className="container-x grid grid-cols-2 gap-10 py-14 text-sm md:grid-cols-4">
+        <div className="col-span-2 md:col-span-1">
+          <p className="font-display text-lg tracking-[0.3em]">ELEMENTS</p>
+          <p className="mt-3 max-w-xs text-muted-foreground">
+            {t("footerBrandLine")}
+          </p>
+        </div>
+        <div>
+          <p className="smallcaps text-muted-foreground">{t("footerColShop")}</p>
+          <ul className="mt-4 space-y-2">
+            {shopLinks.map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} className="hover:text-[color:var(--accent-c)]">
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <p className="smallcaps text-muted-foreground">{t("footerColRead")}</p>
+          <ul className="mt-4 space-y-2">
+            {readLinks.map((l) => (
+              <li key={l.label}>
+                <Link href={l.href} className="hover:text-[color:var(--accent-c)]">
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <p className="smallcaps text-muted-foreground">{t("footerColLegal")}</p>
+          <ul className="mt-4 space-y-2">
+            {legalLinks.map((l) => (
+              <li key={l.label}>
+                {l.href == null ? (
+                  <span className="text-muted-foreground">{l.label}</span>
+                ) : (
+                  <Link href={l.href} className="hover:text-[color:var(--accent-c)]">
+                    {l.label}
+                  </Link>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <div className="container-x flex flex-col justify-between gap-3 border-t border-border py-6 text-xs text-muted-foreground sm:flex-row">
+        <p>
+          © {year} Elements. {t("footerSlow")}
+        </p>
+        <p>{t("footerCities")}</p>
+      </div>
+    </footer>
+  );
+}
+
 export function ElementsHomeView() {
+  useFadeUp();
   const t = useTranslations("hero");
   const tm = useTranslations("mag");
+  const currency = useCartStore((s) => s.currency);
   const id = useId();
   const beginners = getProductsByTag("beginner");
   const rarities = getProductsByCollection("rare");
   const bundles = getProductsByCollection("bundles");
   const cases = getProductsByTag("accessory");
   const findYourSound = getProducts().slice(0, 3);
-  const instrumentMonth = getProducts().find(
-    (p) => p.slug === "copper-veil-d-kurd-12"
-  );
+  const instrumentMonth = getProducts().find((p) => p.slug === "copper-veil-d-kurd-12");
 
   const catHandpan = beginners[0] ?? getProducts()[0];
   const catTongue = getProductsByCollection("tongue-drums")[0];
@@ -77,67 +207,51 @@ export function ElementsHomeView() {
     },
   ].filter((c): c is typeof c & { image: string } => Boolean(c.image));
 
+  const [newsEmail, setNewsEmail] = useState("");
+  const [newsDone, setNewsDone] = useState(false);
+
   return (
-    <div className="bg-background text-foreground">
-      {/* 2 — Hero (photo lower half + tint, no 3D column) */}
-      <section className="relative elements-grain overflow-hidden border-b border-border/50">
-        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden>
-          <div
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-[200%] bg-cover bg-bottom bg-no-repeat opacity-[0.38] mix-blend-soft-light md:opacity-[0.44]"
-            style={{
-              backgroundImage: "url(/images/handpan-lifestyle-field.png)",
-            }}
-          />
-        </div>
-        <div
-          className="pointer-events-none absolute inset-0 z-[1] elements-brushed-dark opacity-[0.28] md:opacity-[0.22]"
-          aria-hidden
+    <div className="relative bg-background text-foreground">
+      <div className="grain-fixed" aria-hidden />
+
+      <section className="relative flex min-h-[100svh] items-end overflow-hidden">
+        <Image
+          src="/images/handpan-lifestyle-field.png"
+          alt=""
+          width={1920}
+          height={1080}
+          priority
+          className="absolute inset-0 h-full w-full object-cover object-bottom"
         />
-        <div
-          className="pointer-events-none absolute inset-0 z-[2] bg-gradient-to-r from-background from-40% via-background/88 to-background/25 md:from-35% md:via-background/70 md:to-transparent"
-          aria-hidden
-        />
-        <div className="relative z-10 mx-auto max-w-[1400px] px-4 py-24 md:px-8 md:py-32">
-          <div className="max-w-xl md:max-w-2xl">
-            <p className="text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground">
-              <span className="mr-3 inline-block h-px w-10 align-middle bg-primary" />
-              {t("eyebrow")}
-            </p>
-            <h1 className="mt-6 max-w-[14ch] font-display text-5xl font-semibold leading-[0.95] tracking-tight text-foreground md:text-6xl lg:text-[5.5rem]">
+        <div className="absolute inset-0 hero-fade" aria-hidden />
+        <div className="grain" aria-hidden />
+        <SiteHeader variant="overlay" />
+        <div className="relative container-x pb-20 pt-40 md:pb-32">
+          <div className="max-w-3xl">
+            <p className="eyebrow eyebrow-rule">{t("eyebrow")}</p>
+            <h1 className="mt-6 font-display text-[2.6rem] leading-[1.02] tracking-tight sm:text-5xl md:text-6xl lg:text-[5.25rem]">
               {t("titleLine1")}
               <br />
-              <span className="text-gradient-bronze italic">{t("titleItalic")}</span>
+              <span className="bronze-text">{t("titleItalic")}</span>
             </h1>
-            <p className="mt-8 max-w-lg text-base leading-relaxed text-muted-foreground md:text-lg">
-              {t("sub")}
-            </p>
-            <p className="mt-5 max-w-lg text-sm leading-relaxed text-muted-foreground/90 md:text-base">
+            <p className="mt-7 max-w-xl text-base text-foreground/85 md:text-lg">{t("sub")}</p>
+            <p className="mt-4 max-w-lg text-sm italic text-muted-foreground md:text-base">
               {tm("heroKicker")}
             </p>
-            <div className="mt-10 flex flex-col items-stretch gap-4 sm:flex-row sm:flex-wrap sm:items-center">
-              <Link
-                href="/shop"
-                className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-primary bg-primary px-8 py-3 text-center text-xs font-semibold uppercase tracking-[0.2em] text-primary-foreground transition motion-hover hover:bg-primary/90"
-              >
-                {tm("ctaJourney")}
+            <div className="mt-10 flex flex-wrap items-center gap-3">
+              <Link href="/shop" className="btn-pill btn-primary">
+                {tm("ctaJourney")} <ArrowRight size={16} aria-hidden />
               </Link>
-              <Link
-                href="/shop?collection=beginner"
-                className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-border/90 bg-transparent px-8 py-3 text-center text-xs font-semibold uppercase tracking-[0.2em] text-foreground transition motion-hover hover:bg-secondary/45"
-              >
+              <Link href="/shop?collection=beginner" className="btn-pill btn-ghost">
                 {tm("ctaInStock")}
               </Link>
-              <Link
-                href="/shop"
-                className="inline-flex min-h-[48px] items-center justify-center border-b-2 border-transparent pb-1 text-center text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground transition motion-hover hover:border-primary hover:text-foreground sm:px-2"
-              >
-                {t("ctaShop")}
+            </div>
+            <div className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
+              <Link href="/shop" className="link-arrow">
+                {t("ctaShop")} <ArrowRight size={14} aria-hidden />
               </Link>
-              <a
-                href="#how-order"
-                className="inline-flex min-h-[48px] items-center justify-center text-center text-xs uppercase tracking-[0.14em] text-muted-foreground underline-offset-4 transition hover:text-foreground hover:underline sm:ml-1"
-              >
-                {t("ctaLearn")}
+              <a href="#how-order" className="link-arrow">
+                {t("ctaLearn")} <ArrowRight size={14} aria-hidden />
               </a>
             </div>
             <HeroAudioGate />
@@ -145,387 +259,407 @@ export function ElementsHomeView() {
         </div>
       </section>
 
-      <section className="border-b border-border/50 bg-secondary/20">
-        <div className="mx-auto flex max-w-[1400px] flex-col gap-3 px-4 py-4 md:flex-row md:items-center md:justify-between md:px-8">
-          <p className="text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground">
-            {tm("stripLabel")}
+      <div className="border-y border-border bg-secondary/60">
+        <div className="container-x flex flex-col items-start justify-between gap-2 py-4 sm:flex-row sm:items-center">
+          <p className="text-sm text-muted-foreground">
+            <span className="text-foreground">{tm("stripLabel")}.</span>
+            &nbsp;{tm("stripDetail")}
           </p>
-          <Link
-            href="/shop?collection=beginner"
-            className="text-xs font-semibold uppercase tracking-[0.18em] text-foreground underline-offset-4 transition hover:text-primary hover:underline"
-          >
-            {tm("stripCta")}
+          <Link href="/shop?collection=beginner" className="link-arrow">
+            {tm("stripCta")} <ArrowRight size={14} aria-hidden />
           </Link>
         </div>
-      </section>
+      </div>
 
-      <section className="border-b border-border/40 py-24 md:py-32" aria-labelledby={`${id}-mag-cat`}>
-        <div className="mx-auto max-w-[1400px] px-4 md:px-8">
-          <p className="text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground">
-            <span className="mr-3 inline-block h-px w-10 align-middle bg-primary" />
-            {tm("categoriesEyebrow")}
-          </p>
-          <h2
-            id={`${id}-mag-cat`}
-            className="mt-4 max-w-3xl font-display text-3xl tracking-tight text-foreground md:text-5xl"
-          >
-            {tm("categoriesTitle")}
-          </h2>
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
-            {categoryTiles.map((tile, i) => (
-              <motion.div
+      <section className="py-24 md:py-32" aria-labelledby={`${id}-mag-cat`}>
+        <div className="container-x">
+          <SectionHeading
+            eyebrow={tm("categoriesEyebrow")}
+            title={<span id={`${id}-mag-cat`}>{tm("categoriesTitle")}</span>}
+          />
+          <div className="grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-4">
+            {categoryTiles.map((tile) => (
+              <Link
                 key={tile.key}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ delay: i * 0.06, duration: 0.65, ease: [0.4, 0, 0.2, 1] }}
+                href={tile.href}
+                className="fade-up group relative block overflow-hidden rounded-2xl border border-border bg-transparent"
               >
-                <Link
-                  href={tile.href}
-                  className="group relative block aspect-[3/4] overflow-hidden rounded-2xl border border-border/45 bg-card/30 md:aspect-[4/5]"
-                >
-                  <Image
-                    src={tile.image}
+                <ProductPhoto
+                  src={tile.image}
+                  alt=""
+                  aspect="3/4"
+                  sizes="(max-width: 640px) 50vw, 25vw"
+                  className="group-hover:scale-[1.04]"
+                  frameClassName="!rounded-none !border-0 aspect-[3/4] lg:aspect-[4/5]"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
+                  <h3 className="font-display text-lg md:text-2xl">{tile.title}</h3>
+                  <span className="smallcaps mt-2 inline-flex items-center gap-2 text-[color:var(--accent-c)]">
+                    {tm("seeMore")} <ArrowRight size={12} aria-hidden />
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section
+        aria-labelledby={`${id}-fys`}
+        className="border-y border-border bg-card/40 py-24 md:py-32"
+      >
+        <div className="container-x">
+          <SectionHeading
+            eyebrow={tm("findSoundEyebrow")}
+            title={<span id={`${id}-fys`}>Find your sound</span>}
+          />
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {findYourSound.map((p) => (
+              <article key={p.id} className="fade-up">
+                <Link href={`/shop/${p.slug}`} className="group block">
+                  <ProductPhoto
+                    src={p.heroImageUrl}
                     alt=""
-                    fill
-                    className="object-cover transition duration-[650ms] ease-out group-hover:scale-[1.04]"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    aspect="4/3"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="group-hover:scale-[1.04]"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/25 to-transparent opacity-95 md:opacity-90" />
-                  <div className="absolute inset-x-0 bottom-0 flex flex-col p-5 md:p-6">
-                    <span className="font-display text-2xl tracking-tight text-foreground md:text-3xl">
-                      {tile.title}
-                    </span>
-                    <span className="mt-3 inline-flex w-max border-b border-primary/70 pb-1 text-[10px] font-semibold uppercase tracking-[0.28em] text-primary transition group-hover:border-primary group-hover:text-foreground">
-                      {tm("seeMore")}
-                    </span>
+                  <div className="mt-4 flex items-start justify-between gap-4">
+                    <div>
+                      <p className="font-display text-lg group-hover:text-[color:var(--accent-c)]">
+                        {p.title}
+                      </p>
+                      <p className="mt-0.5 text-xs text-muted-foreground">{p.scale}</p>
+                    </div>
+                    <QuickBuy slug={p.slug} />
                   </div>
                 </Link>
-              </motion.div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 3 — Find your sound */}
-      <section className="border-b border-border/40 py-24 md:py-32" aria-labelledby={`${id}-fys`}>
-        <div className="mx-auto max-w-[1400px] px-4 md:px-8">
-          <h2
-            id={`${id}-fys`}
-            className="font-display text-3xl tracking-tight text-foreground md:text-4xl"
-          >
-            Find your sound
-          </h2>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {findYourSound.map((p, i) => (
-              <motion.div
-                key={p.id}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05, duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
-                className={cn(
-                  "group border border-border/60 bg-card/30",
-                  i === 1 && "lg:mt-8"
-                )}
-              >
-                <Link href={`/shop/${p.slug}`} className="block">
-                  <div className="relative aspect-[4/3] overflow-hidden">
-                    <Image
-                      src={p.heroImageUrl}
-                      alt=""
-                      fill
-                      className="object-cover transition duration-700 group-hover:scale-[1.02]"
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                    />
-                  </div>
-                  <div className="p-5">
-                    <p className="font-display text-xl text-foreground">{p.title}</p>
-                    <p className="mt-2 text-sm text-muted-foreground">{p.scale}</p>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4 — Beginner grid */}
-      <section className="border-b border-border/40 py-24 md:py-28" id="beginner">
-        <div className="mx-auto max-w-[1400px] px-4 md:px-8">
-          <h2 className="font-display text-3xl tracking-tight md:max-w-md md:text-4xl">
-            Beginner handpans
-          </h2>
-          <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {beginners.map((p, i) => (
-              <div
-                key={p.id}
-                className={cn("border border-border/50", i % 3 === 2 && "lg:translate-y-6")}
-              >
-                <div className="group relative aspect-square overflow-hidden">
-                  <Image
+      <section id="shop" aria-labelledby={`${id}-bh`} className="py-24 md:py-32">
+        <div className="container-x">
+          <SectionHeading
+            eyebrow={tm("beginnerEyebrow")}
+            title={<span id={`${id}-bh`}>Beginner handpans</span>}
+          />
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {beginners.map((p) => (
+              <article key={p.id} className="fade-up">
+                <Link href={`/shop/${p.slug}`} className="group block">
+                  <ProductPhoto
                     src={p.images[0] ?? p.heroImageUrl}
                     alt={p.title}
-                    fill
-                    className="object-cover transition duration-500 group-hover:opacity-0"
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    aspect="square"
+                    sizes="33vw"
+                    className="group-hover:scale-[1.04]"
                   />
-                  <Image
-                    src={p.images[1] ?? p.images[0] ?? p.heroImageUrl}
-                    alt=""
-                    fill
-                    className="object-cover opacity-0 transition duration-500 group-hover:opacity-100"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
-                </div>
-                <div className="space-y-1 p-4">
-                  <Link
-                    href={`/shop/${p.slug}`}
-                    className="font-display text-lg text-foreground hover:text-primary"
-                  >
-                    {p.title}
-                  </Link>
-                  <QuickBuy slug={p.slug} />
-                </div>
-              </div>
+                  <div className="mt-4 flex items-start justify-between gap-4">
+                    <div>
+                      <p className="font-display text-lg group-hover:text-[color:var(--accent-c)]">
+                        {p.title}
+                      </p>
+                      <p className="mt-0.5 text-xs text-muted-foreground">{p.scale}</p>
+                    </div>
+                    <QuickBuy slug={p.slug} />
+                  </div>
+                </Link>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 5 — Trust row (hairline, not badge circles) */}
-      <section className="border-b border-border/40 py-12">
-        <div className="mx-auto flex max-w-[1400px] flex-col gap-6 px-4 text-sm text-muted-foreground md:flex-row md:items-center md:justify-between md:px-8">
+      <section aria-label="Trust" className="border-y border-border bg-secondary/60 py-12 md:py-16">
+        <div className="container-x grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {[
             "30-day return window",
             "Insured worldwide shipping",
             "Tuning guarantee & voice check",
             "Dedicated human support",
           ].map((line) => (
-            <p
-              key={line}
-              className="border-l border-primary/30 pl-4 font-medium tracking-tight text-foreground/90"
-            >
-              {line}
-            </p>
+            <div key={line} className="border-l-2 border-[color:var(--accent-c)] pl-5">
+              <p className="smallcaps text-muted-foreground">{tm("trustPromiseLabel")}</p>
+              <p className="mt-2 text-base md:text-lg">{line}</p>
+            </div>
           ))}
         </div>
       </section>
 
-      <section className="border-b border-border/40 py-24 md:py-32">
-        <div className="mx-auto max-w-3xl px-4 text-center md:px-8">
-          <p className="text-xs font-medium uppercase tracking-[0.22em] text-primary">{tm("warrantyEyebrow")}</p>
-          <h2 className="mt-5 font-display text-3xl tracking-tight text-foreground md:text-5xl">
+      <section aria-labelledby={`${id}-warranty`} className="py-24 md:py-32">
+        <div className="container-x mx-auto max-w-2xl text-center">
+          <p className="eyebrow eyebrow-rule !text-[color:var(--accent-c)]">{tm("warrantyEyebrow")}</p>
+          <h2 id={`${id}-warranty`} className="mt-5 font-display text-3xl leading-tight md:text-5xl">
             {tm("warrantyTitle")}
           </h2>
-          <p className="mt-6 text-base leading-relaxed text-muted-foreground md:text-lg">
-            {tm("warrantyBody")}
-          </p>
-          <Link
-            href="#how-order"
-            className="mt-10 inline-flex min-h-[48px] items-center justify-center rounded-full border border-primary bg-primary px-10 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-primary-foreground transition motion-hover hover:bg-primary/90"
-          >
-            {tm("warrantyCta")}
-          </Link>
+          <p className="mt-6 text-foreground/80">{tm("warrantyBody")}</p>
+          <div className="mt-9">
+            <a href="#how-order" className="btn-pill btn-primary">
+              {tm("warrantyCta")} <ArrowRight size={16} aria-hidden />
+            </a>
+          </div>
         </div>
       </section>
 
-      {/* 6 — Instrument of the month */}
       {instrumentMonth && (
-        <section className="border-b border-border/40 py-20 md:py-28">
-          <div className="mx-auto grid max-w-[1400px] gap-10 px-4 md:grid-cols-2 md:items-center md:px-8">
-            <div className="relative aspect-square w-full overflow-hidden md:aspect-[4/5]">
-              <Image
-                src={instrumentMonth.heroImageUrl}
-                alt={instrumentMonth.title}
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-primary">Instrument of the month</p>
-              <h2 className="mt-3 font-display text-4xl tracking-tight text-foreground">
+        <section aria-labelledby={`${id}-iotm`} className="border-y border-border bg-card/40 py-24 md:py-32">
+          <div className="container-x grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
+            <ProductPhoto
+              src={instrumentMonth.heroImageUrl}
+              alt={instrumentMonth.title}
+              aspect="square"
+              frameClassName="fade-up lg:aspect-[4/5]"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
+            <div className="fade-up max-w-lg">
+              <p className="eyebrow eyebrow-rule">Instrument of the month</p>
+              <h2 id={`${id}-iotm`} className="mt-5 font-display text-3xl leading-tight md:text-5xl">
                 {instrumentMonth.title}
               </h2>
-              <p className="mt-4 text-muted-foreground leading-relaxed">
-                {instrumentMonth.description}
+              <p className="mt-3 text-sm text-muted-foreground">
+                {instrumentMonth.scale} · {instrumentMonth.noteCount} notes
               </p>
-              <Link
-                href={`/shop/${instrumentMonth.slug}`}
-                className="mt-6 inline-block border-b border-foreground/50 pb-0.5 text-sm uppercase tracking-[0.12em] text-foreground"
-              >
-                Open details
-              </Link>
+              <p className="mt-6 text-foreground/85">{instrumentMonth.description}</p>
+              <div className="mt-8">
+                <Link href={`/shop/${instrumentMonth.slug}`} className="link-arrow">
+                  Open details <ArrowRight size={14} aria-hidden />
+                </Link>
+              </div>
             </div>
           </div>
         </section>
       )}
 
-      {/* 7 — Customer voices (pull quotes) */}
-      <section className="border-b border-border/40 py-16 overflow-hidden" id="voices">
-        <div className="mx-auto max-w-[1400px] px-4 md:px-8">
-          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+      <section aria-labelledby={`${id}-voices`} className="py-20 md:py-28">
+        <div className="container-x">
+          <p id={`${id}-voices`} className="smallcaps text-muted-foreground">
             Customer voices · aggregate 4.9 / 5
           </p>
-          <div className="mt-8 flex flex-col gap-8 md:flex-row md:gap-16">
-            <blockquote className="max-w-xl font-display text-2xl italic leading-snug text-foreground md:text-4xl">
-              “Finally a buying path that respects how fragile these decisions feel.”
+          <div className="mt-10 grid grid-cols-1 items-end gap-10 lg:grid-cols-12">
+            <blockquote className="fade-up lg:col-span-7">
+              <p className="font-display text-2xl leading-snug md:text-4xl">
+                “Finally a buying path that respects how fragile these decisions feel.”
+              </p>
             </blockquote>
-            <blockquote className="max-w-xl font-display text-xl italic leading-snug text-muted-foreground md:text-3xl">
-              “Shipping updates matched what happened at the carrier.”
+            <blockquote className="fade-up lg:col-span-5">
+              <p className="text-base italic text-muted-foreground md:text-lg">
+                “Shipping updates matched what happened at the carrier.”
+              </p>
             </blockquote>
-          </div>
-          <div className="mt-8 hidden overflow-hidden md:block">
-            <div className="flex w-max gap-16 animate-marquee whitespace-nowrap">
-              <span className="font-display text-2xl italic text-foreground/90">
-                Presence over persuasion · tuning notes over upsell · slow commerce
-              </span>
-              <span className="font-display text-2xl italic text-foreground/90" aria-hidden>
-                Presence over persuasion · tuning notes over upsell · slow commerce
-              </span>
-            </div>
           </div>
         </div>
-      </section>
-
-      {/* 8 — Rarities */}
-      <section className="border-b border-border/40 py-20">
-        <div className="mx-auto max-w-[1400px] px-4 md:px-8">
-          <h2 className="font-display text-3xl">Rarities</h2>
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
-            {rarities.map((p) => (
-              <Link key={p.id} href={`/shop/${p.slug}`} className="group block border border-border/40">
-                <div className="relative aspect-[21/9]">
-                  <Image src={p.heroImageUrl} alt={p.title} fill className="object-cover" />
-                </div>
-                <div className="flex justify-between p-4">
-                  <span className="font-display text-xl">{p.title}</span>
-                  <span className="text-sm text-muted-foreground">{p.scale}</span>
-                </div>
-              </Link>
+        <div className="marquee mt-16 hidden border-y border-border py-5 md:block">
+          <div className="marquee-track smallcaps text-muted-foreground">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <span key={i} className="inline-flex items-center gap-16">
+                <span>Presence over persuasion</span>
+                <span>·</span>
+                <span>Tuning notes over upsell</span>
+                <span>·</span>
+                <span>Slow commerce</span>
+                <span>·</span>
+              </span>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 9 — Bundles */}
-      <section className="border-b border-border/40 py-20">
-        <div className="mx-auto max-w-[1400px] px-4 md:px-8">
-          <h2 className="font-display text-3xl">Bundle offers</h2>
-          <div className="mt-8 grid gap-6 sm:grid-cols-2">
-            {bundles.map((p) => (
-              <div key={p.id} className="border border-border/50 p-6">
-                <h3 className="font-display text-2xl">{p.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{p.description}</p>
-                <QuickBuy slug={p.slug} />
+      <section aria-labelledby={`${id}-rar`} className="py-24 md:py-32">
+        <div className="container-x">
+          <SectionHeading
+            eyebrow={tm("raritiesEyebrow")}
+            title={<span id={`${id}-rar`}>Rarities</span>}
+          />
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+            {rarities.map((r) => (
+              <article key={r.id} className="fade-up group">
+                <Link href={`/shop/${r.slug}`} className="block">
+                  <ProductPhoto
+                    src={r.heroImageUrl}
+                    alt={r.title}
+                    aspect="21/9"
+                    sizes="50vw"
+                    className="group-hover:scale-[1.04]"
+                  />
+                  <div className="mt-4 flex items-baseline justify-between gap-4">
+                    <span className="font-display text-xl group-hover:text-[color:var(--accent-c)]">
+                      {r.title}
+                    </span>
+                    <p className="text-xs text-muted-foreground">{r.scale}</p>
+                  </div>
+                </Link>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby={`${id}-bd`} className="border-y border-border bg-card/40 py-24 md:py-32">
+        <div className="container-x">
+          <SectionHeading
+            eyebrow={tm("bundlesEyebrow")}
+            title={<span id={`${id}-bd`}>Bundle offers</span>}
+          />
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            {bundles.map((b) => (
+              <div
+                key={b.id}
+                className="fade-up rounded-2xl border border-border bg-background/40 p-8 md:p-10"
+              >
+                <h3 className="font-display text-2xl md:text-3xl">{b.title}</h3>
+                <p className="mt-4 text-foreground/80">{b.description}</p>
+                <div className="mt-8">
+                  <QuickBuy slug={b.slug} />
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 10 — Cases & bags */}
-      <section className="border-b border-border/40 py-20">
-        <div className="mx-auto max-w-[1400px] px-4 md:px-8">
-          <h2 className="font-display text-3xl">Cases & bags</h2>
-          <div className="mt-8 flex flex-wrap gap-3">
-            {["Graphite", "Ochre", "Slate", "Umber"].map((c) => (
+      <section aria-labelledby={`${id}-cs`} className="py-24 md:py-32">
+        <div className="container-x">
+          <SectionHeading
+            eyebrow={tm("casesEyebrow")}
+            title={<span id={`${id}-cs`}>Cases & bags</span>}
+          />
+          <div className="mb-10 flex flex-wrap gap-2">
+            {["Graphite", "Ochre", "Slate", "Umber"].map((s) => (
               <span
-                key={c}
-                className="border border-border px-4 py-2 text-xs uppercase tracking-[0.14em] text-muted-foreground"
+                key={s}
+                className="smallcaps rounded-full border border-border px-4 py-1.5 text-xs text-muted-foreground"
               >
-                {c}
+                {s}
               </span>
             ))}
           </div>
-          <div className="mt-8 grid gap-6 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             {cases.map((p) => (
-              <Link key={p.id} href={`/shop/${p.slug}`} className="block border border-border/40">
-                <div className="relative aspect-video">
-                  <Image src={p.heroImageUrl} alt={p.title} fill className="object-cover" />
-                </div>
-                <p className="p-4 font-display text-lg">{p.title}</p>
-              </Link>
+              <article key={p.id} className="fade-up group">
+                <Link href={`/shop/${p.slug}`} className="block">
+                  <ProductPhoto
+                    src={p.heroImageUrl}
+                    alt={p.title}
+                    aspect="video"
+                    sizes="50vw"
+                    className="group-hover:scale-[1.04]"
+                  />
+                  <div className="mt-4 flex items-baseline justify-between gap-4">
+                    <span className="font-display text-lg group-hover:text-[color:var(--accent-c)]">
+                      {p.title}
+                    </span>
+                    <p className="text-xs text-muted-foreground">
+                      {p.scale} · {formatProductDisplay(p.priceCents, currency)}
+                    </p>
+                  </div>
+                </Link>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 12 — Newsletter inline */}
-      <section className="border-b border-border/40 py-20">
-        <div className="mx-auto max-w-[1400px] px-4 md:px-8">
-          <div className="border border-border/50 bg-secondary/20 p-8 md:p-12">
-            <h2 className="font-display text-3xl text-foreground">Journal dispatch</h2>
-            <p className="mt-3 max-w-xl text-muted-foreground">
-              Scale guides, recording notes, and builder interviews — inline signup only (no modal).{" "}
-              <Link href="/journal" className="text-primary underline-offset-4 hover:underline">
-                Open the Journal page
-              </Link>
-              .
-            </p>
-            <form className="mt-8 flex max-w-md flex-col gap-3 sm:flex-row" onSubmit={(e) => e.preventDefault()}>
-              <label htmlFor="news-email" className="sr-only">
-                Email
-              </label>
-              <input
-                id="news-email"
-                type="email"
-                placeholder="you@studio.com"
-                className="flex-1 border border-border bg-background px-4 py-3 text-sm text-foreground"
-              />
-              <button
-                type="submit"
-                className="border border-primary bg-primary px-6 py-3 text-xs font-medium uppercase tracking-[0.14em] text-primary-foreground"
+      <section aria-labelledby={`${id}-jd`} className="py-24 md:py-32">
+        <div className="container-x">
+          <div className="fade-up rounded-2xl border border-[color:var(--accent-c)]/30 bg-secondary/40 p-8 md:p-14">
+            <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-12">
+              <div className="lg:col-span-6">
+                <p className="eyebrow eyebrow-rule">{tm("newsletterEyebrowAlt")}</p>
+                <h2 id={`${id}-jd`} className="mt-4 font-display text-3xl leading-tight md:text-4xl">
+                  Journal dispatch
+                </h2>
+                <p className="mt-5 max-w-md text-foreground/80">{tm("newsletterBodyAlt")}</p>
+                <Link href="/journal" className="link-arrow mt-5 inline-flex">
+                  Open the Journal page <ArrowRight size={14} aria-hidden />
+                </Link>
+              </div>
+              <form
+                className="flex flex-col gap-3 sm:flex-row lg:col-span-6 lg:mt-12"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (newsEmail) setNewsDone(true);
+                }}
               >
-                Subscribe
-              </button>
-            </form>
+                <label htmlFor="news-email" className="sr-only">
+                  Email
+                </label>
+                <input
+                  id="news-email"
+                  type="email"
+                  required
+                  value={newsEmail}
+                  onChange={(e) => setNewsEmail(e.target.value)}
+                  placeholder="you@studio.com"
+                  className="min-h-12 flex-1 rounded-full border border-border bg-background/60 px-5 text-sm outline-none focus:border-[color:var(--accent-c)]"
+                />
+                <button type="submit" className="btn-pill btn-primary">
+                  {newsDone ? "Subscribed" : "Subscribe"}
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 13 — Buying guide */}
-      <section className="border-b border-border/40 py-20" id="how-order">
-        <div className="mx-auto max-w-[1400px] px-4 md:px-8">
-          <h2 className="font-display text-3xl">Buying guide</h2>
-          <p className="mt-4 max-w-2xl text-muted-foreground leading-relaxed">
-            Long-form essays live on the{" "}
-            <Link href="/journal" className="text-primary underline-offset-4 hover:underline">
-              Journal
+      <section id="how-order" aria-labelledby={`${id}-bg`} className="border-y border-border bg-card/40 py-24 md:py-32">
+        <div className="container-x grid grid-cols-1 gap-10 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <SectionHeading title={<span id={`${id}-bg`}>Buying guide</span>} eyebrow="No rush tactics" />
+          </div>
+          <div className="space-y-6 text-foreground/85 lg:col-span-7">
+            <p>{tm("buyingGuideEssence")}</p>
+            <div className="grid gap-6 pt-2 sm:grid-cols-3">
+              {[tm("buyingStep1"), tm("buyingStep2"), tm("buyingStep3")].map((s, i) => (
+                <div key={s} className="border-l-2 border-[color:var(--accent-c)] pl-4">
+                  <p className="smallcaps text-[color:var(--accent-c)]">
+                    {tm("buyingStepLabel", { step: i + 1 })}
+                  </p>
+                  <p className="mt-2">{s}</p>
+                </div>
+              ))}
+            </div>
+            <Link href="/handpan-scales" className="link-arrow mt-2 inline-flex">
+              Explore scales interactively <ArrowRight size={14} aria-hidden />
             </Link>
-            . Here is the essence: choose scale by voice you already hum, confirm logistics tier, then lock build slot.
-            No rush tactics.
-          </p>
-          <Link href="/handpan-scales" className="mt-6 inline-block text-sm uppercase tracking-[0.14em] text-primary">
-            Explore scales interactively →
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby={`${id}-lr`} className="py-24 md:py-32">
+        <div className="container-x">
+          <SectionHeading
+            eyebrow={tm("listeningEyebrow")}
+            title={<span id={`${id}-lr`}>Listening room</span>}
+          />
+          <div className="grid aspect-[16/7] place-items-center rounded-2xl border border-border bg-card px-6 text-center">
+            <div>
+              <p className="smallcaps text-[color:var(--accent-c)]">{tm("listeningPlaceholderLine")}</p>
+              <p className="mx-auto mt-3 max-w-md font-display text-xl md:text-2xl">
+                {tm("listeningPlaceholderTitle")}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby={`${id}-sh`} className="border-y border-border bg-card/40 py-24 md:py-32">
+        <div className="container-x mx-auto max-w-2xl text-center">
+          <p className="eyebrow eyebrow-rule">{tm("showroomsHomeEyebrow")}</p>
+          <h2 id={`${id}-sh`} className="mt-5 font-display text-3xl leading-tight md:text-5xl">
+            Showrooms
+          </h2>
+          <p className="mt-6 text-foreground/80">{tm("showroomsHomeBody")}</p>
+          <Link href="/showrooms" className="link-arrow mt-8 inline-flex">
+            Showrooms detail <ArrowRight size={14} aria-hidden />
           </Link>
         </div>
       </section>
 
-      {/* 14 — Music block */}
-      <section className="border-b border-border/40 py-20">
-        <div className="mx-auto max-w-[1400px] px-4 md:px-8">
-          <h2 className="font-display text-3xl">Listening room</h2>
-          <p className="mt-4 text-muted-foreground">
-            Album placeholder — embed Bandcamp or Spotify when rights allow.
-          </p>
-        </div>
-      </section>
-
-      {/* 15 — Showrooms anchor */}
-      <section className="py-20">
-        <div className="mx-auto max-w-[1400px] px-4 md:px-8">
-          <h2 className="font-display text-3xl">Showrooms</h2>
-          <p className="mt-4 max-w-2xl text-muted-foreground leading-relaxed">
-            Berlin · Bali · Portland — request an audition slot via contact once calendar opens.{" "}
-            <Link href="/showrooms" className="text-primary underline-offset-4 hover:underline">
-              Showrooms detail
-            </Link>
-            .
-          </p>
-        </div>
-      </section>
-
+      <HomePageFooter />
     </div>
   );
 }

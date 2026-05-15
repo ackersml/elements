@@ -15,8 +15,8 @@ export default async function SuccessPage({ searchParams }: Props) {
 
   return (
     <div className="min-h-screen bg-gradient-warm">
-      <main className="mx-auto max-w-lg px-4 py-16 text-center">
-        <h1 className="text-2xl font-semibold text-foreground sm:text-3xl">
+      <main className="container-x max-w-lg py-16 text-center">
+        <h1 className="font-display text-2xl font-medium text-foreground sm:text-3xl">
           Thank you for your order
         </h1>
         {session_id && (
@@ -27,19 +27,16 @@ export default async function SuccessPage({ searchParams }: Props) {
         <p className="mt-4 leading-relaxed text-foreground">
           We will email if we need scale confirmation or a revised build window.
         </p>
-        <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:justify-center">
+        <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row sm:flex-wrap">
           {session_id && (
             <Link
               href={`/track?session_id=${encodeURIComponent(session_id)}`}
-              className="inline-flex items-center justify-center border border-primary bg-primary px-8 py-4 font-bold text-primary-foreground transition-all duration-300 hover:brightness-110"
+              className="btn-pill btn-primary font-semibold"
             >
               Track your order
             </Link>
           )}
-          <Link
-            href="/"
-            className="inline-flex items-center justify-center border border-gold px-6 py-3 font-medium text-foreground transition-all hover:bg-secondary"
-          >
+          <Link href="/" className="btn-pill btn-ghost font-medium">
             Back to home
           </Link>
         </div>

@@ -11,7 +11,7 @@ export default async function DesignSystemPage() {
 
   return (
     <div className="bg-card/30 py-20">
-      <div className="mx-auto max-w-4xl px-4 text-foreground md:px-8">
+      <div className="container-x max-w-4xl text-foreground">
         <h1 className="font-display text-4xl text-foreground">{t("title")}</h1>
         <p className="mt-2 text-muted-foreground">{t("intro")}</p>
 
@@ -33,19 +33,13 @@ export default async function DesignSystemPage() {
             Buttons
           </h2>
           <div className="flex flex-wrap gap-4">
-            <button
-              type="button"
-              className="border border-primary bg-primary px-6 py-3 text-xs uppercase tracking-[0.14em] text-primary-foreground"
-            >
+            <button type="button" className="btn-pill btn-primary text-xs uppercase tracking-[0.14em]">
               Primary
             </button>
-            <button
-              type="button"
-              className="border border-border px-6 py-3 text-xs uppercase tracking-[0.14em] text-foreground"
-            >
+            <button type="button" className="btn-pill btn-ghost text-xs uppercase tracking-[0.14em]">
               Outline
             </button>
-            <span className="border-b-2 border-primary pb-1 text-sm uppercase tracking-[0.14em]">
+            <span className="link-arrow border-b-2 border-[color:var(--accent-c)] pb-1 text-sm">
               Underline CTA
             </span>
           </div>

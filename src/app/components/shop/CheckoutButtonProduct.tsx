@@ -39,7 +39,7 @@ export function CheckoutButtonProduct({ slug }: { slug: string }) {
       type="button"
       onClick={() => void startCheckout()}
       disabled={loading}
-      className="border border-primary bg-primary px-8 py-4 text-sm font-semibold uppercase tracking-[0.12em] text-primary-foreground transition hover:brightness-110 disabled:opacity-60"
+      className="btn-pill btn-primary uppercase tracking-[0.12em] disabled:opacity-60"
     >
       {loading
         ? "Redirecting…"

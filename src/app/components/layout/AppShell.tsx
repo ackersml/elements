@@ -1,20 +1,19 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { CustomCursor } from "./CustomCursor";
-import { PageTransition } from "./PageTransition";
 import { SiteFooter } from "./SiteFooter";
 import { SiteHeader } from "./SiteHeader";
+import { usePathname } from "@/i18n/navigation";
 
 export function AppShell({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+  const isHome = pathname === "/" || pathname === "";
+
   return (
     <>
-      <CustomCursor />
-      <SiteHeader />
-      <PageTransition>
-        <main className="min-h-screen">{children}</main>
-      </PageTransition>
-      <SiteFooter />
+      {!isHome ? <SiteHeader /> : null}
+      <main className={isHome ? undefined : "min-h-screen"}>{children}</main>
+      {!isHome ? <SiteFooter /> : null}
     </>
   );
 }

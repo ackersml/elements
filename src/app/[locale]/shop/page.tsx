@@ -1,7 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import { getProducts, getProductsByCollection } from "@/lib/products";
-import Image from "next/image";
 import type { Metadata } from "next";
+import { ProductPhoto } from "@/app/components/shop/ProductPhoto";
 import { ClientPrice } from "./ShopPriceClient";
 
 export const metadata: Metadata = {
@@ -18,40 +18,63 @@ export default async function ShopPage({ searchParams }: Props) {
     ? getProductsByCollection(collection)
     : getProducts();
 
+  const title = collection
+    ? collection.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
+    : "All instruments";
+
   return (
-    <div className="border-b border-border/40 py-16 md:py-24">
-      <div className="mx-auto max-w-[1400px] px-4 md:px-8">
-        <h1 className="font-display text-4xl tracking-tight capitalize">
-          {collection ? collection.replace(/-/g, " ") : "All instruments"}
-        </h1>
-        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {list.map((p, i) => (
-            <article
-              key={p.id}
-              className={i % 3 === 1 ? "lg:translate-y-5" : undefined}
-            >
-              <Link href={`/shop/${p.slug}`} className="group block">
-                <div className="relative aspect-[4/3] overflow-hidden border border-border/50">
-                  <Image
+    <>
+      <section className="border-b border-border py-16 md:py-24">
+        <div className="container-x">
+          <p className="smallcaps text-muted-foreground">Shop</p>
+          <h1 className="mt-3 font-display text-4xl leading-tight tracking-tight md:text-6xl">
+            {title}
+          </h1>
+          <p className="mt-4 max-w-xl text-muted-foreground">
+            {list.length} {list.length === 1 ? "instrument" : "instruments"} available.
+            Each piece allocated by hand.
+          </p>
+        </div>
+      </section>
+      <section className="py-16 md:py-20">
+        <div className="container-x">
+          {list.length === 0 ? (
+            <p className="text-muted-foreground">
+              Nothing here yet.{" "}
+              <Link href="/shop" className="link-arrow">
+                View all
+              </Link>
+            </p>
+          ) : (
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {list.map((p) => (
+                <Link key={p.id} href={`/shop/${p.slug}`} className="group block">
+                  <ProductPhoto
                     src={p.heroImageUrl}
                     alt={p.title}
-                    fill
-                    className="object-cover transition duration-500 group-hover:scale-[1.02]"
+                    aspect="4/3"
                     sizes="(max-width: 768px) 100vw, 33vw"
+                    className="group-hover:scale-[1.02]"
                   />
-                </div>
-                <div className="mt-3 flex items-baseline justify-between gap-2">
-                  <h2 className="font-display text-xl text-foreground">
-                    {p.title}
-                  </h2>
-                  <ClientPrice eurCents={p.priceCents} />
-                </div>
-                <p className="mt-1 text-sm text-muted-foreground">{p.scale}</p>
-              </Link>
-            </article>
-          ))}
+                  <div className="mt-4 flex items-start justify-between gap-4">
+                    <div>
+                      <h2 className="font-display text-xl group-hover:text-[color:var(--accent-c)]">
+                        {p.title}
+                      </h2>
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        {p.scale} · {p.noteCount} notes
+                      </p>
+                    </div>
+                    <p className="font-display text-lg whitespace-nowrap">
+                      <ClientPrice eurCents={p.priceCents} />
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
-      </div>
-    </div>
+      </section>
+    </>
   );
 }
