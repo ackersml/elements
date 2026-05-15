@@ -38,8 +38,9 @@ export type Product = {
   heroImageUrl: string;
 };
 
-/** Product photography: `public/products/` (studio JPG; shown on card-toned frames). */
-const PHOTO = (file: string) => `/products/${file}`;
+/** Product photography: PNG cutouts from `scripts/process-product-pngs.py` (rembg). */
+const PHOTO = (file: string) =>
+  `/products/${file.replace(/\.jpe?g$/i, ".png")}`;
 
 /** Seed catalog — replace with CMS when wired */
 export const products: Product[] = [
