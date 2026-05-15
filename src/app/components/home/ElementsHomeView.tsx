@@ -6,10 +6,10 @@ import type { ReactNode } from "react";
 import { useId, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { QuickBuyButton } from "@/app/components/shop/QuickBuyButton";
 import { useCartStore } from "@/lib/cart-store";
 import {
   formatProductDisplay,
-  getProductBySlug,
   getProducts,
   getProductsByCollection,
   getProductsByTag,
@@ -19,22 +19,6 @@ import { SiteHeader } from "@/app/components/layout/SiteHeader";
 import { ProductPhoto } from "@/app/components/shop/ProductPhoto";
 import { HeroAudioGate } from "./HeroAudioGate";
 import { useFadeUp } from "./useFadeUp";
-
-function QuickBuy({ slug }: { slug: string }) {
-  const add = useCartStore((s) => s.add);
-  const currency = useCartStore((s) => s.currency);
-  const p = getProductBySlug(slug);
-  if (!p) return null;
-  return (
-    <button
-      type="button"
-      onClick={() => add(slug, 1)}
-      className="btn-pill btn-ghost !min-h-10 whitespace-nowrap !px-4 text-xs"
-    >
-      Quick buy · {formatProductDisplay(p.priceCents, currency)}
-    </button>
-  );
-}
 
 function SectionHeading({
   eyebrow,
@@ -332,7 +316,7 @@ export function ElementsHomeView() {
                       </p>
                       <p className="mt-0.5 text-xs text-muted-foreground">{p.scale}</p>
                     </div>
-                    <QuickBuy slug={p.slug} />
+                    <QuickBuyButton slug={p.slug} />
                   </div>
                 </Link>
               </article>
@@ -365,7 +349,7 @@ export function ElementsHomeView() {
                       </p>
                       <p className="mt-0.5 text-xs text-muted-foreground">{p.scale}</p>
                     </div>
-                    <QuickBuy slug={p.slug} />
+                    <QuickBuyButton slug={p.slug} />
                   </div>
                 </Link>
               </article>
@@ -513,7 +497,7 @@ export function ElementsHomeView() {
                 <h3 className="font-display text-2xl md:text-3xl">{b.title}</h3>
                 <p className="mt-4 text-foreground/80">{b.description}</p>
                 <div className="mt-8">
-                  <QuickBuy slug={b.slug} />
+                  <QuickBuyButton slug={b.slug} />
                 </div>
               </div>
             ))}

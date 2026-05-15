@@ -6,6 +6,7 @@ import {
   type CheckoutCurrency,
 } from "@/lib/currency";
 import { routing } from "@/i18n/routing";
+import { toAbsoluteUrl } from "@/lib/app-origin";
 import { getDefaultProduct, getProductBySlug } from "@/lib/products";
 
 function getOrigin(request: NextRequest): string {
@@ -53,6 +54,7 @@ export async function POST(request: NextRequest) {
     ? rawLocale
     : routing.defaultLocale;
 
+  const origin = getOrigin(request);
   const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
   for (const item of items) {
     const p = getProductBySlug(item.slug);
@@ -62,8 +64,15 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+    if (p.stockStatus === "sold_out") {
+      return NextResponse.json(
+        { error: `${p.title} is currently sold out` },
+        { status: 400 }
+      );
+    }
     const qty = Math.min(99, Math.max(1, Math.floor(item.quantity)));
     const unitAmount = stripeAmountFromEurCents(p.priceCents, currency);
+    const imagePath = p.images[0] ?? p.heroImageUrl;
     lineItems.push({
       quantity: qty,
       price_data: {
@@ -72,14 +81,16 @@ export async function POST(request: NextRequest) {
         product_data: {
           name: p.title,
           description: p.description.slice(0, 500),
-          images: [p.images[0] ?? p.heroImageUrl],
+          images: imagePath
+            ? [toAbsoluteUrl(origin, imagePath)]
+            : undefined,
+          metadata: { slug: p.slug },
         },
       },
     });
   }
 
   const stripe = getStripe();
-  const origin = getOrigin(request);
   const successPath =
     locale === routing.defaultLocale
       ? "/success"
@@ -127,6 +138,10 @@ export async function POST(request: NextRequest) {
       },
       success_url: `${origin}${successPath}?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: cancelPath === "/" ? origin : `${origin}${cancelPath}`,
+      metadata: {
+        locale,
+        item_slugs: items.map((i) => i.slug).join(","),
+      },
     });
 
     if (!session.url) {

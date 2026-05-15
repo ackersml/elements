@@ -15,7 +15,7 @@ function getStripe(): Stripe {
 function getSupabase() {
   const url = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) throw new Error("SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY is not set");
+  if (!url || !key) return null;
   return createClient(url, key);
 }
 
@@ -91,6 +91,14 @@ export async function POST(request: NextRequest) {
 
   const amountTotal = fullSession.amount_total ?? 0;
   const supabase = getSupabase();
+
+  if (!supabase) {
+    console.warn(
+      "Stripe checkout.session.completed received but Supabase is not configured; order not persisted.",
+      { sessionId, email }
+    );
+    return NextResponse.json({ received: true, stored: false });
+  }
 
   const orderRow = {
     stripe_session_id: sessionId,

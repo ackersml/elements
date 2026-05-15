@@ -124,12 +124,24 @@
     "title": "Cart",
     "empty": "Your cart is empty.",
     "checkout": "Checkout",
-    "continue": "Continue shopping"
+    "continue": "Continue shopping",
+    "subtotal": "Subtotal",
+    "remove": "Remove",
+    "clear": "Clear cart",
+    "redirecting": "Redirecting…",
+    "checkoutError": "Checkout could not start. Try again.",
+    "secureNote": "Secure payment via Stripe Checkout."
   },
   "product": {
     "quickBuy": "Quick buy",
     "from": "From",
-    "details": "Details"
+    "details": "Details",
+    "buyNow": "Buy now — {price}",
+    "addToCart": "Add to cart",
+    "soldOut": "Sold out",
+    "redirecting": "Redirecting…",
+    "checkoutError": "Checkout could not start. Try again.",
+    "preorderNote": "Pre-order: lead time applies before shipment."
   },
   "designSystem": {
     "title": "Design system",

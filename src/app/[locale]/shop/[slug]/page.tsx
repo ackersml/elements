@@ -1,5 +1,6 @@
 import { ProductModelSection } from "@/app/components/shop/ProductModelSection";
-import { CheckoutButtonProduct } from "@/app/components/shop/CheckoutButtonProduct";
+import { ProductBuyActions } from "@/app/components/shop/ProductBuyActions";
+import { ClientPrice } from "@/app/[locale]/shop/ShopPriceClient";
 import { Link } from "@/i18n/navigation";
 import { getProductBySlug } from "@/lib/products";
 import type { Metadata } from "next";
@@ -88,12 +89,16 @@ export default async function ProductPage({ params }: Props) {
           </div>
         </dl>
 
+        <p className="mt-8 font-display text-3xl">
+          <ClientPrice eurCents={product.priceCents} />
+        </p>
+
         <div className="mt-12">
           <ProductModelSection product={product} />
         </div>
 
         <div className="mt-12 flex flex-wrap items-center gap-4">
-          <CheckoutButtonProduct slug={product.slug} />
+          <ProductBuyActions slug={product.slug} />
           <Link href="/shop" className="link-arrow">
             Back to shop
           </Link>

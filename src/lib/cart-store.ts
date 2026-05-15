@@ -13,11 +13,15 @@ export type CartLine = {
 type CartState = {
   lines: CartLine[];
   currency: CheckoutCurrency;
+  drawerOpen: boolean;
   add: (slug: string, quantity?: number) => void;
   setQuantity: (slug: string, quantity: number) => void;
   remove: (slug: string) => void;
   clear: () => void;
   setCurrency: (currency: CheckoutCurrency) => void;
+  openDrawer: () => void;
+  closeDrawer: () => void;
+  setDrawerOpen: (open: boolean) => void;
 };
 
 export const useCartStore = create<CartState>()(
@@ -25,6 +29,7 @@ export const useCartStore = create<CartState>()(
     (set, get) => ({
       lines: [],
       currency: "usd",
+      drawerOpen: false,
       add: (slug, quantity = 1) => {
         const lines = [...get().lines];
         const idx = lines.findIndex((l) => l.slug === slug);
@@ -36,7 +41,7 @@ export const useCartStore = create<CartState>()(
         } else {
           lines.push({ slug, quantity });
         }
-        set({ lines });
+        set({ lines, drawerOpen: true });
       },
       setQuantity: (slug, quantity) => {
         const lines = get()
@@ -48,6 +53,9 @@ export const useCartStore = create<CartState>()(
         set({ lines: get().lines.filter((l) => l.slug !== slug) }),
       clear: () => set({ lines: [] }),
       setCurrency: (currency) => set({ currency }),
+      openDrawer: () => set({ drawerOpen: true }),
+      closeDrawer: () => set({ drawerOpen: false }),
+      setDrawerOpen: (open) => set({ drawerOpen: open }),
     }),
     {
       name: "elements-cart-v1",
