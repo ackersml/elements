@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
-import { createClient } from "@supabase/supabase-js";
 import { dispatchOrder } from "@/lib/fulfillment";
 import { product } from "@/lib/product";
+import { createSupabaseAdmin, getStoreOrdersTable } from "@/lib/supabase-server";
 
 export const runtime = "nodejs";
 
@@ -10,13 +10,6 @@ function getStripe(): Stripe {
   const secret = process.env.STRIPE_SECRET_KEY;
   if (!secret) throw new Error("STRIPE_SECRET_KEY is not set");
   return new Stripe(secret);
-}
-
-function getSupabase() {
-  const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) return null;
-  return createClient(url, key);
 }
 
 export async function POST(request: NextRequest) {
@@ -90,7 +83,7 @@ export async function POST(request: NextRequest) {
   });
 
   const amountTotal = fullSession.amount_total ?? 0;
-  const supabase = getSupabase();
+  const supabase = createSupabaseAdmin();
 
   if (!supabase) {
     console.warn(
@@ -118,8 +111,9 @@ export async function POST(request: NextRequest) {
     tracking_number: null,
   };
 
+  const ordersTable = getStoreOrdersTable();
   const { data: inserted, error: insertError } = await supabase
-    .from("orders")
+    .from(ordersTable)
     .insert(orderRow)
     .select("id")
     .single();
@@ -157,7 +151,7 @@ export async function POST(request: NextRequest) {
 
   if (dispatchResult.status === "sent_to_supplier" && dispatchResult.supplierOrderId) {
     await supabase
-      .from("orders")
+      .from(ordersTable)
       .update({
         status: "sent_to_cj",
         cj_order_id: dispatchResult.supplierOrderId,
@@ -165,11 +159,11 @@ export async function POST(request: NextRequest) {
       .eq("id", orderId);
   } else if (dispatchResult.status === "manual_fulfillment_pending") {
     await supabase
-      .from("orders")
+      .from(ordersTable)
       .update({ status: "manual_fulfillment_pending" })
       .eq("id", orderId);
   } else {
-    await supabase.from("orders").update({ status: "cj_failed" }).eq("id", orderId);
+    await supabase.from(ordersTable).update({ status: "cj_failed" }).eq("id", orderId);
   }
 
   return NextResponse.json({ received: true });

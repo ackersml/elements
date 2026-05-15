@@ -1,12 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
-
-function getSupabase() {
-  const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) throw new Error("SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY is not set");
-  return createClient(url, key);
-}
+import { createSupabaseAdmin, getStoreOrdersTable } from "@/lib/supabase-server";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
@@ -29,10 +22,16 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const supabase = getSupabase();
+    const supabase = createSupabaseAdmin();
+    if (!supabase) {
+      return NextResponse.json(
+        { error: "Order database is not configured" },
+        { status: 503 }
+      );
+    }
 
     let query = supabase
-      .from("orders")
+      .from(getStoreOrdersTable())
       .select("id, status, tracking_url, tracking_number, created_at, line_items")
       .eq("email", email.trim().toLowerCase());
 
