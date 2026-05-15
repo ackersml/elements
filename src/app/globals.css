@@ -169,16 +169,13 @@
     overflow: hidden;
     border-radius: var(--radius);
     border: 1px solid var(--color-border);
-    background: var(--color-background);
-    isolation: isolate;
+    background: transparent;
   }
 
-  /* White studio backdrops + floor disc disappear on the forest background */
   .product-photo {
     object-fit: contain;
     object-position: center;
     padding: 1rem;
-    mix-blend-mode: multiply;
     transition: transform 700ms var(--ease-elements);
   }
 

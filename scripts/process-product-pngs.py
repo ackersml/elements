@@ -1,11 +1,5 @@
 #!/usr/bin/env python3
-"""
-Optional: regenerate PNG cutouts from JPGs (edge + neutral flood + halo peel).
-
-The storefront prefers original JPGs with CSS mix-blend-mode: multiply on
-.product-photo so white studio backdrops and floor discs vanish without
-damaging handpan highlights. Run this script only if you need true PNG assets.
-"""
+"""Regenerate product PNGs: edge white flood + neutral gray/white flood only."""
 
 from __future__ import annotations
 
@@ -18,9 +12,6 @@ PRODUCTS_DIR = Path(__file__).resolve().parents[1] / "public" / "products"
 WHITE_EDGE = 245
 MIN_NEUTRAL = 140
 MAX_CHROMA = 38
-HALO_AVG = 188
-HALO_CHROMA = 58
-HALO_ITERATIONS = 5
 
 
 def is_white_edge(r: int, g: int, b: int) -> bool:
@@ -94,28 +85,8 @@ def neutral_flood(img: Image.Image) -> Image.Image:
     return img
 
 
-def peel_halo(img: Image.Image) -> Image.Image:
-    w, h = img.size
-    pixels = img.load()
-    for _ in range(HALO_ITERATIONS):
-        clear: list[tuple[int, int]] = []
-        for y in range(h):
-            for x in range(w):
-                r, g, b, a = pixels[x, y]
-                if a == 0:
-                    continue
-                if not any(pixels[nx, ny][3] == 0 for nx, ny in ((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1))):
-                    continue
-                avg = (r + g + b) / 3
-                if avg > HALO_AVG and max(r, g, b) - min(r, g, b) < HALO_CHROMA:
-                    clear.append((x, y))
-        for x, y in clear:
-            pixels[x, y] = (0, 0, 0, 0)
-    return img
-
-
 def process(src: Path) -> Image.Image:
-    return peel_halo(neutral_flood(edge_flood(Image.open(src))))
+    return neutral_flood(edge_flood(Image.open(src)))
 
 
 def main() -> None:
