@@ -10,47 +10,59 @@ type Props = {
 };
 
 export function ProductModelSection({ product }: Props) {
+  const images =
+    product.images.length > 0 ? product.images : [product.heroImageUrl];
   const [active, setActive] = useState(0);
-  if (product.modelUrl) {
-    return (
-      <p className="text-sm text-muted-foreground">
-        GLB at {product.modelUrl} — wire to &lt;Model /&gt; when asset is in /public.
-      </p>
-    );
-  }
+  const mainSrc = images[active] ?? product.heroImageUrl;
 
   return (
-    <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+    <div className="flex flex-col gap-4">
       <ProductPhoto
-        src={product.images[0] ?? product.heroImageUrl}
+        src={mainSrc}
         alt={product.title}
         aspect="square"
         priority
+        sizes="(max-width: 1024px) 100vw, 50vw"
       />
-      <div className="flex flex-col gap-4">
-        <div className="flex aspect-square flex-col items-center justify-center rounded-2xl border border-border bg-card/40 p-8 text-center">
-          <p className="max-w-xs text-sm italic text-muted-foreground">
-            3D preview placeholder — Draco GLB + tone hotspots next
-          </p>
-          {product.audioSamples.length > 0 && (
-            <div className="mt-6 flex flex-wrap justify-center gap-2">
-              {product.audioSamples.map((s, i) => (
-                <button
-                  key={s.label}
-                  type="button"
-                  onClick={() => setActive(i)}
-                  className={cn(
-                    "smallcaps rounded-full border border-border px-4 py-2 transition hover:border-[color:var(--accent-c)] hover:text-[color:var(--accent-c)]",
-                    active === i && "border-[color:var(--accent-c)] text-[color:var(--accent-c)]"
-                  )}
-                >
-                  {s.label}
-                </button>
-              ))}
-            </div>
-          )}
+      {images.length > 1 && (
+        <div className="grid grid-cols-4 gap-2 sm:grid-cols-5">
+          {images.map((src, i) => (
+            <button
+              key={`${src}-${i}`}
+              type="button"
+              onClick={() => setActive(i)}
+              className={cn(
+                "overflow-hidden rounded-lg border-2 transition",
+                active === i
+                  ? "border-[color:var(--accent-c)]"
+                  : "border-transparent opacity-80 hover:opacity-100"
+              )}
+              aria-label={`View image ${i + 1}`}
+              aria-pressed={active === i}
+            >
+              <ProductPhoto
+                src={src}
+                alt=""
+                aspect="square"
+                sizes="80px"
+                className="pointer-events-none"
+              />
+            </button>
+          ))}
         </div>
-      </div>
+      )}
+      {product.audioSamples.length > 0 && (
+        <div className="flex flex-wrap gap-2">
+          {product.audioSamples.map((s) => (
+            <span
+              key={s.label}
+              className="smallcaps rounded-full border border-border px-4 py-2 text-muted-foreground"
+            >
+              {s.label}
+            </span>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

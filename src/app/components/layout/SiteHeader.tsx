@@ -8,18 +8,14 @@ import { Link, usePathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { checkoutCurrencies, type CheckoutCurrency } from "@/lib/currency";
 import { useCartStore } from "@/lib/cart-store";
+import { shopCollectionHref, shopNavCollections } from "@/lib/shop-nav";
 import { cn } from "@/lib/utils";
 import { CartDrawer } from "./CartDrawer";
 
-const shopLinks: { key: string; href: string }[] = [
-  { key: "shopBeginner", href: "/shop?collection=beginner" },
-  { key: "shopExtended", href: "/shop?collection=extended" },
-  { key: "shopRare", href: "/shop?collection=rare" },
-  { key: "shopBundles", href: "/shop?collection=bundles" },
-  { key: "shopAccessories", href: "/shop?collection=accessories" },
-  { key: "shopTongue", href: "/shop?collection=tongue-drums" },
-  { key: "shopSoundHealing", href: "/shop?collection=sound-healing" },
-];
+const shopLinks = shopNavCollections.map((item) => ({
+  key: item.key,
+  href: shopCollectionHref(item.collection),
+}));
 
 export type SiteHeaderVariant = "sticky" | "overlay";
 

@@ -14,6 +14,7 @@ import {
   getProductsByCollection,
   getProductsByTag,
 } from "@/lib/products";
+import { shopCollectionHref } from "@/lib/shop-nav";
 import { cn } from "@/lib/utils";
 import { SiteHeader } from "@/app/components/layout/SiteHeader";
 import { ProductPhoto } from "@/app/components/shop/ProductPhoto";
@@ -65,11 +66,11 @@ function HomePageFooter() {
   const year = new Date().getFullYear();
 
   const shopLinks: { label: string; href: string }[] = [
-    { label: tn("shopBeginner"), href: "/shop?collection=beginner" },
-    { label: tn("shopExtended"), href: "/shop?collection=extended" },
-    { label: tn("shopRare"), href: "/shop?collection=rare" },
-    { label: tn("shopBundles"), href: "/shop?collection=bundles" },
-    { label: tn("shopAccessories"), href: "/shop?collection=accessories" },
+    { label: tn("shopBeginner"), href: shopCollectionHref("beginner") },
+    { label: tn("shopExtended"), href: shopCollectionHref("extended") },
+    { label: tn("shopRare"), href: shopCollectionHref("rare") },
+    { label: tn("shopBundles"), href: shopCollectionHref("bundles") },
+    { label: tn("shopAccessories"), href: shopCollectionHref("accessories") },
   ];
 
   const readLinks: { label: string; href: string }[] = [
@@ -150,6 +151,7 @@ export function ElementsHomeView() {
   useFadeUp();
   const t = useTranslations("hero");
   const tm = useTranslations("mag");
+  const tn = useTranslations("nav");
   const currency = useCartStore((s) => s.currency);
   const id = useId();
   const beginners = getProductsByTag("beginner");
@@ -160,34 +162,34 @@ export function ElementsHomeView() {
   const instrumentMonth = getProducts().find((p) => p.slug === "copper-veil-d-kurd-12");
 
   const catHandpan = beginners[0] ?? getProducts()[0];
-  const catTongue = getProductsByCollection("tongue-drums")[0];
   const catCase = cases[0];
-  const catSound = getProductsByCollection("sound-healing")[0];
+  const catExtended =
+    getProductsByCollection("extended")[0] ?? getProductsByCollection("rare")[0];
 
   const categoryTiles = [
     {
       key: "handpans",
       title: tm("catHandpans"),
-      href: "/shop?collection=beginner",
+      href: shopCollectionHref("beginner"),
       image: catHandpan?.heroImageUrl,
     },
     {
-      key: "tongue",
-      title: tm("catTongue"),
-      href: "/shop?collection=tongue-drums",
-      image: catTongue?.heroImageUrl,
+      key: "extended",
+      title: tn("shopExtended"),
+      href: shopCollectionHref("extended"),
+      image: catExtended?.heroImageUrl,
     },
     {
       key: "cases",
       title: tm("catCases"),
-      href: "/shop?collection=accessories",
+      href: shopCollectionHref("accessories"),
       image: catCase?.heroImageUrl,
     },
     {
-      key: "sound",
-      title: tm("catSound"),
-      href: "/shop?collection=sound-healing",
-      image: catSound?.heroImageUrl,
+      key: "rarities",
+      title: tn("shopRare"),
+      href: shopCollectionHref("rare"),
+      image: rarities[0]?.heroImageUrl,
     },
   ].filter((c): c is typeof c & { image: string } => Boolean(c.image));
 
@@ -268,15 +270,21 @@ export function ElementsHomeView() {
                 href={tile.href}
                 className="fade-up group relative block overflow-hidden rounded-2xl border border-border bg-transparent"
               >
-                <ProductPhoto
-                  src={tile.image}
-                  alt=""
-                  aspect="3/4"
-                  variant="tile"
-                  sizes="(max-width: 640px) 50vw, 25vw"
-                  frameClassName="!rounded-none !border-0 aspect-[3/4] lg:aspect-[4/5] transition-transform duration-700 group-hover:scale-[1.02]"
+                <div className="relative aspect-[3/4] overflow-hidden lg:aspect-[4/5]">
+                  <ProductPhoto
+                    src={tile.image}
+                    alt=""
+                    aspect="3/4"
+                    variant="tile"
+                    sizes="(max-width: 640px) 50vw, 25vw"
+                    frameClassName="!absolute !inset-0 !h-full !w-full !rounded-none !border-0 !aspect-auto"
+                    className="transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                  />
+                </div>
+                <div
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent"
+                  aria-hidden
                 />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
                   <h3 className="font-display text-lg md:text-2xl">{tile.title}</h3>
                   <span className="smallcaps mt-2 inline-flex items-center gap-2 text-[color:var(--accent-c)]">
