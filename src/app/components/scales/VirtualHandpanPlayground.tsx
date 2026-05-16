@@ -182,7 +182,12 @@ export function VirtualHandpanPlayground() {
             alt=""
             fill
             sizes="(max-width: 1024px) 90vw, 420px"
-            className="pointer-events-none z-0 object-contain p-6 select-none"
+            className={cn(
+              "pointer-events-none z-0 select-none",
+              scale.backgroundFit === "cover"
+                ? "object-cover"
+                : "object-contain p-6"
+            )}
             aria-hidden
             priority={false}
           />
@@ -291,9 +296,9 @@ export function VirtualHandpanPlayground() {
           ))}
         </ul>
         <p className="text-xs leading-relaxed text-muted-foreground">
-          Background photos are catalogue or lifestyle shots and may not match
-          the scale name exactly. Synthetic MetalSynth plus light reverb until
-          samples load from manifest.
+          Background is the shared bench photo from the journey repo; layout is
+          exploratory only. Synthetic MetalSynth plus light reverb until samples
+          load from manifest.
         </p>
       </aside>
     </div>

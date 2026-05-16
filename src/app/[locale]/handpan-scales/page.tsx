@@ -16,8 +16,11 @@ export default function HandpanScalesPage() {
         </h1>
         <p className="mt-4 max-w-2xl text-muted-foreground leading-relaxed">
           Tap the ding, fields, and optional bottom notes, or focus the pad and
-          use number keys. Each scale uses a catalogue or lifestyle photo behind
-          the pad for atmosphere. Sound starts as a synthetic voice with light
+          use number keys. Scale list and bench photo follow the{" "}
+          <code className="rounded border border-border/50 px-1 font-mono text-xs">
+            elements-your-sound-journey
+          </code>{" "}
+          reference. Sound is a synthetic handpan voice (Tone.js) with light
           reverb; add WAVs plus{" "}
           <code className="rounded border border-border/50 px-1 font-mono text-xs">
             manifest.json
