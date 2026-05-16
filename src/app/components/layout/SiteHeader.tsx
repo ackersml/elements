@@ -72,12 +72,6 @@ export function SiteHeader({ variant = "sticky" }: { variant?: SiteHeaderVariant
             {t("journal")}
           </Link>
           <Link
-            href="/handpan-scales"
-            className="text-muted-foreground transition hover:text-[color:var(--accent-c)]"
-          >
-            {t("learn")}
-          </Link>
-          <Link
             href="/showrooms"
             className="text-muted-foreground transition hover:text-[color:var(--accent-c)]"
           >
@@ -182,15 +176,6 @@ export function SiteHeader({ variant = "sticky" }: { variant?: SiteHeaderVariant
               onClick={() => setMobileOpen(false)}
             >
               {t("journal")}
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/handpan-scales"
-              className="block py-2.5"
-              onClick={() => setMobileOpen(false)}
-            >
-              {t("learn")}
             </Link>
           </li>
           <li>

@@ -10,8 +10,8 @@ import { useCallback, useEffect, useState } from "react";
 
 /**
  * React binding for the module singleton in `handpan-playground-engine`.
- * Optional WAV pack: add `public/audio/handpan-samples/manifest.json` with
- * `{ "baseUrl": "/audio/handpan-samples/", "urls": { "D3": "D3.wav", ... } }`.
+ * Default sound: triangle + partials on the shared AudioContext (ding gets a longer
+ * ring). Optional WAV pack: `public/audio/handpan-samples/manifest.json`.
  */
 export function useHandpanAudio() {
   const [audioError, setAudioError] = useState<string | null>(null);

@@ -173,7 +173,7 @@ export function VirtualHandpanPlayground() {
         ) : null}
 
         <div
-          className="relative mx-auto aspect-square w-full max-w-[420px] overflow-hidden border border-border/40 bg-transparent"
+          className="relative mx-auto aspect-square w-full max-w-[420px] overflow-hidden rounded-full border border-border/40 bg-secondary/20"
           style={{ minHeight: "min(85vmin, 420px)" }}
         >
           <Image
@@ -189,10 +189,10 @@ export function VirtualHandpanPlayground() {
                 : "object-contain p-6"
             )}
             aria-hidden
-            priority={false}
+            priority={scaleIndex === 0}
           />
           <div
-            className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-background/90 via-background/50 to-background/25"
+            className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-background/40 via-background/30 to-background/70"
             aria-hidden
           />
           {scale.fields.map((note, i) => {
@@ -253,25 +253,24 @@ export function VirtualHandpanPlayground() {
           </button>
         </div>
 
-        <p className="mt-4 max-w-md text-center text-xs text-muted-foreground md:text-left">
-          Synthetic voice with light reverb, or WAVs from{" "}
-          <code className="rounded border border-border/60 px-1 font-mono text-[10px]">
-            /audio/handpan-samples/manifest.json
-          </code>{" "}
-          when you add them. Focus this pad, then use keys{" "}
-          <kbd className="rounded border border-border px-1 py-0.5 font-mono text-[10px]">
+        <p className="mt-4 max-w-md text-center text-sm text-muted-foreground md:text-left">
+          You hear a warm synthetic tone shaped for quick scale checks. If you add
+          recorded note samples to the site later, playback can switch to those
+          automatically. Focus the pad, then use{" "}
+          <kbd className="rounded border border-border px-1 py-0.5 font-mono text-xs">
             1
-          </kbd>{" "}
-          (ding) through{" "}
-          <kbd className="rounded border border-border px-1 py-0.5 font-mono text-[10px]">
-            0
           </kbd>
-          , then{" "}
-          <kbd className="rounded border border-border px-1 py-0.5 font-mono text-[10px]">
+          –<kbd className="rounded border border-border px-1 py-0.5 font-mono text-xs">
+            0
+          </kbd>{" "}
+          for the first ten notes and{" "}
+          <kbd className="rounded border border-border px-1 py-0.5 font-mono text-xs">
             Q
           </kbd>
-          –<kbd className="rounded border border-border px-1 py-0.5 font-mono text-[10px]">P</kbd>{" "}
-          for extra notes when the scale has more than ten.
+          –<kbd className="rounded border border-border px-1 py-0.5 font-mono text-xs">
+            P
+          </kbd>{" "}
+          when a scale lists more.
         </p>
       </div>
 
@@ -296,9 +295,8 @@ export function VirtualHandpanPlayground() {
           ))}
         </ul>
         <p className="text-xs leading-relaxed text-muted-foreground">
-          Background is the shared bench photo from the journey repo; layout is
-          exploratory only. Synthetic MetalSynth plus light reverb until samples
-          load from manifest.
+          Each preset pulls a real instrument photo from the shop catalog. The
+          circle layout is for listening only, not a maker layout diagram.
         </p>
       </aside>
     </div>

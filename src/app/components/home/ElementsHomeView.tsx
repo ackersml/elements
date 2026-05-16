@@ -18,7 +18,6 @@ import { shopCollectionHref } from "@/lib/shop-nav";
 import { cn } from "@/lib/utils";
 import { SiteHeader } from "@/app/components/layout/SiteHeader";
 import { ProductPhoto } from "@/app/components/shop/ProductPhoto";
-import { HeroAudioGate } from "./HeroAudioGate";
 import { useFadeUp } from "./useFadeUp";
 
 function SectionHeading({
@@ -27,17 +26,21 @@ function SectionHeading({
   rule = true,
   center = false,
   eyebrowAccent = false,
+  headingClassName,
 }: {
   eyebrow?: string;
   title: ReactNode;
   rule?: boolean;
   center?: boolean;
   eyebrowAccent?: boolean;
+  /** Optional override for bottom margin (e.g. tighter stacks between sections). */
+  headingClassName?: string;
 }) {
   return (
     <div
       className={cn(
         "mb-12 md:mb-16",
+        headingClassName,
         center ? "mx-auto max-w-2xl text-center" : "max-w-3xl"
       )}
     >
@@ -76,7 +79,6 @@ function HomePageFooter() {
   const readLinks: { label: string; href: string }[] = [
     { label: tn("journal"), href: "/journal" },
     { label: tn("aboutHandpans"), href: "/journal" },
-    { label: tn("learn"), href: "/handpan-scales" },
     { label: tn("showrooms"), href: "/showrooms" },
   ];
 
@@ -240,7 +242,6 @@ export function ElementsHomeView() {
                 {t("ctaLearn")} <ArrowRight size={14} aria-hidden />
               </a>
             </div>
-            <HeroAudioGate />
           </div>
         </div>
       </section>
@@ -426,12 +427,12 @@ export function ElementsHomeView() {
         </section>
       )}
 
-      <section aria-labelledby={`${id}-voices`} className="py-20 md:py-28">
+      <section aria-labelledby={`${id}-voices`} className="py-10 md:py-14">
         <div className="container-x">
           <p id={`${id}-voices`} className="smallcaps text-muted-foreground">
             Customer voices · aggregate 4.9 / 5
           </p>
-          <div className="mt-10 grid grid-cols-1 items-end gap-10 lg:grid-cols-12">
+          <div className="mt-6 grid grid-cols-1 items-end gap-8 lg:grid-cols-12">
             <blockquote className="fade-up lg:col-span-7">
               <p className="font-display text-2xl leading-snug md:text-4xl">
                 “Finally a buying path that respects how fragile these decisions feel.”
@@ -444,7 +445,7 @@ export function ElementsHomeView() {
             </blockquote>
           </div>
         </div>
-        <div className="marquee mt-16 hidden border-y border-border py-5 md:block">
+        <div className="marquee mt-10 hidden border-y border-border py-5 md:block">
           <div className="marquee-track smallcaps text-muted-foreground">
             {Array.from({ length: 4 }).map((_, i) => (
               <span key={i} className="inline-flex items-center gap-16">
@@ -460,11 +461,12 @@ export function ElementsHomeView() {
         </div>
       </section>
 
-      <section aria-labelledby={`${id}-rar`} className="py-24 md:py-32">
+      <section aria-labelledby={`${id}-rar`} className="py-10 md:py-14">
         <div className="container-x">
           <SectionHeading
             eyebrow={tm("raritiesEyebrow")}
             title={<span id={`${id}-rar`}>Rarities</span>}
+            headingClassName="!mb-6 md:!mb-8"
           />
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
             {rarities.map((r) => (
@@ -614,9 +616,6 @@ export function ElementsHomeView() {
                 </div>
               ))}
             </div>
-            <Link href="/handpan-scales" className="link-arrow mt-2 inline-flex">
-              Explore scales interactively <ArrowRight size={14} aria-hidden />
-            </Link>
           </div>
         </div>
       </section>
