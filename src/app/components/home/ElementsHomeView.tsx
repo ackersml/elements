@@ -621,23 +621,6 @@ export function ElementsHomeView() {
         </div>
       </section>
 
-      <section aria-labelledby={`${id}-lr`} className="py-24 md:py-32">
-        <div className="container-x">
-          <SectionHeading
-            eyebrow={tm("listeningEyebrow")}
-            title={<span id={`${id}-lr`}>Listening room</span>}
-          />
-          <div className="grid aspect-[16/7] place-items-center rounded-2xl border border-border bg-card px-6 text-center">
-            <div>
-              <p className="smallcaps text-[color:var(--accent-c)]">{tm("listeningPlaceholderLine")}</p>
-              <p className="mx-auto mt-3 max-w-md font-display text-xl md:text-2xl">
-                {tm("listeningPlaceholderTitle")}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section aria-labelledby={`${id}-sh`} className="border-y border-border bg-card/40 py-24 md:py-32">
         <div className="container-x mx-auto max-w-2xl text-center">
           <p className="eyebrow eyebrow-rule">{tm("showroomsHomeEyebrow")}</p>
