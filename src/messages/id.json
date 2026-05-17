@@ -1,7 +1,13 @@
 {
   "brand": {
     "name": "Elements",
-    "tagline": "Handpans & sound healing instruments"
+    "tagline": "Handpan & sound healing",
+    "taglineSecondary": "Sound · Presence · Source",
+    "subtitle": "Handpan store",
+    "vision": "To create one of the world's most emotionally resonant, spiritually grounded, and visually refined handpan brands, merging craftsmanship, sound healing, and elemental symbolism.",
+    "mission1": "Offer high-quality handpans accessible to a global audience",
+    "mission2": "Create meaning through elements, sound, and story",
+    "mission3": "Build long-term trust through education, transparency, and artistry"
   },
   "nav": {
     "home": "Home",
@@ -23,18 +29,20 @@
     "shopSoundHealing": "Sound healing tools"
   },
   "hero": {
-    "eyebrow": "Ceremonial steel",
-    "titleLine1": "Find the instrument",
-    "titleItalic": "that holds your tone",
-    "sub": "Elements sells hand-tuned handpans and sound tools for players seeking depth, ritual, and presence. Insured shipping, human guidance, transparent builds.",
+    "eyebrow": "Handpan & sound healing",
+    "titleLine1": "Reconnect with yourself through sound & vibration",
+    "titleItalic": "",
+    "sub": "Discover handpans and sound healing instruments crafted to bring calm, clarity, and balance—gently guiding you into a deeper state of presence.",
+    "ctaPrimary": "Enter a state",
+    "ctaSecondary": "Shop instruments",
     "ctaShop": "Shop instruments",
     "ctaLearn": "How ordering works",
     "hintSound": "Tap to hear a single tone (muted until you unmute)"
   },
   "mag": {
-    "heroKicker": "Your tone, kept honest in the room you play.",
-    "ctaJourney": "Start your Elements journey",
-    "ctaInStock": "In stock now",
+    "heroKicker": "Sound · Presence · Source",
+    "ctaJourney": "Enter a state",
+    "ctaInStock": "Shop instruments",
     "stripLabel": "Builds ready to ship this month",
     "stripCta": "Browse in-stock instruments",
     "categoriesEyebrow": "Explore by craft",
@@ -49,8 +57,16 @@
     "warrantyBody": "We document how each build leaves the bench and how it should settle in your space. If travel or humidity shifts the profile, you get clear guidance and a path to correction—not radio silence.",
     "warrantyCta": "How ordering works",
     "stripDetail": "Hand-allocated by our luthiers.",
+    "collectionTitle": "Our collection",
+    "collectionEyebrow": "Our handpicked instruments",
+    "collectionBlurb": "Our handpan collection features instruments with rich, resonant tones and balanced playability. Each piece is crafted for intuitive expression, supporting both meditative flow and musical depth.",
     "findSoundEyebrow": "Curated for first listens",
     "beginnerEyebrow": "Approachable scales · honest builds",
+    "whyChooseEyebrow": "Why choose Elements",
+    "whyChoose1": "Premium, carefully selected instruments",
+    "whyChoose2": "Transparent craftsmanship and sourcing",
+    "whyChoose3": "Guidance for every level of practice",
+    "whyChoose4": "A growing community of sound practitioners",
     "newsletterEyebrowAlt": "Slow dispatch · monthly",
     "newsletterBodyAlt": "Scale guides, recording notes, and builder interviews — inline signup only, no modal, no chase.",
     "buyingGuideEssence": "Long-form essays live in the Journal. The essence: pick a scale that matches the rooms you actually play in, the music you actually listen to, and the volume your life accommodates. Logistics are insured end-to-end. Build slots open monthly and we'll never email you to \"move fast.\"",
@@ -63,13 +79,13 @@
     "bundlesEyebrow": "Hand-paired kits",
     "casesEyebrow": "Travel-ready, built to last",
     "showroomsHomeEyebrow": "Audition rooms",
-    "showroomsHomeBody": "Berlin · Bali · Portland — request an audition slot via contact once the calendar opens. Quiet rooms, soft floors, no pressure.",
-    "footerBrandLine": "Handpans & sound healing instruments.",
+    "showroomsHomeBody": "Bali, Indonesia — request an audition slot via contact once the calendar opens. Quiet rooms, soft floors, no pressure.",
+    "footerBrandLine": "Handpan & sound healing.",
     "footerColShop": "Shop",
     "footerColRead": "Read",
     "footerColLegal": "Legal",
     "footerSlow": "Slow commerce.",
-    "footerCities": "Berlin · Bali · Portland"
+    "footerCities": "Bali, Indonesia"
   },
   "pages": {
     "journal": {
@@ -80,8 +96,8 @@
     },
     "showrooms": {
       "title": "Showrooms",
-      "p1": "Berlin, Bali, and Portland host audition slots by appointment. Calendars open in phases so each visit gets tuned time and a quiet room.",
-      "p2": "Use the contact page to request a city and preferred window. You will receive logistics for humidity-controlled storage and bench-ready instruments.",
+      "p1": "Bali hosts audition slots by appointment. Calendars open in phases so each visit gets tuned time and a quiet room.",
+      "p2": "Use the contact page to request a preferred window. You will receive logistics for humidity-controlled storage and bench-ready instruments.",
       "p3": "Remote voicing checks remain available if travel is not practical."
     },
     "shipping": {
@@ -104,13 +120,13 @@
     },
     "contact": {
       "title": "Contact",
-      "p1": "Order updates, tuning questions, and showroom requests share one queue so nothing fragments across inboxes. Reference your order number when writing.",
-      "p2": "A dedicated public inbox will publish here once DNS and abuse controls are finalized. Until then, use the email on your Stripe receipt for the same thread.",
+      "p1": "Order updates, tuning questions, and showroom requests share one queue. Reference your order number when writing to info@elements.com.",
+      "p2": "Dany Rud · Owner · Elements — Handpan & Sound Healing · Ubud, Gianyar · Bali, Indonesia.",
       "p3": "Press and partnership inquiries: include distribution region and timeline so routing stays accurate."
     }
   },
   "footer": {
-    "rights": "© {year} Elements Inc.",
+    "rights": "© {year} Elements Inc. All rights reserved.",
     "shipping": "Shipping",
     "returns": "Returns",
     "contact": "Contact",
@@ -138,10 +154,22 @@
     "soldOut": "Sold out",
     "redirecting": "Redirecting…",
     "checkoutError": "Checkout could not start. Try again.",
-    "preorderNote": "Pre-order: lead time applies before shipment."
+    "preorderNote": "Pre-order: lead time applies before shipment.",
+    "elementLabel": "Element"
+  },
+  "success": {
+    "title": "Thank you for choosing Elements",
+    "line1": "Each tone carries a quiet intention—to soften, to ground, and to restore.",
+    "line2": "May it resonate with you, in moments both heard and felt.",
+    "receipt": "Payment confirmed. A receipt is on the way to your inbox.",
+    "fulfillment": "We will email if we need scale confirmation or a revised build window."
   },
   "designSystem": {
     "title": "Design system",
-    "intro": "Primitives for Elements storefront QA."
+    "intro": "Elements Handpan Store brand kit — tokens and copy from the PDF guide.",
+    "colors": "Colors",
+    "type": "Typography",
+    "elements": "Five elements",
+    "taglines": "Taglines"
   }
 }

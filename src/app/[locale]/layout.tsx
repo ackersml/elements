@@ -15,15 +15,15 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"
   ),
   title: {
-    default: "Elements — Handpans & sound healing",
+    default: "Elements — Handpan & sound healing",
     template: "%s · Elements",
   },
   description:
-    "Ceremonial handpans and sound-healing instruments — editorial commerce, insured shipping, human support.",
+    "Handpans and sound healing instruments crafted for calm, clarity, and balance. Transparent builds, insured shipping, human guidance.",
 };
 
 export const viewport: Viewport = {
-  themeColor: "#2d362e",
+  themeColor: "#2F3A2E",
 };
 
 type Props = {

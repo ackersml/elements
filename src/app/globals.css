@@ -2,15 +2,24 @@
 
 @import "tailwindcss";
 
-/* Elements — Lovable-aligned tokens (forest + parchment + accent gold) */
+/* Elements Handpan Store — PDF brand kit (hs-002 palette) */
 :root {
   --radius: 0.875rem;
-  --background: oklch(0.318 0.014 145);
-  --foreground: oklch(0.905 0.018 90);
-  --card: oklch(0.358 0.013 145);
-  --secondary: oklch(0.405 0.013 145);
-  --muted-fg: oklch(0.745 0.018 85);
-  --accent-c: oklch(0.795 0.04 85);
+  --pine-grove: #2f3a2e;
+  --forest-moss: #3e4a3c;
+  --cedar-bark: #522e17;
+  --sandstone: #e8decf;
+  --deep-soil: #31251c;
+  --moss-mid: #656e63;
+  --moss-light: #8b928a;
+  --moss-pale: #b2b7b1;
+  --bronze-accent: #d4b98a;
+  --background: var(--pine-grove);
+  --foreground: var(--sandstone);
+  --card: var(--forest-moss);
+  --secondary: var(--forest-moss);
+  --muted-fg: var(--moss-pale);
+  --accent-c: var(--bronze-accent);
   --border-mix: color-mix(in oklab, var(--foreground) 18%, transparent);
   --input-mix: color-mix(in oklab, var(--foreground) 14%, transparent);
   --destructive: oklch(0.55 0.2 25);
@@ -197,16 +206,16 @@
     background:
       linear-gradient(
         90deg,
-        rgba(45, 54, 46, 0.92) 0%,
-        rgba(45, 54, 46, 0.72) 35%,
-        rgba(45, 54, 46, 0.35) 65%,
-        rgba(45, 54, 46, 0.55) 100%
+        rgba(47, 58, 46, 0.92) 0%,
+        rgba(47, 58, 46, 0.72) 35%,
+        rgba(47, 58, 46, 0.35) 65%,
+        rgba(47, 58, 46, 0.55) 100%
       ),
       linear-gradient(
         180deg,
-        rgba(45, 54, 46, 0.55) 0%,
-        rgba(45, 54, 46, 0.15) 30%,
-        rgba(45, 54, 46, 0.85) 100%
+        rgba(47, 58, 46, 0.55) 0%,
+        rgba(47, 58, 46, 0.15) 30%,
+        rgba(47, 58, 46, 0.85) 100%
       );
   }
 
@@ -214,9 +223,9 @@
     .hero-fade {
       background: linear-gradient(
         180deg,
-        rgba(45, 54, 46, 0.55) 0%,
-        rgba(45, 54, 46, 0.55) 30%,
-        rgba(45, 54, 46, 0.92) 100%
+        rgba(47, 58, 46, 0.55) 0%,
+        rgba(47, 58, 46, 0.55) 30%,
+        rgba(47, 58, 46, 0.92) 100%
       );
     }
   }
@@ -240,12 +249,12 @@
   }
 
   .btn-primary {
-    background: var(--accent-c);
-    color: var(--background);
+    background: var(--sandstone);
+    color: var(--deep-soil);
   }
 
   .btn-primary:hover {
-    background: #dccda8;
+    background: #f6f2ec;
   }
 
   .btn-ghost {

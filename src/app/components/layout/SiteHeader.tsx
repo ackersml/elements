@@ -10,6 +10,7 @@ import { checkoutCurrencies, type CheckoutCurrency } from "@/lib/currency";
 import { useCartStore } from "@/lib/cart-store";
 import { shopCollectionHref, shopNavCollections } from "@/lib/shop-nav";
 import { cn } from "@/lib/utils";
+import { ElementsLogoLink } from "@/app/components/brand/ElementsLogo";
 import { CartDrawer } from "./CartDrawer";
 
 const shopLinks = shopNavCollections.map((item) => ({
@@ -21,6 +22,7 @@ export type SiteHeaderVariant = "sticky" | "overlay";
 
 export function SiteHeader({ variant = "sticky" }: { variant?: SiteHeaderVariant }) {
   const t = useTranslations("nav");
+  const tb = useTranslations("brand");
   const pathname = usePathname();
   const locale = useLocale();
   const setCurrency = useCartStore((s) => s.setCurrency);
@@ -37,9 +39,12 @@ export function SiteHeader({ variant = "sticky" }: { variant?: SiteHeaderVariant
   return (
     <header className={shell}>
       <div className="container-x flex items-center justify-between py-4 md:py-6">
-        <Link href="/" className="font-display text-xl tracking-[0.3em] text-foreground">
-          ELEMENTS
-        </Link>
+        <div className="flex flex-col gap-0.5">
+          <ElementsLogoLink compact className="text-foreground" />
+          <span className="hidden pl-11 text-[10px] uppercase tracking-[0.28em] text-muted-foreground md:block">
+            {tb("subtitle")}
+          </span>
+        </div>
 
         <nav className="hidden items-center gap-8 text-sm lg:flex">
           <div className="group relative">

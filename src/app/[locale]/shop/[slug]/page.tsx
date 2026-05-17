@@ -1,3 +1,4 @@
+import { ProductElementLine } from "@/app/components/shop/ProductElementLine";
 import { ProductModelSection } from "@/app/components/shop/ProductModelSection";
 import { ProductBuyActions } from "@/app/components/shop/ProductBuyActions";
 import { ClientPrice } from "@/app/[locale]/shop/ShopPriceClient";
@@ -65,6 +66,14 @@ export default async function ProductPage({ params }: Props) {
         <p className="mt-5 max-w-2xl leading-relaxed text-muted-foreground">
           {product.description}
         </p>
+
+        {product.element ? (
+          <ProductElementLine
+            element={product.element}
+            showKeywords
+            className="mt-4"
+          />
+        ) : null}
 
         <dl className="mt-6 flex flex-wrap gap-x-8 gap-y-2 text-sm">
           <div>

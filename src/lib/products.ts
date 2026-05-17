@@ -1,4 +1,8 @@
 import {
+  brandProductTemplateDKurd10,
+  type BrandElementId,
+} from "@/lib/brand/elements-brand";
+import {
   formatMoney,
   stripeAmountFromEurCents,
   type CheckoutCurrency,
@@ -36,6 +40,8 @@ export type Product = {
   collections: string[];
   description: string;
   heroImageUrl: string;
+  /** Brand kit elemental association (PDF product cards) */
+  element?: BrandElementId;
 };
 
 /** Product photography: PNG cutouts from `scripts/process-product-pngs.py` (rembg). */
@@ -65,8 +71,8 @@ export const products: Product[] = [
     stockStatus: "in_stock",
     tags: ["beginner", "studio"],
     collections: ["beginner", "extended"],
-    description:
-      "Hand-tuned steel handpan in a balanced D Kurd layout. Suited to first instruments and daily practice. Insured delivery; post-sale tuning guidance included.",
+    element: brandProductTemplateDKurd10.element,
+    description: brandProductTemplateDKurd10.description,
   },
   {
     id: "p2",
@@ -89,8 +95,9 @@ export const products: Product[] = [
     stockStatus: "preorder",
     tags: ["extended", "meditative"],
     collections: ["extended"],
+    element: "water",
     description:
-      "B Amara colouring with a singing sustain—built for slow melodic playing and ceremony.",
+      "B Amara colouring with a singing sustain—built for slow melodic playing and ceremony, with flow and emotional depth in every phrase.",
   },
   {
     id: "p3",
@@ -113,8 +120,9 @@ export const products: Product[] = [
     stockStatus: "in_stock",
     tags: ["rare", "extended"],
     collections: ["rare"],
+    element: "earth",
     description:
-      "Extended D Kurd compass with stable fundamentals for ensemble work and composition.",
+      "Extended D Kurd compass with stable fundamentals for ensemble work—grounded, trustworthy, and steady under the hands.",
   },
   {
     id: "p4",
@@ -137,8 +145,9 @@ export const products: Product[] = [
     stockStatus: "in_stock",
     tags: ["beginner"],
     collections: ["beginner"],
+    element: "air",
     description:
-      "Compact lay-out with clear voice leading—ideal if you want Celtic colours without overtones fighting.",
+      "Compact layout with clear voice leading—open, breathable Celtic colours without overtones fighting.",
   },
   {
     id: "p5",
@@ -161,8 +170,9 @@ export const products: Product[] = [
     stockStatus: "in_stock",
     tags: ["bundle"],
     collections: ["bundles"],
+    element: "earth",
     description:
-      "Studio-tier instrument with road case and wooden stand—ready for travel and session work.",
+      "Studio-tier instrument with road case and wooden stand—grounded kitting for travel and session work.",
   },
   {
     id: "p6",
@@ -185,8 +195,9 @@ export const products: Product[] = [
     stockStatus: "in_stock",
     tags: ["accessory", "case"],
     collections: ["accessories"],
+    element: "earth",
     description:
-      "Rigid shell, padded interior, humidity-stable lining for checked and cabin routes.",
+      "Rigid shell, padded interior, humidity-stable lining—steadfast protection for checked and cabin routes.",
   },
   {
     id: "p9",
@@ -209,8 +220,9 @@ export const products: Product[] = [
     stockStatus: "in_stock",
     tags: ["extended", "rare"],
     collections: ["rare", "extended"],
+    element: "water",
     description:
-      "Wide chromatic layout in Pygmy colour—suited to modal improvisation and filmic textures.",
+      "Wide chromatic layout in Pygmy colour—fluid, sensitive voicing for modal improvisation and filmic textures.",
   },
   {
     id: "p10",
@@ -233,8 +245,9 @@ export const products: Product[] = [
     stockStatus: "preorder",
     tags: ["extended", "rare"],
     collections: ["rare", "extended"],
+    element: "air",
     description:
-      "F# Pygmy voicing across seventeen fields—warm fundamentals with controlled bloom.",
+      "F# Pygmy voicing across seventeen fields—clear, open fundamentals with controlled bloom and expressive range.",
   },
 ];
 

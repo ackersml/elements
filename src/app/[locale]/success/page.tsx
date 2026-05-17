@@ -1,5 +1,6 @@
 import { Link } from "@/i18n/navigation";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
 export const metadata: Metadata = {
   title: "Order confirmed",
@@ -12,21 +13,20 @@ type Props = {
 
 export default async function SuccessPage({ searchParams }: Props) {
   const { session_id } = await searchParams;
+  const t = await getTranslations("success");
 
   return (
     <div className="min-h-screen bg-gradient-warm">
       <main className="container-x max-w-lg py-16 text-center">
         <h1 className="font-display text-2xl font-medium text-foreground sm:text-3xl">
-          Thank you for your order
+          {t("title")}
         </h1>
+        <p className="mt-4 leading-relaxed text-muted-foreground">{t("line1")}</p>
+        <p className="mt-3 leading-relaxed text-foreground/90">{t("line2")}</p>
         {session_id && (
-          <p className="mt-2 text-muted-foreground">
-            Payment confirmed. A receipt is on the way to your inbox.
-          </p>
+          <p className="mt-6 text-sm text-muted-foreground">{t("receipt")}</p>
         )}
-        <p className="mt-4 leading-relaxed text-foreground">
-          We will email if we need scale confirmation or a revised build window.
-        </p>
+        <p className="mt-4 text-sm text-muted-foreground">{t("fulfillment")}</p>
         <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row sm:flex-wrap">
           {session_id && (
             <Link

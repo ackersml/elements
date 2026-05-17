@@ -16,6 +16,7 @@ import {
 } from "@/lib/products";
 import { shopCollectionHref } from "@/lib/shop-nav";
 import { cn } from "@/lib/utils";
+import { ProductElementLine } from "@/app/components/shop/ProductElementLine";
 import { SiteHeader } from "@/app/components/layout/SiteHeader";
 import { ProductPhoto } from "@/app/components/shop/ProductPhoto";
 import { useFadeUp } from "./useFadeUp";
@@ -217,27 +218,22 @@ export function ElementsHomeView() {
         <div className="relative container-x pb-20 pt-40 md:pb-32">
           <div className="max-w-3xl">
             <p className="eyebrow eyebrow-rule">{t("eyebrow")}</p>
-            <h1 className="mt-6 font-display text-[2.6rem] leading-[1.02] tracking-tight sm:text-5xl md:text-6xl lg:text-[5.25rem]">
+            <h1 className="mt-6 font-display text-[2.2rem] leading-[1.08] tracking-tight sm:text-4xl md:text-5xl lg:text-[3.5rem]">
               {t("titleLine1")}
-              <br />
-              <span className="bronze-text">{t("titleItalic")}</span>
             </h1>
             <p className="mt-7 max-w-xl text-base text-foreground/85 md:text-lg">{t("sub")}</p>
-            <p className="mt-4 max-w-lg text-sm italic text-muted-foreground md:text-base">
+            <p className="mt-4 max-w-lg smallcaps text-[color:var(--accent-c)]">
               {tm("heroKicker")}
             </p>
             <div className="mt-10 flex flex-wrap items-center gap-3">
               <Link href="/shop" className="btn-pill btn-primary">
-                {tm("ctaJourney")} <ArrowRight size={16} aria-hidden />
+                {t("ctaPrimary")} <ArrowRight size={16} aria-hidden />
               </Link>
               <Link href="/shop?collection=beginner" className="btn-pill btn-ghost">
-                {tm("ctaInStock")}
+                {t("ctaSecondary")}
               </Link>
             </div>
             <div className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
-              <Link href="/shop" className="link-arrow">
-                {t("ctaShop")} <ArrowRight size={14} aria-hidden />
-              </Link>
               <a href="#how-order" className="link-arrow">
                 {t("ctaLearn")} <ArrowRight size={14} aria-hidden />
               </a>
@@ -337,9 +333,14 @@ export function ElementsHomeView() {
       <section id="shop" aria-labelledby={`${id}-bh`} className="py-24 md:py-32">
         <div className="container-x">
           <SectionHeading
-            eyebrow={tm("beginnerEyebrow")}
-            title={<span id={`${id}-bh`}>Beginner handpans</span>}
+            eyebrow={tm("collectionEyebrow")}
+            title={<span id={`${id}-bh`}>{tm("collectionTitle")}</span>}
           />
+          <p className="-mt-8 mb-10 max-w-2xl text-foreground/85 md:-mt-10">
+            {tm("collectionBlurb")}
+          </p>
+          <p className="eyebrow mb-6">{tm("beginnerEyebrow")}</p>
+          <h3 className="mb-8 font-display text-2xl md:text-3xl">Beginner handpans</h3>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {beginners.map((p) => (
               <article key={p.id} className="fade-up">
@@ -357,6 +358,12 @@ export function ElementsHomeView() {
                         {p.title}
                       </p>
                       <p className="mt-0.5 text-xs text-muted-foreground">{p.scale}</p>
+                      {p.element ? (
+                        <ProductElementLine
+                          element={p.element}
+                          className="mt-2 text-[10px]"
+                        />
+                      ) : null}
                     </div>
                     <QuickBuyButton slug={p.slug} />
                   </div>
@@ -364,6 +371,28 @@ export function ElementsHomeView() {
               </article>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section aria-labelledby={`${id}-why`} className="py-16 md:py-20">
+        <div className="container-x">
+          <SectionHeading
+            eyebrow={tm("whyChooseEyebrow")}
+            title={<span id={`${id}-why`}>Why choose Elements</span>}
+            headingClassName="!mb-8"
+          />
+          <ul className="grid gap-4 sm:grid-cols-2">
+            {[tm("whyChoose1"), tm("whyChoose2"), tm("whyChoose3"), tm("whyChoose4")].map(
+              (line) => (
+                <li
+                  key={line}
+                  className="border-l-2 border-[color:var(--accent-c)] pl-4 text-foreground/90"
+                >
+                  {line}
+                </li>
+              )
+            )}
+          </ul>
         </div>
       </section>
 

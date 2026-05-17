@@ -1,6 +1,8 @@
 import { Link } from "@/i18n/navigation";
 import { getProducts, getProductsByCollection } from "@/lib/products";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+import { ProductElementLine } from "@/app/components/shop/ProductElementLine";
 import { ProductPhoto } from "@/app/components/shop/ProductPhoto";
 import { ClientPrice } from "./ShopPriceClient";
 
@@ -18,11 +20,12 @@ function collectionTitle(slug: string): string {
 
 export default async function ShopPage({ searchParams }: Props) {
   const { collection } = await searchParams;
+  const tm = await getTranslations("mag");
   const list = collection
     ? getProductsByCollection(collection)
     : getProducts();
 
-  const title = collection ? collectionTitle(collection) : "All instruments";
+  const title = collection ? collectionTitle(collection) : tm("collectionTitle");
 
   return (
     <>
@@ -32,9 +35,11 @@ export default async function ShopPage({ searchParams }: Props) {
           <h1 className="mt-3 font-display text-4xl leading-tight tracking-tight uppercase md:text-6xl">
             {title}
           </h1>
-          <p className="mt-4 max-w-xl text-muted-foreground">
-            {list.length} {list.length === 1 ? "instrument" : "instruments"}{" "}
-            available. Each piece allocated by hand.
+          <p className="mt-4 max-w-xl text-muted-foreground leading-relaxed">
+            {!collection ? tm("collectionBlurb") : null}
+            {collection
+              ? `${list.length} ${list.length === 1 ? "instrument" : "instruments"} available. Each piece allocated by hand.`
+              : null}
           </p>
         </div>
       </section>
@@ -66,6 +71,12 @@ export default async function ShopPage({ searchParams }: Props) {
                       <p className="mt-1 text-xs text-muted-foreground">
                         {p.scale} · {p.noteCount} notes
                       </p>
+                      {p.element ? (
+                        <ProductElementLine
+                          element={p.element}
+                          className="mt-2 text-[10px]"
+                        />
+                      ) : null}
                     </div>
                     <p className="font-display text-lg whitespace-nowrap">
                       <ClientPrice eurCents={p.priceCents} />
