@@ -210,7 +210,7 @@ export function ElementsHomeView() {
           width={1920}
           height={1080}
           priority
-          className="absolute inset-0 h-full w-full object-cover object-bottom"
+          className="absolute inset-0 h-full w-full object-cover object-[center_42%] md:object-[center_38%]"
         />
         <div className="absolute inset-0 hero-fade" aria-hidden />
         <div className="grain" aria-hidden />
@@ -218,11 +218,13 @@ export function ElementsHomeView() {
         <div className="relative container-x pb-20 pt-40 md:pb-32">
           <div className="max-w-3xl">
             <p className="eyebrow eyebrow-rule">{t("eyebrow")}</p>
-            <h1 className="mt-6 font-display text-[2.2rem] leading-[1.08] tracking-tight sm:text-4xl md:text-5xl lg:text-[3.5rem]">
+            <h1 className="mt-6 font-display text-[2.6rem] leading-[1.02] tracking-tight sm:text-5xl md:text-6xl lg:text-[5.25rem]">
               {t("titleLine1")}
+              <br />
+              <span className="bronze-text">{t("titleItalic")}</span>
             </h1>
             <p className="mt-7 max-w-xl text-base text-foreground/85 md:text-lg">{t("sub")}</p>
-            <p className="mt-4 max-w-lg smallcaps text-[color:var(--accent-c)]">
+            <p className="mt-4 max-w-lg text-sm italic text-muted-foreground md:text-base">
               {tm("heroKicker")}
             </p>
             <div className="mt-10 flex flex-wrap items-center gap-3">
