@@ -1,43 +1,40 @@
 import { Link } from "@/i18n/navigation";
 import { brandLockup } from "@/lib/brand/elements-brand";
 import { cn } from "@/lib/utils";
-import { ElementsWordmark } from "./ElementsWordmark";
 
-export function ElementsLogomark({ size = 36 }: { size?: number }) {
-  return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src={brandLockup.logomarkSrc}
-      alt=""
-      width={size}
-      height={size}
-      className="shrink-0 opacity-95"
-    />
-  );
-}
+const wordmarkText =
+  "font-display font-semibold uppercase tracking-[0.32em] text-foreground";
 
 type Props = {
   href?: string;
   className?: string;
   compact?: boolean;
-  /** hs-007 left card: Sound · Presence · Source under mark */
-  showTagline?: boolean;
 };
 
+/**
+ * Header lockup: Cinzel “E” + “LEMENTS” (no swirl image).
+ */
 export function ElementsLogoLink({
   href = "/",
   className,
-  showTagline = false,
+  compact = false,
 }: Props) {
+  const size = compact
+    ? "text-[0.95rem] md:text-[1.05rem]"
+    : "text-xl md:text-[1.35rem]";
+
   return (
     <Link
       href={href}
       className={cn(
-        "inline-flex outline-none transition-opacity hover:opacity-90",
+        "inline-flex items-baseline gap-0 outline-none transition-opacity hover:opacity-90",
         className
       )}
     >
-      <ElementsWordmark showTagline={showTagline} />
+      <span className={cn(wordmarkText, size)} aria-hidden>
+        E
+      </span>
+      <span className={cn(wordmarkText, size)}>LEMENTS</span>
       <span className="sr-only">{brandLockup.wordmark}</span>
     </Link>
   );

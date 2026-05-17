@@ -38,10 +38,7 @@ export function SiteHeader({ variant = "sticky" }: { variant?: SiteHeaderVariant
   return (
     <header className={shell}>
       <div className="container-x flex items-center justify-between py-4 md:py-6">
-        <ElementsLogoLink
-          showTagline
-          className="max-md:[&_p]:hidden text-foreground"
-        />
+        <ElementsLogoLink compact className="text-foreground" />
 
         <nav className="hidden items-center gap-8 text-sm lg:flex">
           <div className="group relative">
