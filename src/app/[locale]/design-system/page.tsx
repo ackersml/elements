@@ -1,4 +1,3 @@
-import Image from "next/image";
 import {
   brandColors,
   brandElements,
@@ -32,23 +31,7 @@ export default async function DesignSystemPage() {
       <div className="container-x max-w-4xl text-foreground">
         <h1 className="font-display text-4xl text-foreground">{t("title")}</h1>
         <p className="mt-2 text-muted-foreground">{t("intro")}</p>
-        <div className="mt-4 flex items-center gap-6">
-          <Image
-            src="/brand/elements-logo-light.png"
-            alt={`${brandLockup.wordmark} (light variant)`}
-            width={320}
-            height={80}
-            className="h-10 w-auto object-contain"
-          />
-          <Image
-            src="/brand/elements-logomark-light.png"
-            alt="Logomark (light variant)"
-            width={80}
-            height={80}
-            className="h-10 w-auto object-contain"
-          />
-        </div>
-        <p className="mt-3 smallcaps text-[color:var(--accent-c)]">
+        <p className="mt-2 smallcaps text-[color:var(--accent-c)]">
           {brandLockup.wordmark} · {brandLockup.subtitle}
         </p>
 

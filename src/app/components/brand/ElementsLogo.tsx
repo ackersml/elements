@@ -1,45 +1,41 @@
-import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { brandLockup } from "@/lib/brand/elements-brand";
 import { cn } from "@/lib/utils";
+
+const wordmarkText =
+  "font-display font-semibold uppercase tracking-[0.32em] text-foreground";
 
 type Props = {
   href?: string;
   className?: string;
   compact?: boolean;
-  /** "light" renders sandstone-colored logo (for dark backgrounds), "dark" renders pine-grove-colored (for light backgrounds). */
-  variant?: "light" | "dark";
 };
 
-const srcMap = {
-  light: "/brand/elements-logo-light.png",
-  dark: "/brand/elements-logo-dark.png",
-} as const;
-
+/**
+ * Header lockup: Cinzel “E” + “LEMENTS” (no swirl image).
+ */
 export function ElementsLogoLink({
   href = "/",
   className,
   compact = false,
-  variant = "light",
 }: Props) {
-  const h = compact ? "h-6 md:h-7" : "h-8 md:h-9";
+  const size = compact
+    ? "text-[0.95rem] md:text-[1.05rem]"
+    : "text-xl md:text-[1.35rem]";
 
   return (
     <Link
       href={href}
       className={cn(
-        "inline-flex items-center outline-none transition-opacity hover:opacity-90",
-        className,
+        "inline-flex items-baseline gap-0 outline-none transition-opacity hover:opacity-90",
+        className
       )}
     >
-      <Image
-        src={srcMap[variant]}
-        alt={brandLockup.wordmark}
-        width={480}
-        height={120}
-        priority
-        className={cn("w-auto object-contain", h)}
-      />
+      <span className={cn(wordmarkText, size)} aria-hidden>
+        E
+      </span>
+      <span className={cn(wordmarkText, size)}>LEMENTS</span>
+      <span className="sr-only">{brandLockup.wordmark}</span>
     </Link>
   );
 }

@@ -26,10 +26,7 @@ export const brandFonts = {
 export const brandLockup = {
   wordmark: "ELEMENTS",
   subtitle: "HANDPAN STORE",
-  logomarkSrc: "/brand/elements-logomark-light.png",
-  logoSrc: "/brand/elements-logo-light.png",
-  logoSrcDark: "/brand/elements-logo-dark.png",
-  logomarkSrcDark: "/brand/elements-logomark-dark.png",
+  logomarkSrc: "/brand/elements-logomark.svg",
 } as const;
 
 export const brandTaglines = {
