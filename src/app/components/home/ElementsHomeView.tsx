@@ -17,7 +17,8 @@ import {
 import { shopCollectionHref } from "@/lib/shop-nav";
 import { cn } from "@/lib/utils";
 import { ProductElementLine } from "@/app/components/shop/ProductElementLine";
-import { SiteHeader } from "@/app/components/layout/SiteHeader";
+import { ElementsLogoLink } from "@/app/components/brand/ElementsLogo";
+import { HomeHero } from "@/app/components/home/HomeHero";
 import { ProductPhoto } from "@/app/components/shop/ProductPhoto";
 import { useFadeUp } from "./useFadeUp";
 
@@ -94,7 +95,7 @@ function HomePageFooter() {
     <footer className="border-t border-border">
       <div className="container-x grid grid-cols-2 gap-10 py-14 text-sm md:grid-cols-4">
         <div className="col-span-2 md:col-span-1">
-          <p className="font-display text-lg tracking-[0.3em]">ELEMENTS</p>
+          <ElementsLogoLink href="/" variant="light" compact />
           <p className="mt-3 max-w-xs text-muted-foreground">
             {t("footerBrandLine")}
           </p>
@@ -152,7 +153,6 @@ function HomePageFooter() {
 
 export function ElementsHomeView() {
   useFadeUp();
-  const t = useTranslations("hero");
   const tm = useTranslations("mag");
   const tn = useTranslations("nav");
   const currency = useCartStore((s) => s.currency);
@@ -203,46 +203,7 @@ export function ElementsHomeView() {
     <div className="relative bg-background text-foreground">
       <div className="grain-fixed" aria-hidden />
 
-      <section className="relative flex min-h-[100svh] items-end overflow-hidden">
-        <Image
-          src="/images/handpan-lifestyle-field.png"
-          alt=""
-          width={1920}
-          height={1080}
-          priority
-          className="absolute inset-0 h-full w-full object-cover object-[center_42%] md:object-[center_38%]"
-        />
-        <div className="absolute inset-0 hero-fade" aria-hidden />
-        <div className="grain" aria-hidden />
-        <SiteHeader variant="overlay" />
-        <div className="relative container-x pb-20 pt-40 md:pb-32">
-          <div className="max-w-3xl">
-            <p className="eyebrow eyebrow-rule">{t("eyebrow")}</p>
-            <h1 className="mt-6 font-display text-[2.6rem] leading-[1.02] tracking-tight sm:text-5xl md:text-6xl lg:text-[5.25rem]">
-              {t("titleLine1")}
-              <br />
-              <span className="bronze-text">{t("titleItalic")}</span>
-            </h1>
-            <p className="mt-7 max-w-xl text-base text-foreground/85 md:text-lg">{t("sub")}</p>
-            <p className="mt-4 max-w-lg text-sm italic text-muted-foreground md:text-base">
-              {tm("heroKicker")}
-            </p>
-            <div className="mt-10 flex flex-wrap items-center gap-3">
-              <Link href="/shop" className="btn-pill btn-primary">
-                {t("ctaPrimary")} <ArrowRight size={16} aria-hidden />
-              </Link>
-              <Link href="/shop?collection=beginner" className="btn-pill btn-ghost">
-                {t("ctaSecondary")}
-              </Link>
-            </div>
-            <div className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
-              <a href="#how-order" className="link-arrow">
-                {t("ctaLearn")} <ArrowRight size={14} aria-hidden />
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HomeHero />
 
       <div className="border-y border-border bg-secondary/60">
         <div className="container-x flex flex-col items-start justify-between gap-2 py-4 sm:flex-row sm:items-center">
