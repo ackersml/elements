@@ -258,7 +258,7 @@ export function ElementsHomeView() {
       </div>
 
       <section className="relative overflow-hidden py-28 md:py-40" aria-labelledby={`${id}-mag-cat`}>
-        <SectionBackdrop src="/images/handpan-lifestyle-7.jpg" opacity={0.42} />
+        <SectionBackdrop src="/images/sound-healing-5.jpg" opacity={0.55} />
         <div className="relative container-x">
           <SectionHeading
             eyebrow={tm("categoriesEyebrow")}
@@ -557,7 +557,7 @@ export function ElementsHomeView() {
       </section>
 
       <section aria-labelledby={`${id}-cs`} className="relative overflow-hidden py-28 md:py-36">
-        <SectionBackdrop src="/images/sound-healing-5.jpg" opacity={0.4} />
+        <SectionBackdrop src="/images/handpan-lifestyle-7.jpg" opacity={0.4} />
         <div className="relative container-x">
           <SectionHeading
             eyebrow={tm("casesEyebrow")}
