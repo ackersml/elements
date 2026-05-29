@@ -53,64 +53,71 @@ export default async function ProductPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="container-x max-w-[1100px] py-16 md:py-24">
+      <div className="container-x py-16 md:py-24">
         <nav className="smallcaps text-muted-foreground" aria-label="Breadcrumb">
           <Link href="/shop" className="transition hover:text-foreground">
             Shop
           </Link>{" "}
           <span className="mx-2">/</span> <span>{product.title}</span>
         </nav>
-        <h1 className="mt-6 font-display text-4xl leading-tight tracking-tight md:text-5xl">
-          {product.title}
-        </h1>
-        <p className="mt-5 max-w-2xl leading-relaxed text-muted-foreground">
-          {product.description}
-        </p>
 
-        {product.element ? (
-          <ProductElementLine
-            element={product.element}
-            showKeywords
-            className="mt-4"
-          />
-        ) : null}
-
-        <dl className="mt-6 flex flex-wrap gap-x-8 gap-y-2 text-sm">
-          <div>
-            <dt className="smallcaps inline text-muted-foreground">Scale:</dt>{" "}
-            <dd className="inline">{product.scale}</dd>
+        <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
+          {/* Image gallery (left column on desktop) */}
+          <div className="lg:sticky lg:top-24 lg:self-start">
+            <ProductModelSection product={product} />
           </div>
-          <div>
-            <dt className="smallcaps inline text-muted-foreground">Notes:</dt>{" "}
-            <dd className="inline">{product.noteCount}</dd>
-          </div>
-          <div>
-            <dt className="smallcaps inline text-muted-foreground">Maker:</dt>{" "}
-            <dd className="inline">{product.maker}</dd>
-          </div>
-          <div>
-            <dt className="smallcaps inline text-muted-foreground">
-              Weight / dimensions:
-            </dt>{" "}
-            <dd className="inline">
-              {product.weightKg} kg · {product.dimensionsCm}
-            </dd>
-          </div>
-        </dl>
 
-        <p className="mt-8 font-display text-3xl">
-          <ClientPrice eurCents={product.priceCents} />
-        </p>
+          {/* Details (right column on desktop) */}
+          <div className="max-w-xl">
+            <h1 className="font-display text-3xl leading-tight tracking-tight md:text-4xl lg:text-5xl">
+              {product.title}
+            </h1>
+            <p className="mt-5 leading-relaxed text-muted-foreground">
+              {product.description}
+            </p>
 
-        <div className="mt-12">
-          <ProductModelSection product={product} />
-        </div>
+            {product.element ? (
+              <ProductElementLine
+                element={product.element}
+                showKeywords
+                className="mt-5"
+              />
+            ) : null}
 
-        <div className="mt-12 flex flex-wrap items-center gap-4">
-          <ProductBuyActions slug={product.slug} />
-          <Link href="/shop" className="link-arrow">
-            Back to shop
-          </Link>
+            <dl className="mt-6 grid grid-cols-1 gap-x-8 gap-y-3 text-sm sm:grid-cols-2">
+              <div>
+                <dt className="smallcaps inline text-muted-foreground">Scale:</dt>{" "}
+                <dd className="inline">{product.scale}</dd>
+              </div>
+              <div>
+                <dt className="smallcaps inline text-muted-foreground">Notes:</dt>{" "}
+                <dd className="inline">{product.noteCount}</dd>
+              </div>
+              <div>
+                <dt className="smallcaps inline text-muted-foreground">Maker:</dt>{" "}
+                <dd className="inline">{product.maker}</dd>
+              </div>
+              <div>
+                <dt className="smallcaps inline text-muted-foreground">
+                  Weight / dimensions:
+                </dt>{" "}
+                <dd className="inline">
+                  {product.weightKg} kg · {product.dimensionsCm}
+                </dd>
+              </div>
+            </dl>
+
+            <p className="mt-8 font-display text-3xl md:text-4xl">
+              <ClientPrice eurCents={product.priceCents} />
+            </p>
+
+            <div className="mt-10 flex flex-wrap items-center gap-4">
+              <ProductBuyActions slug={product.slug} />
+              <Link href="/shop" className="link-arrow">
+                Back to shop
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </>
