@@ -258,7 +258,7 @@ export function ElementsHomeView() {
       </div>
 
       <section className="relative overflow-hidden py-28 md:py-40" aria-labelledby={`${id}-mag-cat`}>
-        <SectionBackdrop src="/images/sound-healing-5.jpg" opacity={0.55} />
+        <SectionBackdrop src="/images/handpan-lifestyle-4.jpg" opacity={0.5} />
         <div className="relative container-x">
           <SectionHeading
             eyebrow={tm("categoriesEyebrow")}
