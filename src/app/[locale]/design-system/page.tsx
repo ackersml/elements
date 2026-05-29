@@ -15,12 +15,12 @@ export const metadata: Metadata = {
 };
 
 const swatches = [
-  { name: "Pine Grove", hex: brandColors.pineGrove },
-  { name: "Forest Moss", hex: brandColors.forestMoss },
-  { name: "Cedar Bark", hex: brandColors.cedarBark },
-  { name: "Sandstone", hex: brandColors.sandstone },
-  { name: "Deep Soil", hex: brandColors.deepSoil },
-  { name: "Moss mid", hex: brandColors.mossMid },
+  { name: "Background", hex: brandColors.background },
+  { name: "Card", hex: brandColors.card },
+  { name: "Foreground", hex: brandColors.foreground },
+  { name: "Accent (gold)", hex: brandColors.accent },
+  { name: "Accent light", hex: brandColors.accentLight },
+  { name: "Deep soil", hex: brandColors.deepSoil },
 ] as const;
 
 export default async function DesignSystemPage() {
@@ -59,7 +59,7 @@ export default async function DesignSystemPage() {
           <h2 className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
             {t("type")}
           </h2>
-          <p className="font-display text-5xl tracking-tight">Display · Cinzel</p>
+          <p className="font-display text-5xl tracking-tight">Display · Familjen Grotesk</p>
           <p className="max-w-prose font-body text-base leading-relaxed text-muted-foreground">
             Body · DM Sans — {brandVision}
           </p>
