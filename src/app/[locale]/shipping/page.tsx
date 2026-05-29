@@ -15,7 +15,11 @@ export default async function ShippingPage({ params }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "pages" });
   return (
-    <InfoPage title={t("shipping.title")}>
+    <InfoPage
+      title={t("shipping.title")}
+      eyebrow="Insured worldwide freight"
+      heroImage="/images/handpan-lifestyle-9.jpg"
+    >
       <p>{t("shipping.p1")}</p>
       <p>{t("shipping.p2")}</p>
       <p>{t("shipping.p3")}</p>

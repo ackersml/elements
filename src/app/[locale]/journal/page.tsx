@@ -15,7 +15,11 @@ export default async function JournalPage({ params }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "pages" });
   return (
-    <InfoPage title={t("journal.title")}>
+    <InfoPage
+      title={t("journal.title")}
+      eyebrow="Notes from the workshop"
+      heroImage="/images/handpan-lifestyle-3.jpg"
+    >
       <p>{t("journal.p1")}</p>
       <p>{t("journal.p2")}</p>
       <p>{t("journal.p3")}</p>

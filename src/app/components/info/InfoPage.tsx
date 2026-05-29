@@ -1,27 +1,77 @@
+import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import type { ReactNode } from "react";
+import { SectionBackdrop } from "@/app/components/layout/SectionBackdrop";
+import { SiteHeader } from "@/app/components/layout/SiteHeader";
 
+type Props = {
+  title: string;
+  eyebrow?: string;
+  /** Image used both as the hero banner background and the faded backdrop on the content section. */
+  heroImage?: string;
+  /** Object position for the hero image, e.g. "center", "center 30%". Default "center". */
+  heroPosition?: string;
+  children: ReactNode;
+};
+
+/**
+ * Standard layout for all secondary pages (journal, contact, showrooms, shipping, returns, privacy).
+ * Matches the homepage aesthetic: full-bleed hero with faded image, then a content section
+ * with a subtle faded backdrop. Consistent across the entire site.
+ */
 export function InfoPage({
   title,
+  eyebrow = "Elements",
+  heroImage = "/images/handpan-lifestyle-2.jpg",
+  heroPosition = "center",
   children,
-}: {
-  title: string;
-  children: ReactNode;
-}) {
+}: Props) {
   return (
-    <main className="container-x max-w-3xl py-20 md:py-28">
-      <Link
-        href="/"
-        className="text-xs uppercase tracking-[0.2em] text-muted-foreground transition hover:text-foreground"
-      >
-        Home
-      </Link>
-      <h1 className="mt-8 font-display text-4xl leading-tight tracking-tight text-foreground md:text-5xl">
-        {title}
-      </h1>
-      <div className="mt-10 space-y-6 text-base leading-relaxed text-foreground/80 md:text-lg">
-        {children}
-      </div>
-    </main>
+    <>
+      {/* Hero banner */}
+      <section className="relative flex min-h-[55vh] items-end overflow-hidden md:min-h-[60vh]">
+        <Image
+          src={heroImage}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          style={{ objectPosition: heroPosition }}
+          className="object-cover"
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(13,13,13,0.78) 0%, rgba(13,13,13,0.55) 40%, rgba(13,13,13,0.30) 80%, rgba(13,13,13,0.55) 100%), linear-gradient(180deg, rgba(13,13,13,0.30) 0%, rgba(13,13,13,0.05) 30%, rgba(13,13,13,0.92) 100%)",
+          }}
+          aria-hidden
+        />
+        <div className="grain" aria-hidden />
+        <SiteHeader variant="overlay" />
+        <div className="relative container-x pb-16 pt-36 md:pb-24 md:pt-44">
+          <p className="eyebrow eyebrow-rule">{eyebrow}</p>
+          <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.05] tracking-tight md:text-6xl lg:text-[5rem]">
+            {title}
+          </h1>
+        </div>
+      </section>
+
+      {/* Content section with subtle faded backdrop */}
+      <section className="relative overflow-hidden py-20 md:py-28">
+        <SectionBackdrop src={heroImage} opacity={0.3} />
+        <div className="relative container-x max-w-3xl">
+          <Link
+            href="/"
+            className="text-xs uppercase tracking-[0.2em] text-muted-foreground transition hover:text-[color:var(--accent-c)]"
+          >
+            ← Home
+          </Link>
+          <div className="mt-10 space-y-6 text-base leading-relaxed text-foreground/85 md:text-lg">
+            {children}
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

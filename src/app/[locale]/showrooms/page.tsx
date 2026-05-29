@@ -15,7 +15,11 @@ export default async function ShowroomsPage({ params }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "pages" });
   return (
-    <InfoPage title={t("showrooms.title")}>
+    <InfoPage
+      title={t("showrooms.title")}
+      eyebrow="Visit by appointment - Bali"
+      heroImage="/images/handpan-lifestyle-2.jpg"
+    >
       <p>{t("showrooms.p1")}</p>
       <p>{t("showrooms.p2")}</p>
       <p>{t("showrooms.p3")}</p>

@@ -15,7 +15,11 @@ export default async function PrivacyPage({ params }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "pages" });
   return (
-    <InfoPage title={t("privacy.title")}>
+    <InfoPage
+      title={t("privacy.title")}
+      eyebrow="How we handle your data"
+      heroImage="/images/handpan-lifestyle-11.jpg"
+    >
       <p>{t("privacy.p1")}</p>
       <p>{t("privacy.p2")}</p>
       <p>{t("privacy.p3")}</p>

@@ -15,7 +15,11 @@ export default async function ReturnsPage({ params }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "pages" });
   return (
-    <InfoPage title={t("returns.title")}>
+    <InfoPage
+      title={t("returns.title")}
+      eyebrow="30-day return window"
+      heroImage="/images/handpan-lifestyle-10.jpg"
+    >
       <p>{t("returns.p1")}</p>
       <p>{t("returns.p2")}</p>
       <p>{t("returns.p3")}</p>

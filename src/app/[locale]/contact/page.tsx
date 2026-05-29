@@ -15,7 +15,11 @@ export default async function ContactPage({ params }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "pages" });
   return (
-    <InfoPage title={t("contact.title")}>
+    <InfoPage
+      title={t("contact.title")}
+      eyebrow="Talk to us directly"
+      heroImage="/images/sound-healing-13.jpg"
+    >
       <p>{t("contact.p1")}</p>
       <p>{t("contact.p2")}</p>
       <p>{t("contact.p3")}</p>

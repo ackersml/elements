@@ -1,9 +1,11 @@
+import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { getProducts, getProductsByCollection } from "@/lib/products";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { ProductElementLine } from "@/app/components/shop/ProductElementLine";
 import { ProductPhoto } from "@/app/components/shop/ProductPhoto";
+import { SectionBackdrop } from "@/app/components/layout/SectionBackdrop";
 import { ClientPrice } from "./ShopPriceClient";
 
 export const metadata: Metadata = {
@@ -29,13 +31,30 @@ export default async function ShopPage({ searchParams }: Props) {
 
   return (
     <>
-      <section className="border-b border-border py-16 md:py-24">
-        <div className="container-x">
-          <p className="smallcaps text-muted-foreground">Shop</p>
-          <h1 className="mt-3 font-display text-4xl leading-tight tracking-tight uppercase md:text-6xl">
+      <section className="relative flex min-h-[55vh] items-end overflow-hidden md:min-h-[60vh]">
+        <Image
+          src="/images/handpan-lifestyle-4.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(13,13,13,0.78) 0%, rgba(13,13,13,0.55) 40%, rgba(13,13,13,0.30) 80%, rgba(13,13,13,0.55) 100%), linear-gradient(180deg, rgba(13,13,13,0.30) 0%, rgba(13,13,13,0.05) 30%, rgba(13,13,13,0.92) 100%)",
+          }}
+          aria-hidden
+        />
+        <div className="grain" aria-hidden />
+        <div className="relative container-x pb-16 pt-36 md:pb-24 md:pt-44">
+          <p className="eyebrow eyebrow-rule">Shop</p>
+          <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.05] tracking-tight md:text-6xl lg:text-[5rem]">
             {title}
           </h1>
-          <p className="mt-4 max-w-xl text-muted-foreground leading-relaxed">
+          <p className="mt-6 max-w-xl text-foreground/80 leading-relaxed md:text-lg">
             {!collection ? tm("collectionBlurb") : null}
             {collection
               ? `${list.length} ${list.length === 1 ? "instrument" : "instruments"} available. Each piece allocated by hand.`
@@ -43,8 +62,9 @@ export default async function ShopPage({ searchParams }: Props) {
           </p>
         </div>
       </section>
-      <section className="border-t border-border py-16 md:py-20">
-        <div className="container-x">
+      <section className="relative overflow-hidden py-20 md:py-28">
+        <SectionBackdrop src="/images/handpan-lifestyle-7.jpg" opacity={0.25} />
+        <div className="relative container-x">
           {list.length === 0 ? (
             <p className="text-muted-foreground">
               Nothing here yet.{" "}

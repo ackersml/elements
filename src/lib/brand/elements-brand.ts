@@ -4,22 +4,20 @@
  */
 
 export const brandColors = {
-  forestMoss: "#3E4A3C",
-  cedarBark: "#522E17",
-  sandstone: "#E8DECF",
-  deepSoil: "#31251C",
-  pineGrove: "#2F3A2E",
-  /** Palette steps from kit */
-  mossMid: "#656e63",
-  mossLight: "#8b928a",
-  mossPale: "#b2b7b1",
-  sandstoneMid: "#ede5d9",
-  sandstoneLight: "#f1ebe2",
-  sandstonePale: "#f6f2ec",
+  background: "#0d0d0d",
+  card: "#1a1a1a",
+  foreground: "#f0f0f0",
+  accent: "#c99e59",
+  deepSoil: "#080808",
+  mossMid: "#666666",
+  mossLight: "#888888",
+  mossPale: "#aaaaaa",
+  accentLight: "#dbb46a",
+  accentPale: "#e8c97a",
 } as const;
 
 export const brandFonts = {
-  display: '"Cinzel", ui-serif, Georgia, serif',
+  display: '"Familjen Grotesk", ui-sans-serif, system-ui, sans-serif',
   body: '"DM Sans", ui-sans-serif, system-ui, sans-serif',
 } as const;
 

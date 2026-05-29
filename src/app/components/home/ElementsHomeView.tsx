@@ -19,6 +19,7 @@ import { cn } from "@/lib/utils";
 import { ProductElementLine } from "@/app/components/shop/ProductElementLine";
 import { SiteHeader } from "@/app/components/layout/SiteHeader";
 import { ProductPhoto } from "@/app/components/shop/ProductPhoto";
+import { SectionBackdrop } from "@/app/components/layout/SectionBackdrop";
 import { useFadeUp } from "./useFadeUp";
 
 function SectionHeading({
@@ -56,7 +57,7 @@ function SectionHeading({
           {eyebrow}
         </p>
       )}
-      <h2 className="mt-4 font-display text-3xl leading-[1.05] tracking-tight md:text-5xl">
+      <h2 className="mt-4 font-display text-3xl font-semibold leading-[1.05] tracking-tight md:text-5xl">
         {title}
       </h2>
     </div>
@@ -203,39 +204,39 @@ export function ElementsHomeView() {
     <div className="relative bg-background text-foreground">
       <div className="grain-fixed" aria-hidden />
 
-      <section className="relative flex min-h-[100svh] items-end overflow-hidden">
+      <section className="relative flex min-h-[100svh] items-end overflow-hidden md:min-h-[110vh]">
         <Image
-          src="/images/handpan-lifestyle-field.png"
+          src="/images/handpan-lifestyle-13.jpg"
           alt=""
-          width={1920}
-          height={1080}
+          fill
           priority
-          className="absolute inset-0 h-full w-full object-cover object-[center_42%] md:object-[center_38%]"
+          sizes="100vw"
+          className="object-cover object-center"
         />
         <div className="absolute inset-0 hero-fade" aria-hidden />
         <div className="grain" aria-hidden />
         <SiteHeader variant="overlay" />
-        <div className="relative container-x pb-20 pt-40 md:pb-32">
+        <div className="relative container-x pb-28 pt-44 md:pb-40 md:pt-52">
           <div className="max-w-3xl">
             <p className="eyebrow eyebrow-rule">{t("eyebrow")}</p>
-            <h1 className="mt-6 font-display text-[2.6rem] leading-[1.02] tracking-tight sm:text-5xl md:text-6xl lg:text-[5.25rem]">
+            <h1 className="mt-6 font-display text-[2.8rem] font-semibold leading-[1.0] tracking-tight sm:text-5xl md:text-6xl lg:text-[6rem]">
               {t("titleLine1")}
               <br />
               <span className="bronze-text">{t("titleItalic")}</span>
             </h1>
-            <p className="mt-7 max-w-xl text-base text-foreground/85 md:text-lg">{t("sub")}</p>
-            <p className="mt-4 max-w-lg text-sm italic text-muted-foreground md:text-base">
+            <p className="mt-8 max-w-xl text-base text-foreground/80 md:text-lg">{t("sub")}</p>
+            <p className="mt-3 max-w-lg text-sm italic text-muted-foreground md:text-base">
               {tm("heroKicker")}
             </p>
-            <div className="mt-10 flex flex-wrap items-center gap-3">
-              <Link href="/shop" className="btn-pill btn-primary">
+            <div className="mt-10 flex flex-wrap items-center gap-4">
+              <Link href="/shop" className="btn-pill btn-primary font-semibold tracking-wide">
                 {t("ctaPrimary")} <ArrowRight size={16} aria-hidden />
               </Link>
               <Link href="/shop?collection=beginner" className="btn-pill btn-ghost">
                 {t("ctaSecondary")}
               </Link>
             </div>
-            <div className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
+            <div className="mt-7 flex flex-wrap gap-x-8 gap-y-3">
               <a href="#how-order" className="link-arrow">
                 {t("ctaLearn")} <ArrowRight size={14} aria-hidden />
               </a>
@@ -244,19 +245,19 @@ export function ElementsHomeView() {
         </div>
       </section>
 
-      <div className="border-y border-border bg-secondary/60">
+      <div className="border-y border-border bg-[#1a1a1a]">
         <div className="container-x flex flex-col items-start justify-between gap-2 py-4 sm:flex-row sm:items-center">
           <p className="text-sm text-muted-foreground">
             <span className="text-foreground">{tm("stripLabel")}.</span>
             &nbsp;{tm("stripDetail")}
           </p>
-          <Link href="/shop?collection=beginner" className="link-arrow">
+          <Link href="/shop?collection=beginner" className="link-arrow !text-[color:var(--accent-c)]">
             {tm("stripCta")} <ArrowRight size={14} aria-hidden />
           </Link>
         </div>
       </div>
 
-      <section className="py-24 md:py-32" aria-labelledby={`${id}-mag-cat`}>
+      <section className="py-28 md:py-40" aria-labelledby={`${id}-mag-cat`}>
         <div className="container-x">
           <SectionHeading
             eyebrow={tm("categoriesEyebrow")}
@@ -267,9 +268,9 @@ export function ElementsHomeView() {
               <Link
                 key={tile.key}
                 href={tile.href}
-                className="fade-up group relative block overflow-hidden rounded-2xl border border-border bg-transparent"
+                className="fade-up group relative block overflow-hidden rounded-lg border border-border bg-transparent"
               >
-                <div className="relative aspect-[3/4] overflow-hidden lg:aspect-[4/5]">
+                <div className="relative aspect-[3/4] overflow-hidden">
                   <ProductPhoto
                     src={tile.image}
                     alt=""
@@ -277,15 +278,15 @@ export function ElementsHomeView() {
                     variant="tile"
                     sizes="(max-width: 640px) 50vw, 25vw"
                     frameClassName="!absolute !inset-0 !h-full !w-full !rounded-none !border-0 !aspect-auto"
-                    className="transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                    className="transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                   />
                 </div>
                 <div
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent"
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0d0d0d]/95 via-[#0d0d0d]/30 to-transparent"
                   aria-hidden
                 />
                 <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
-                  <h3 className="font-display text-lg md:text-2xl">{tile.title}</h3>
+                  <h3 className="font-display text-lg font-semibold md:text-2xl">{tile.title}</h3>
                   <span className="smallcaps mt-2 inline-flex items-center gap-2 text-[color:var(--accent-c)]">
                     {tm("seeMore")} <ArrowRight size={12} aria-hidden />
                   </span>
@@ -298,7 +299,7 @@ export function ElementsHomeView() {
 
       <section
         aria-labelledby={`${id}-fys`}
-        className="border-y border-border bg-card/40 py-24 md:py-32"
+        className="border-y border-border bg-[#111111] py-28 md:py-36"
       >
         <div className="container-x">
           <SectionHeading
@@ -332,7 +333,7 @@ export function ElementsHomeView() {
         </div>
       </section>
 
-      <section id="shop" aria-labelledby={`${id}-bh`} className="py-24 md:py-32">
+      <section id="shop" aria-labelledby={`${id}-bh`} className="py-28 md:py-36">
         <div className="container-x">
           <SectionHeading
             eyebrow={tm("collectionEyebrow")}
@@ -376,19 +377,19 @@ export function ElementsHomeView() {
         </div>
       </section>
 
-      <section aria-labelledby={`${id}-why`} className="py-16 md:py-20">
+      <section aria-labelledby={`${id}-why`} className="bg-[#111111] py-20 md:py-28">
         <div className="container-x">
           <SectionHeading
             eyebrow={tm("whyChooseEyebrow")}
             title={<span id={`${id}-why`}>Why choose Elements</span>}
             headingClassName="!mb-8"
           />
-          <ul className="grid gap-4 sm:grid-cols-2">
+          <ul className="grid gap-5 sm:grid-cols-2">
             {[tm("whyChoose1"), tm("whyChoose2"), tm("whyChoose3"), tm("whyChoose4")].map(
               (line) => (
                 <li
                   key={line}
-                  className="border-l-2 border-[color:var(--accent-c)] pl-4 text-foreground/90"
+                  className="border-l-2 border-[color:var(--accent-c)] py-1 pl-5 text-foreground/90"
                 >
                   {line}
                 </li>
@@ -398,7 +399,7 @@ export function ElementsHomeView() {
         </div>
       </section>
 
-      <section aria-label="Trust" className="border-y border-border bg-secondary/60 py-12 md:py-16">
+      <section aria-label="Trust" className="border-y border-border bg-[#1a1a1a] py-14 md:py-20">
         <div className="container-x grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {[
             "30-day return window",
@@ -414,13 +415,14 @@ export function ElementsHomeView() {
         </div>
       </section>
 
-      <section aria-labelledby={`${id}-warranty`} className="py-24 md:py-32">
-        <div className="container-x mx-auto max-w-2xl text-center">
+      <section aria-labelledby={`${id}-warranty`} className="relative overflow-hidden py-32 md:py-44">
+        <SectionBackdrop src="/images/sound-healing-13.jpg" opacity={0.55} />
+        <div className="relative container-x mx-auto max-w-2xl text-center">
           <p className="eyebrow eyebrow-rule !text-[color:var(--accent-c)]">{tm("warrantyEyebrow")}</p>
-          <h2 id={`${id}-warranty`} className="mt-5 font-display text-3xl leading-tight md:text-5xl">
+          <h2 id={`${id}-warranty`} className="mt-5 font-display text-3xl font-semibold leading-tight md:text-5xl">
             {tm("warrantyTitle")}
           </h2>
-          <p className="mt-6 text-foreground/80">{tm("warrantyBody")}</p>
+          <p className="mt-6 text-foreground/85">{tm("warrantyBody")}</p>
           <div className="mt-9">
             <a href="#how-order" className="btn-pill btn-primary">
               {tm("warrantyCta")} <ArrowRight size={16} aria-hidden />
@@ -430,8 +432,9 @@ export function ElementsHomeView() {
       </section>
 
       {instrumentMonth && (
-        <section aria-labelledby={`${id}-iotm`} className="border-y border-border bg-card/40 py-24 md:py-32">
-          <div className="container-x grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
+        <section aria-labelledby={`${id}-iotm`} className="relative overflow-hidden border-y border-border py-28 md:py-36">
+          <SectionBackdrop src="/images/handpan-lifestyle-5.jpg" opacity={0.4} />
+          <div className="relative container-x grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
             <ProductPhoto
               src={instrumentMonth.heroImageUrl}
               alt={instrumentMonth.title}
@@ -458,20 +461,20 @@ export function ElementsHomeView() {
         </section>
       )}
 
-      <section aria-labelledby={`${id}-voices`} className="py-10 md:py-14">
+      <section aria-labelledby={`${id}-voices`} className="py-20 md:py-28">
         <div className="container-x">
           <p id={`${id}-voices`} className="smallcaps text-muted-foreground">
             Customer voices · aggregate 4.9 / 5
           </p>
-          <div className="mt-6 grid grid-cols-1 items-end gap-8 lg:grid-cols-12">
+          <div className="mt-8 grid grid-cols-1 items-end gap-10 lg:grid-cols-12">
             <blockquote className="fade-up lg:col-span-7">
-              <p className="font-display text-2xl leading-snug md:text-4xl">
-                “Finally a buying path that respects how fragile these decisions feel.”
+              <p className="font-display text-3xl font-semibold leading-snug md:text-5xl">
+                "Finally a buying path that respects how fragile these decisions feel."
               </p>
             </blockquote>
             <blockquote className="fade-up lg:col-span-5">
-              <p className="text-base italic text-muted-foreground md:text-lg">
-                “Shipping updates matched what happened at the carrier.”
+              <p className="text-base italic text-muted-foreground md:text-xl">
+                "Shipping updates matched what happened at the carrier."
               </p>
             </blockquote>
           </div>
@@ -492,7 +495,7 @@ export function ElementsHomeView() {
         </div>
       </section>
 
-      <section aria-labelledby={`${id}-rar`} className="py-10 md:py-14">
+      <section aria-labelledby={`${id}-rar`} className="py-20 md:py-28">
         <div className="container-x">
           <SectionHeading
             eyebrow={tm("raritiesEyebrow")}
@@ -523,8 +526,9 @@ export function ElementsHomeView() {
         </div>
       </section>
 
-      <section aria-labelledby={`${id}-bd`} className="border-y border-border bg-card/40 py-24 md:py-32">
-        <div className="container-x">
+      <section aria-labelledby={`${id}-bd`} className="relative overflow-hidden border-y border-border py-28 md:py-36">
+        <SectionBackdrop src="/images/sound-healing-3.jpg" opacity={0.42} />
+        <div className="relative container-x">
           <SectionHeading
             eyebrow={tm("bundlesEyebrow")}
             title={<span id={`${id}-bd`}>Bundle offers</span>}
@@ -533,7 +537,7 @@ export function ElementsHomeView() {
             {bundles.map((b) => (
               <div
                 key={b.id}
-                className="fade-up rounded-2xl border border-border bg-background/40 p-8 md:p-10"
+                className="fade-up rounded-lg border border-[color:var(--accent-c)]/20 bg-[#1a1a1a] p-8 md:p-10"
               >
                 <h3 className="font-display text-2xl md:text-3xl">{b.title}</h3>
                 <p className="mt-4 text-foreground/80">{b.description}</p>
@@ -546,7 +550,7 @@ export function ElementsHomeView() {
         </div>
       </section>
 
-      <section aria-labelledby={`${id}-cs`} className="py-24 md:py-32">
+      <section aria-labelledby={`${id}-cs`} className="py-28 md:py-36">
         <div className="container-x">
           <SectionHeading
             eyebrow={tm("casesEyebrow")}
@@ -588,9 +592,10 @@ export function ElementsHomeView() {
         </div>
       </section>
 
-      <section aria-labelledby={`${id}-jd`} className="py-24 md:py-32">
-        <div className="container-x">
-          <div className="fade-up rounded-2xl border border-[color:var(--accent-c)]/30 bg-secondary/40 p-8 md:p-14">
+      <section aria-labelledby={`${id}-jd`} className="relative overflow-hidden py-28 md:py-36">
+        <SectionBackdrop src="/images/handpan-lifestyle-12.jpg" opacity={0.45} />
+        <div className="relative container-x">
+          <div className="fade-up rounded-lg border border-[color:var(--accent-c)]/25 bg-[#1a1a1a]/85 p-8 backdrop-blur-md md:p-14">
             <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-12">
               <div className="lg:col-span-6">
                 <p className="eyebrow eyebrow-rule">{tm("newsletterEyebrowAlt")}</p>
@@ -630,8 +635,9 @@ export function ElementsHomeView() {
         </div>
       </section>
 
-      <section id="how-order" aria-labelledby={`${id}-bg`} className="border-y border-border bg-card/40 py-24 md:py-32">
-        <div className="container-x grid grid-cols-1 gap-10 lg:grid-cols-12">
+      <section id="how-order" aria-labelledby={`${id}-bg`} className="relative overflow-hidden border-y border-border py-28 md:py-36">
+        <SectionBackdrop src="/images/handpan-lifestyle-14.jpg" opacity={0.4} />
+        <div className="relative container-x grid grid-cols-1 gap-10 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <SectionHeading title={<span id={`${id}-bg`}>Buying guide</span>} eyebrow="No rush tactics" />
           </div>
@@ -651,8 +657,9 @@ export function ElementsHomeView() {
         </div>
       </section>
 
-      <section aria-labelledby={`${id}-sh`} className="border-y border-border bg-card/40 py-24 md:py-32">
-        <div className="container-x mx-auto max-w-2xl text-center">
+      <section aria-labelledby={`${id}-sh`} className="relative overflow-hidden border-y border-border py-32 md:py-44">
+        <SectionBackdrop src="/images/sound-healing-2.jpg" opacity={0.55} />
+        <div className="relative container-x mx-auto max-w-2xl text-center">
           <p className="eyebrow eyebrow-rule">{tm("showroomsHomeEyebrow")}</p>
           <h2 id={`${id}-sh`} className="mt-5 font-display text-3xl leading-tight md:text-5xl">
             Showrooms
