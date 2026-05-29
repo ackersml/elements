@@ -57,7 +57,7 @@ function SectionHeading({
           {eyebrow}
         </p>
       )}
-      <h2 className="mt-4 font-display text-3xl font-semibold leading-[1.05] tracking-tight md:text-5xl">
+      <h2 className="mt-4 font-display text-3xl leading-[1.05] tracking-tight md:text-5xl">
         {title}
       </h2>
     </div>
@@ -219,7 +219,7 @@ export function ElementsHomeView() {
         <div className="relative container-x pb-28 pt-44 md:pb-40 md:pt-52">
           <div className="max-w-3xl">
             <p className="eyebrow eyebrow-rule">{t("eyebrow")}</p>
-            <h1 className="mt-6 font-display text-[2.8rem] font-semibold leading-[1.0] tracking-tight sm:text-5xl md:text-6xl lg:text-[6rem]">
+            <h1 className="mt-6 font-display text-4xl leading-[1.05] tracking-tight sm:text-5xl md:text-6xl lg:text-[4.25rem]">
               {t("titleLine1")}
               <br />
               <span className="bronze-text">{t("titleItalic")}</span>
@@ -287,7 +287,7 @@ export function ElementsHomeView() {
                   aria-hidden
                 />
                 <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
-                  <h3 className="font-display text-lg font-semibold md:text-2xl">{tile.title}</h3>
+                  <h3 className="font-display text-lg md:text-2xl">{tile.title}</h3>
                   <span className="smallcaps mt-2 inline-flex items-center gap-2 text-[color:var(--accent-c)]">
                     {tm("seeMore")} <ArrowRight size={12} aria-hidden />
                   </span>
@@ -423,7 +423,7 @@ export function ElementsHomeView() {
         <SectionBackdrop src="/images/sound-healing-13.jpg" opacity={0.55} />
         <div className="relative container-x mx-auto max-w-2xl text-center">
           <p className="eyebrow eyebrow-rule !text-[color:var(--accent-c)]">{tm("warrantyEyebrow")}</p>
-          <h2 id={`${id}-warranty`} className="mt-5 font-display text-3xl font-semibold leading-tight md:text-5xl">
+          <h2 id={`${id}-warranty`} className="mt-5 font-display text-3xl leading-tight md:text-5xl">
             {tm("warrantyTitle")}
           </h2>
           <p className="mt-6 text-foreground/85">{tm("warrantyBody")}</p>
@@ -473,7 +473,7 @@ export function ElementsHomeView() {
           </p>
           <div className="mt-8 grid grid-cols-1 items-end gap-10 lg:grid-cols-12">
             <blockquote className="fade-up lg:col-span-7">
-              <p className="font-display text-3xl font-semibold leading-snug md:text-5xl">
+              <p className="font-display text-2xl italic leading-snug md:text-4xl">
                 "Finally a buying path that respects how fragile these decisions feel."
               </p>
             </blockquote>

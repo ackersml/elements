@@ -51,7 +51,7 @@ export default async function ShopPage({ searchParams }: Props) {
         <div className="grain" aria-hidden />
         <div className="relative container-x pb-16 pt-36 md:pb-24 md:pt-44">
           <p className="eyebrow eyebrow-rule">Shop</p>
-          <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.05] tracking-tight md:text-6xl lg:text-[5rem]">
+          <h1 className="mt-5 font-display text-4xl leading-[1.05] tracking-tight md:text-5xl lg:text-[4rem]">
             {title}
           </h1>
           <p className="mt-6 max-w-xl text-foreground/80 leading-relaxed md:text-lg">
