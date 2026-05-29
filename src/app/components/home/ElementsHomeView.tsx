@@ -245,7 +245,7 @@ export function ElementsHomeView() {
         </div>
       </section>
 
-      <div className="border-y border-border bg-[#1a1a1a]">
+      <div className="border-y border-border bg-[#3e4a3c]">
         <div className="container-x flex flex-col items-start justify-between gap-2 py-4 sm:flex-row sm:items-center">
           <p className="text-sm text-muted-foreground">
             <span className="text-foreground">{tm("stripLabel")}.</span>
@@ -282,7 +282,7 @@ export function ElementsHomeView() {
                   />
                 </div>
                 <div
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0d0d0d]/95 via-[#0d0d0d]/30 to-transparent"
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#2f3a2e]/95 via-[#2f3a2e]/30 to-transparent"
                   aria-hidden
                 />
                 <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
@@ -299,7 +299,7 @@ export function ElementsHomeView() {
 
       <section
         aria-labelledby={`${id}-fys`}
-        className="border-y border-border bg-[#111111] py-28 md:py-36"
+        className="border-y border-border bg-[#36412f] py-28 md:py-36"
       >
         <div className="container-x">
           <SectionHeading
@@ -377,7 +377,7 @@ export function ElementsHomeView() {
         </div>
       </section>
 
-      <section aria-labelledby={`${id}-why`} className="bg-[#111111] py-20 md:py-28">
+      <section aria-labelledby={`${id}-why`} className="bg-[#36412f] py-20 md:py-28">
         <div className="container-x">
           <SectionHeading
             eyebrow={tm("whyChooseEyebrow")}
@@ -399,7 +399,7 @@ export function ElementsHomeView() {
         </div>
       </section>
 
-      <section aria-label="Trust" className="border-y border-border bg-[#1a1a1a] py-14 md:py-20">
+      <section aria-label="Trust" className="border-y border-border bg-[#3e4a3c] py-14 md:py-20">
         <div className="container-x grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {[
             "30-day return window",
@@ -537,7 +537,7 @@ export function ElementsHomeView() {
             {bundles.map((b) => (
               <div
                 key={b.id}
-                className="fade-up rounded-lg border border-[color:var(--accent-c)]/20 bg-[#1a1a1a] p-8 md:p-10"
+                className="fade-up rounded-lg border border-[color:var(--accent-c)]/20 bg-[#3e4a3c] p-8 md:p-10"
               >
                 <h3 className="font-display text-2xl md:text-3xl">{b.title}</h3>
                 <p className="mt-4 text-foreground/80">{b.description}</p>
@@ -595,7 +595,7 @@ export function ElementsHomeView() {
       <section aria-labelledby={`${id}-jd`} className="relative overflow-hidden py-28 md:py-36">
         <SectionBackdrop src="/images/handpan-lifestyle-12.jpg" opacity={0.45} />
         <div className="relative container-x">
-          <div className="fade-up rounded-lg border border-[color:var(--accent-c)]/25 bg-[#1a1a1a]/85 p-8 backdrop-blur-md md:p-14">
+          <div className="fade-up rounded-lg border border-[color:var(--accent-c)]/25 bg-[#3e4a3c]/85 p-8 backdrop-blur-md md:p-14">
             <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-12">
               <div className="lg:col-span-6">
                 <p className="eyebrow eyebrow-rule">{tm("newsletterEyebrowAlt")}</p>

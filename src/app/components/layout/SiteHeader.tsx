@@ -33,7 +33,7 @@ export function SiteHeader({ variant = "sticky" }: { variant?: SiteHeaderVariant
   const shell =
     variant === "overlay"
       ? "absolute inset-x-0 top-0 z-30"
-      : "sticky top-0 z-30 border-b border-border bg-[#0d0d0d]/95 backdrop-blur-md";
+      : "sticky top-0 z-30 border-b border-border bg-[#2f3a2e]/95 backdrop-blur-md";
 
   return (
     <header className={shell}>
@@ -152,7 +152,7 @@ export function SiteHeader({ variant = "sticky" }: { variant?: SiteHeaderVariant
 
       <div
         className={cn(
-          "border-t border-[color:var(--accent-c)]/20 bg-[#0d0d0d] lg:hidden",
+          "border-t border-[color:var(--accent-c)]/20 bg-[#2f3a2e] lg:hidden",
           mobileOpen ? "block" : "hidden"
         )}
       >

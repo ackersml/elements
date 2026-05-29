@@ -45,10 +45,10 @@ export function SectionBackdrop({
         style={{ opacity, objectPosition: position }}
         className="object-cover"
       />
-      {/* Light wash so the imagery shows through clearly; vertical fade keeps text legible. */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0d0d0d]/40 via-[#0d0d0d]/20 to-[#0d0d0d]/50" />
+      {/* Light forest-green wash so the imagery shows through clearly; vertical fade keeps text legible. */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#2f3a2e]/45 via-[#2f3a2e]/20 to-[#2f3a2e]/55" />
       {vignetteBottom && (
-        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#0d0d0d] to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#2f3a2e] to-transparent" />
       )}
     </div>
   );

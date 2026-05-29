@@ -43,7 +43,7 @@ export function InfoPage({
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(90deg, rgba(13,13,13,0.78) 0%, rgba(13,13,13,0.55) 40%, rgba(13,13,13,0.30) 80%, rgba(13,13,13,0.55) 100%), linear-gradient(180deg, rgba(13,13,13,0.30) 0%, rgba(13,13,13,0.05) 30%, rgba(13,13,13,0.92) 100%)",
+              "linear-gradient(90deg, rgba(47,58,46,0.70) 0%, rgba(47,58,46,0.45) 40%, rgba(47,58,46,0.25) 80%, rgba(47,58,46,0.50) 100%), linear-gradient(180deg, rgba(47,58,46,0.25) 0%, rgba(47,58,46,0.05) 30%, rgba(47,58,46,0.90) 100%)",
           }}
           aria-hidden
         />

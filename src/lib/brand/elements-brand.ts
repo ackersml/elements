@@ -4,20 +4,20 @@
  */
 
 export const brandColors = {
-  background: "#0d0d0d",
-  card: "#1a1a1a",
-  foreground: "#f0f0f0",
-  accent: "#c99e59",
-  deepSoil: "#080808",
-  mossMid: "#666666",
-  mossLight: "#888888",
-  mossPale: "#aaaaaa",
-  accentLight: "#dbb46a",
-  accentPale: "#e8c97a",
+  background: "#2f3a2e",
+  card: "#3e4a3c",
+  foreground: "#e8decf",
+  accent: "#d4b98a",
+  deepSoil: "#31251c",
+  mossMid: "#656e63",
+  mossLight: "#8b928a",
+  mossPale: "#b2b7b1",
+  accentLight: "#e2d3b0",
+  accentPale: "#f5f1e8",
 } as const;
 
 export const brandFonts = {
-  display: '"Familjen Grotesk", ui-sans-serif, system-ui, sans-serif',
+  display: '"Bodoni Moda", ui-serif, Georgia, serif',
   body: '"DM Sans", ui-sans-serif, system-ui, sans-serif',
 } as const;
 

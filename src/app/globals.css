@@ -1,29 +1,29 @@
-@import url("https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap");
 
 @import "tailwindcss";
 
 @source not "../../Google Drive Elements";
 
-/* Elements Handpan Store - dark luxury palette (MAG-inspired) */
+/* Elements Handpan Store - brand palette (forest green + cream, per brand kit) */
 :root {
   --radius: 0.5rem;
-  --pine-grove: #0d0d0d;
-  --forest-moss: #1a1a1a;
-  --cedar-bark: #1f1510;
-  --sandstone: #f0f0f0;
-  --deep-soil: #080808;
-  --moss-mid: #666666;
-  --moss-light: #888888;
-  --moss-pale: #aaaaaa;
-  --bronze-accent: #c99e59;
+  --pine-grove: #2f3a2e;
+  --forest-moss: #3e4a3c;
+  --cedar-bark: #522e17;
+  --sandstone: #e8decf;
+  --deep-soil: #31251c;
+  --moss-mid: #656e63;
+  --moss-light: #8b928a;
+  --moss-pale: #b2b7b1;
+  --bronze-accent: #d4b98a;
   --background: var(--pine-grove);
   --foreground: var(--sandstone);
   --card: var(--forest-moss);
   --secondary: var(--forest-moss);
   --muted-fg: var(--moss-pale);
   --accent-c: var(--bronze-accent);
-  --border-mix: color-mix(in oklab, var(--foreground) 12%, transparent);
-  --input-mix: color-mix(in oklab, var(--foreground) 10%, transparent);
+  --border-mix: color-mix(in oklab, var(--foreground) 18%, transparent);
+  --input-mix: color-mix(in oklab, var(--foreground) 14%, transparent);
   --destructive: oklch(0.55 0.2 25);
 }
 
@@ -50,7 +50,7 @@
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
-  --font-display: "Familjen Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bodoni Moda", ui-serif, Georgia, serif;
   --font-body: "DM Sans", ui-sans-serif, system-ui, sans-serif;
   --ease-elements: cubic-bezier(0.4, 0, 0.2, 1);
   --duration-hero: 800ms;
@@ -85,7 +85,8 @@
   h6 {
     font-family: var(--font-display);
     font-weight: 500;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.015em;
+    font-optical-sizing: auto;
   }
 
   ::selection {
@@ -144,11 +145,11 @@
   .bronze-text {
     background: linear-gradient(
       100deg,
-      #e8c97a 0%,
-      #c99e59 35%,
-      #b8893f 55%,
-      #ddb96a 80%,
-      #e8c97a 100%
+      #e8e3d5 0%,
+      #d4b98a 35%,
+      #c9a06a 55%,
+      #e2d3b0 80%,
+      #e8e3d5 100%
     );
     -webkit-background-clip: text;
     background-clip: text;
@@ -213,34 +214,34 @@
     background:
       radial-gradient(
         ellipse 90% 70% at 72% 42%,
-        color-mix(in oklab, #2a2a2a 85%, #0d0d0d) 0%,
+        color-mix(in oklab, var(--forest-moss) 85%, #1a2418) 0%,
         transparent 58%
       ),
       radial-gradient(
         ellipse 55% 45% at 18% 78%,
-        color-mix(in oklab, #080808 70%, #0d0d0d) 0%,
+        color-mix(in oklab, #0f1410 70%, var(--pine-grove)) 0%,
         transparent 52%
       ),
       linear-gradient(
         128deg,
-        #080808 0%,
-        #0d0d0d 38%,
-        #141414 62%,
-        #0a0a0a 100%
+        #141c14 0%,
+        var(--pine-grove) 38%,
+        #263126 62%,
+        #1a2218 100%
       );
   }
 
   .hero-home-smoke {
-    opacity: 0.4;
+    opacity: 0.55;
     background:
       radial-gradient(
         ellipse 42% 28% at 58% 36%,
-        color-mix(in oklab, #c99e59 15%, transparent) 0%,
+        color-mix(in oklab, var(--moss-mid) 55%, transparent) 0%,
         transparent 100%
       ),
       radial-gradient(
         ellipse 36% 24% at 82% 62%,
-        color-mix(in oklab, #1a1a1a 40%, transparent) 0%,
+        color-mix(in oklab, var(--forest-moss) 40%, transparent) 0%,
         transparent 100%
       );
     filter: blur(28px);
@@ -258,7 +259,7 @@
     height: 52px;
     border-radius: 999px;
     background: var(--bronze-accent);
-    color: #0d0d0d;
+    color: var(--deep-soil);
     flex-shrink: 0;
     transition:
       transform 0.25s ease,
@@ -266,7 +267,7 @@
   }
 
   .btn-hero-circle:hover {
-    background: #dbb46a;
+    background: #e8d5a8;
     transform: translateX(2px);
   }
 
@@ -274,16 +275,16 @@
     background:
       linear-gradient(
         90deg,
-        rgba(13, 13, 13, 0.55) 0%,
-        rgba(13, 13, 13, 0.20) 35%,
-        rgba(13, 13, 13, 0.00) 60%,
-        rgba(13, 13, 13, 0.10) 100%
+        rgba(47, 58, 46, 0.55) 0%,
+        rgba(47, 58, 46, 0.20) 35%,
+        rgba(47, 58, 46, 0.00) 60%,
+        rgba(47, 58, 46, 0.10) 100%
       ),
       linear-gradient(
         180deg,
-        rgba(13, 13, 13, 0.10) 0%,
-        rgba(13, 13, 13, 0.00) 30%,
-        rgba(13, 13, 13, 0.80) 100%
+        rgba(47, 58, 46, 0.10) 0%,
+        rgba(47, 58, 46, 0.00) 30%,
+        rgba(47, 58, 46, 0.85) 100%
       );
   }
 
@@ -291,9 +292,9 @@
     .hero-fade {
       background: linear-gradient(
         180deg,
-        rgba(13, 13, 13, 0.20) 0%,
-        rgba(13, 13, 13, 0.20) 30%,
-        rgba(13, 13, 13, 0.88) 100%
+        rgba(47, 58, 46, 0.20) 0%,
+        rgba(47, 58, 46, 0.20) 30%,
+        rgba(47, 58, 46, 0.92) 100%
       );
     }
   }
@@ -317,12 +318,12 @@
   }
 
   .btn-primary {
-    background: var(--bronze-accent);
-    color: #0d0d0d;
+    background: var(--sandstone);
+    color: var(--deep-soil);
   }
 
   .btn-primary:hover {
-    background: #dbb46a;
+    background: #f4ecdc;
   }
 
   .btn-ghost {
@@ -423,9 +424,9 @@
   .text-gradient-bronze {
     background: linear-gradient(
       125deg,
-      #e8c97a,
-      #c99e59,
-      #ddb96a
+      #f5f1e8,
+      #c9bc9f,
+      #e8e3d5
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -435,14 +436,14 @@
   .bg-gradient-warm {
     background: linear-gradient(
       180deg,
-      #111111 0%,
-      #1a1a1a 50%,
-      #111111 100%
+      #2d362e 0%,
+      #323934 50%,
+      #2d362e 100%
     );
   }
 
   .shadow-elements-soft {
-    box-shadow: 0 1px 0 0 rgb(201 158 89 / 0.12);
+    box-shadow: 0 1px 0 0 rgb(232 227 213 / 0.1);
   }
 
   .hairline-rule {
@@ -451,7 +452,7 @@
     background: linear-gradient(
       90deg,
       transparent,
-      rgb(240 240 240 / 0.15),
+      rgb(232 227 213 / 0.25),
       transparent
     );
   }
