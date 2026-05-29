@@ -257,8 +257,9 @@ export function ElementsHomeView() {
         </div>
       </div>
 
-      <section className="py-28 md:py-40" aria-labelledby={`${id}-mag-cat`}>
-        <div className="container-x">
+      <section className="relative overflow-hidden py-28 md:py-40" aria-labelledby={`${id}-mag-cat`}>
+        <SectionBackdrop src="/images/handpan-lifestyle-7.jpg" opacity={0.42} />
+        <div className="relative container-x">
           <SectionHeading
             eyebrow={tm("categoriesEyebrow")}
             title={<span id={`${id}-mag-cat`}>{tm("categoriesTitle")}</span>}
@@ -299,9 +300,10 @@ export function ElementsHomeView() {
 
       <section
         aria-labelledby={`${id}-fys`}
-        className="border-y border-border bg-[#36412f] py-28 md:py-36"
+        className="relative overflow-hidden border-y border-border py-28 md:py-36"
       >
-        <div className="container-x">
+        <SectionBackdrop src="/images/handpan-lifestyle-9.jpg" opacity={0.45} />
+        <div className="relative container-x">
           <SectionHeading
             eyebrow={tm("findSoundEyebrow")}
             title={<span id={`${id}-fys`}>Find your sound</span>}
@@ -333,8 +335,9 @@ export function ElementsHomeView() {
         </div>
       </section>
 
-      <section id="shop" aria-labelledby={`${id}-bh`} className="py-28 md:py-36">
-        <div className="container-x">
+      <section id="shop" aria-labelledby={`${id}-bh`} className="relative overflow-hidden py-28 md:py-36">
+        <SectionBackdrop src="/images/handpan-lifestyle-11.jpg" opacity={0.38} />
+        <div className="relative container-x">
           <SectionHeading
             eyebrow={tm("collectionEyebrow")}
             title={<span id={`${id}-bh`}>{tm("collectionTitle")}</span>}
@@ -377,8 +380,9 @@ export function ElementsHomeView() {
         </div>
       </section>
 
-      <section aria-labelledby={`${id}-why`} className="bg-[#36412f] py-20 md:py-28">
-        <div className="container-x">
+      <section aria-labelledby={`${id}-why`} className="relative overflow-hidden py-20 md:py-28">
+        <SectionBackdrop src="/images/sound-healing-8.jpg" opacity={0.42} />
+        <div className="relative container-x">
           <SectionHeading
             eyebrow={tm("whyChooseEyebrow")}
             title={<span id={`${id}-why`}>Why choose Elements</span>}
@@ -461,8 +465,9 @@ export function ElementsHomeView() {
         </section>
       )}
 
-      <section aria-labelledby={`${id}-voices`} className="py-20 md:py-28">
-        <div className="container-x">
+      <section aria-labelledby={`${id}-voices`} className="relative overflow-hidden py-20 md:py-28">
+        <SectionBackdrop src="/images/handpan-lifestyle-10.jpg" opacity={0.35} />
+        <div className="relative container-x">
           <p id={`${id}-voices`} className="smallcaps text-muted-foreground">
             Customer voices · aggregate 4.9 / 5
           </p>
@@ -495,8 +500,9 @@ export function ElementsHomeView() {
         </div>
       </section>
 
-      <section aria-labelledby={`${id}-rar`} className="py-20 md:py-28">
-        <div className="container-x">
+      <section aria-labelledby={`${id}-rar`} className="relative overflow-hidden py-20 md:py-28">
+        <SectionBackdrop src="/images/handpan-lifestyle-15.jpg" opacity={0.4} />
+        <div className="relative container-x">
           <SectionHeading
             eyebrow={tm("raritiesEyebrow")}
             title={<span id={`${id}-rar`}>Rarities</span>}
@@ -550,8 +556,9 @@ export function ElementsHomeView() {
         </div>
       </section>
 
-      <section aria-labelledby={`${id}-cs`} className="py-28 md:py-36">
-        <div className="container-x">
+      <section aria-labelledby={`${id}-cs`} className="relative overflow-hidden py-28 md:py-36">
+        <SectionBackdrop src="/images/sound-healing-5.jpg" opacity={0.4} />
+        <div className="relative container-x">
           <SectionHeading
             eyebrow={tm("casesEyebrow")}
             title={<span id={`${id}-cs`}>Cases & bags</span>}
