@@ -204,7 +204,7 @@ export function ElementsHomeView() {
     <div className="relative bg-background text-foreground">
       <div className="grain-fixed" aria-hidden />
 
-      <section className="relative flex min-h-[85svh] items-end overflow-hidden md:min-h-[88vh]">
+      <section className="relative flex min-h-[85svh] items-center overflow-hidden md:min-h-[88vh]">
         <Image
           src="/images/handpan-lifestyle-13.jpg"
           alt=""
@@ -216,7 +216,7 @@ export function ElementsHomeView() {
         <div className="absolute inset-0 hero-fade" aria-hidden />
         <div className="grain" aria-hidden />
         <SiteHeader variant="overlay" />
-        <div className="relative container-x pb-16 pt-32 md:pb-24 md:pt-36">
+        <div className="relative container-x pt-20 pb-12 md:pt-24 md:pb-16">
           <div className="max-w-3xl">
             <p className="eyebrow eyebrow-rule">{t("eyebrow")}</p>
             <h1 className="mt-6 font-display text-4xl leading-[1.05] tracking-tight sm:text-5xl md:text-6xl lg:text-[4.25rem]">

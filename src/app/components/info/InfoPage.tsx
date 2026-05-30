@@ -29,7 +29,7 @@ export function InfoPage({
   return (
     <>
       {/* Hero banner */}
-      <section className="relative flex min-h-[55vh] items-end overflow-hidden md:min-h-[60vh]">
+      <section className="relative flex min-h-[55vh] items-center overflow-hidden md:min-h-[60vh]">
         <Image
           src={heroImage}
           alt=""
@@ -49,7 +49,7 @@ export function InfoPage({
         />
         <div className="grain" aria-hidden />
         <SiteHeader variant="overlay" />
-        <div className="relative container-x pb-16 pt-36 md:pb-24 md:pt-44">
+        <div className="relative container-x pt-24 pb-12 md:pt-28 md:pb-16">
           <p className="eyebrow eyebrow-rule">{eyebrow}</p>
           <h1 className="mt-5 font-display text-4xl leading-[1.05] tracking-tight md:text-5xl lg:text-[4rem]">
             {title}
