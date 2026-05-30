@@ -17,7 +17,7 @@ export const brandColors = {
 } as const;
 
 export const brandFonts = {
-  display: '"Bodoni Moda", ui-serif, Georgia, serif',
+  display: '"Cinzel", ui-serif, Georgia, serif',
   body: '"DM Sans", ui-sans-serif, system-ui, sans-serif',
 } as const;
 

@@ -59,7 +59,7 @@ export default async function DesignSystemPage() {
           <h2 className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
             {t("type")}
           </h2>
-          <p className="font-display text-5xl tracking-tight">Display · Bodoni Moda</p>
+          <p className="font-display text-5xl tracking-tight">Display · Cinzel</p>
           <p className="max-w-prose font-body text-base leading-relaxed text-muted-foreground">
             Body · DM Sans — {brandVision}
           </p>

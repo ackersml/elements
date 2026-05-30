@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap");
 
 @import "tailwindcss";
 
@@ -50,7 +50,7 @@
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
-  --font-display: "Bodoni Moda", ui-serif, Georgia, serif;
+  --font-display: "Cinzel", ui-serif, Georgia, serif;
   --font-body: "DM Sans", ui-sans-serif, system-ui, sans-serif;
   --ease-elements: cubic-bezier(0.4, 0, 0.2, 1);
   --duration-hero: 800ms;
@@ -85,7 +85,7 @@
   h6 {
     font-family: var(--font-display);
     font-weight: 500;
-    letter-spacing: -0.015em;
+    letter-spacing: 0;
     font-optical-sizing: auto;
   }
 
