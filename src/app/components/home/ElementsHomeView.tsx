@@ -300,10 +300,9 @@ export function ElementsHomeView() {
 
       <section
         aria-labelledby={`${id}-fys`}
-        className="relative overflow-hidden border-y border-border py-28 md:py-36"
+        className="border-y border-border bg-[#3e4a3c] py-28 md:py-36"
       >
-        <SectionBackdrop src="/images/handpan-lifestyle-9.jpg" opacity={0.45} />
-        <div className="relative container-x">
+        <div className="container-x">
           <SectionHeading
             eyebrow={tm("findSoundEyebrow")}
             title={<span id={`${id}-fys`}>Find your sound</span>}
@@ -336,7 +335,7 @@ export function ElementsHomeView() {
       </section>
 
       <section id="shop" aria-labelledby={`${id}-bh`} className="relative overflow-hidden py-28 md:py-36">
-        <SectionBackdrop src="/images/handpan-lifestyle-11.jpg" opacity={0.38} />
+        <SectionBackdrop src="/images/handpan-lifestyle-11.jpg" opacity={0.22} />
         <div className="relative container-x">
           <SectionHeading
             eyebrow={tm("collectionEyebrow")}
@@ -380,9 +379,8 @@ export function ElementsHomeView() {
         </div>
       </section>
 
-      <section aria-labelledby={`${id}-why`} className="relative overflow-hidden py-20 md:py-28">
-        <SectionBackdrop src="/images/sound-healing-8.jpg" opacity={0.42} />
-        <div className="relative container-x">
+      <section aria-labelledby={`${id}-why`} className="bg-[#36412f] py-20 md:py-28">
+        <div className="container-x">
           <SectionHeading
             eyebrow={tm("whyChooseEyebrow")}
             title={<span id={`${id}-why`}>Why choose Elements</span>}
@@ -436,9 +434,8 @@ export function ElementsHomeView() {
       </section>
 
       {instrumentMonth && (
-        <section aria-labelledby={`${id}-iotm`} className="relative overflow-hidden border-y border-border py-28 md:py-36">
-          <SectionBackdrop src="/images/handpan-lifestyle-5.jpg" opacity={0.4} />
-          <div className="relative container-x grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
+        <section aria-labelledby={`${id}-iotm`} className="border-y border-border bg-[#3e4a3c] py-28 md:py-36">
+          <div className="container-x grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
             <ProductPhoto
               src={instrumentMonth.heroImageUrl}
               alt={instrumentMonth.title}
@@ -466,7 +463,7 @@ export function ElementsHomeView() {
       )}
 
       <section aria-labelledby={`${id}-voices`} className="relative overflow-hidden py-20 md:py-28">
-        <SectionBackdrop src="/images/handpan-lifestyle-10.jpg" opacity={0.35} />
+        <SectionBackdrop src="/images/handpan-lifestyle-10.jpg" opacity={0.2} />
         <div className="relative container-x">
           <p id={`${id}-voices`} className="smallcaps text-muted-foreground">
             Customer voices · aggregate 4.9 / 5
@@ -500,9 +497,8 @@ export function ElementsHomeView() {
         </div>
       </section>
 
-      <section aria-labelledby={`${id}-rar`} className="relative overflow-hidden py-20 md:py-28">
-        <SectionBackdrop src="/images/handpan-lifestyle-15.jpg" opacity={0.4} />
-        <div className="relative container-x">
+      <section aria-labelledby={`${id}-rar`} className="bg-[#36412f] py-20 md:py-28">
+        <div className="container-x">
           <SectionHeading
             eyebrow={tm("raritiesEyebrow")}
             title={<span id={`${id}-rar`}>Rarities</span>}
@@ -532,9 +528,8 @@ export function ElementsHomeView() {
         </div>
       </section>
 
-      <section aria-labelledby={`${id}-bd`} className="relative overflow-hidden border-y border-border py-28 md:py-36">
-        <SectionBackdrop src="/images/sound-healing-3.jpg" opacity={0.42} />
-        <div className="relative container-x">
+      <section aria-labelledby={`${id}-bd`} className="border-y border-border bg-[#3e4a3c] py-28 md:py-36">
+        <div className="container-x">
           <SectionHeading
             eyebrow={tm("bundlesEyebrow")}
             title={<span id={`${id}-bd`}>Bundle offers</span>}
@@ -599,10 +594,9 @@ export function ElementsHomeView() {
         </div>
       </section>
 
-      <section aria-labelledby={`${id}-jd`} className="relative overflow-hidden py-28 md:py-36">
-        <SectionBackdrop src="/images/handpan-lifestyle-12.jpg" opacity={0.45} />
-        <div className="relative container-x">
-          <div className="fade-up rounded-lg border border-[color:var(--accent-c)]/25 bg-[#3e4a3c]/85 p-8 backdrop-blur-md md:p-14">
+      <section aria-labelledby={`${id}-jd`} className="bg-[#36412f] py-28 md:py-36">
+        <div className="container-x">
+          <div className="fade-up rounded-lg border border-[color:var(--accent-c)]/25 bg-[#3e4a3c] p-8 md:p-14">
             <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-12">
               <div className="lg:col-span-6">
                 <p className="eyebrow eyebrow-rule">{tm("newsletterEyebrowAlt")}</p>
@@ -643,7 +637,7 @@ export function ElementsHomeView() {
       </section>
 
       <section id="how-order" aria-labelledby={`${id}-bg`} className="relative overflow-hidden border-y border-border py-28 md:py-36">
-        <SectionBackdrop src="/images/handpan-lifestyle-14.jpg" opacity={0.4} />
+        <SectionBackdrop src="/images/handpan-lifestyle-14.jpg" opacity={0.22} />
         <div className="relative container-x grid grid-cols-1 gap-10 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <SectionHeading title={<span id={`${id}-bg`}>Buying guide</span>} eyebrow="No rush tactics" />
