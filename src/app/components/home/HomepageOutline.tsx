@@ -12,104 +12,71 @@ type OutlineSection = {
   variant?: "default" | "strip" | "card" | "split" | "grid";
 };
 
+/** Yatao-aligned order; Elements dark tokens. Spacing ref: py-28 sections, gap-6 product grids. */
 const sections: OutlineSection[] = [
   {
     id: "hero",
     index: 1,
     label: "Hero",
     eyebrow: "Handpan & sound healing",
-    layout: "Full-viewport image · header overlay · headline · dual CTA · link",
+    layout: "Full-viewport · overlay header · dual CTA · Yatao: hero-first, no trust above fold",
     height: "screen",
     variant: "default",
   },
   {
-    id: "strip",
+    id: "trust",
     index: 2,
-    label: "Info strip",
-    layout: "Shipping / guarantee message · browse link",
+    label: "Trust strip",
+    layout: "4 columns · returns · shipping · tuning · support · Yatao: immediately post-hero",
     height: "sm",
     variant: "strip",
   },
   {
-    id: "categories",
+    id: "strip",
     index: 3,
-    label: "Category tiles",
-    eyebrow: "Explore by craft",
-    layout: "4-column image tiles · Handpans · Extended · Cases · Rarities",
-    height: "lg",
-    variant: "grid",
+    label: "Info strip",
+    layout: "Shipping / in-stock message · browse link",
+    height: "sm",
+    variant: "strip",
   },
   {
-    id: "find-sound",
+    id: "iotm",
     index: 4,
-    label: "Find your sound",
-    eyebrow: "Curated for first listens",
-    layout: "3-column product cards · quick buy",
+    label: "Instrument of the month",
+    layout: "50/50 split · limited-stock pill · quick buy · Yatao HOTM band",
     height: "lg",
-    variant: "grid",
+    variant: "split",
   },
   {
     id: "beginner",
     index: 5,
     label: "Beginner collection",
     eyebrow: "Our handpicked instruments",
-    layout: "Section blurb · 3-column product grid · element lines",
+    layout: "3-col ProductCard grid · white commerce islands · badges · From pricing · Quick Buy",
     height: "lg",
     variant: "grid",
   },
   {
-    id: "why",
+    id: "reviews",
     index: 6,
-    label: "Why choose Elements",
-    layout: "4 value props · left border accent",
+    label: "Customer reviews",
+    eyebrow: "Verified buyers",
+    layout: "4.9★ aggregate · 3 review cards · Yatao reviews block",
     height: "md",
-    variant: "default",
-  },
-  {
-    id: "trust",
-    index: 7,
-    label: "Trust strip",
-    layout: "4 columns · returns · shipping · tuning · support",
-    height: "sm",
-    variant: "strip",
-  },
-  {
-    id: "warranty",
-    index: 8,
-    label: "Warranty",
-    eyebrow: "Care after delivery",
-    layout: "Centered CTA block",
-    height: "lg",
     variant: "card",
   },
   {
-    id: "iotm",
-    index: 9,
-    label: "Instrument of the month",
-    layout: "50/50 split · large photo · copy · details link",
-    height: "lg",
-    variant: "split",
-  },
-  {
-    id: "voices",
-    index: 10,
-    label: "Customer voices",
-    layout: "2 blockquotes · optional marquee ticker",
-    height: "md",
-    variant: "default",
-  },
-  {
     id: "rarities",
-    index: 11,
+    index: 7,
     label: "Rarities",
     eyebrow: "One-off builds",
-    layout: "2-column wide 21:9 product cards",
+    layout: "2-column wide ProductCard 21:9",
     height: "md",
     variant: "grid",
   },
   {
     id: "bundles",
-    index: 12,
+    index: 8,
     label: "Bundle offers",
     eyebrow: "Hand-paired kits",
     layout: "2 bordered offer cards · quick buy",
@@ -118,11 +85,46 @@ const sections: OutlineSection[] = [
   },
   {
     id: "cases",
-    index: 13,
+    index: 9,
     label: "Cases & bags",
-    layout: "Color swatches · 2-column product grid",
+    layout: "Color swatches · 2-col ProductCard grid",
     height: "lg",
     variant: "grid",
+  },
+  {
+    id: "categories",
+    index: 10,
+    label: "Category tiles",
+    eyebrow: "Explore by craft",
+    layout: "4-column image tiles · nav mega-menu covers shop entry (Yatao)",
+    height: "lg",
+    variant: "grid",
+  },
+  {
+    id: "find-sound",
+    index: 11,
+    label: "Find your sound",
+    eyebrow: "Curated for first listens",
+    layout: "3-col ProductCard · quick buy",
+    height: "lg",
+    variant: "grid",
+  },
+  {
+    id: "why",
+    index: 12,
+    label: "Why choose Elements",
+    layout: "4 value props · Elements-specific",
+    height: "md",
+    variant: "default",
+  },
+  {
+    id: "warranty",
+    index: 13,
+    label: "Warranty",
+    eyebrow: "Care after delivery",
+    layout: "Centered CTA block",
+    height: "lg",
+    variant: "card",
   },
   {
     id: "newsletter",
@@ -137,7 +139,7 @@ const sections: OutlineSection[] = [
     index: 15,
     label: "Buying guide",
     eyebrow: "No rush tactics",
-    layout: "Essay + 3-step columns",
+    layout: "Essay + 3-step columns · Yatao buying guide",
     height: "lg",
     variant: "split",
   },
@@ -198,12 +200,18 @@ function PlaceholderBlocks({
 
   if (variant === "grid") {
     return (
-      <div className={cn("grid gap-3 sm:grid-cols-2 lg:grid-cols-4", className)}>
-        {Array.from({ length: 4 }).map((_, i) => (
+      <div className={cn("grid gap-3 sm:grid-cols-2 lg:grid-cols-3", className)}>
+        {Array.from({ length: 3 }).map((_, i) => (
           <div
             key={i}
-            className="aspect-[3/4] rounded-2xl border border-dashed border-[color-mix(in_oklab,var(--sandstone)_18%,transparent)] bg-[color-mix(in_oklab,var(--forest-moss)_50%,transparent)] lg:aspect-[4/5]"
-          />
+            className="overflow-hidden rounded-2xl border border-[color-mix(in_oklab,var(--sandstone)_18%,transparent)]"
+          >
+            <div className="aspect-square bg-white/90" />
+            <div className="space-y-2 bg-[#faf9f7] p-3">
+              <div className="h-3 w-3/4 rounded-full bg-[color-mix(in_oklab,#111827_15%,transparent)]" />
+              <div className="h-2 w-1/2 rounded-full bg-[color-mix(in_oklab,#64748b_20%,transparent)]" />
+            </div>
+          </div>
         ))}
       </div>
     );
@@ -241,14 +249,16 @@ export function HomepageOutline() {
       <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur">
         <div className="container-x flex flex-col gap-2 py-5 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="eyebrow text-[color:var(--accent-c)]">21st.dev · planning wireframe</p>
+            <p className="eyebrow text-[color:var(--accent-c)]">Visily handoff · Yatao spacing refs</p>
             <h1 className="mt-2 font-display text-3xl tracking-tight md:text-4xl">
               Elements homepage outline
             </h1>
           </div>
           <p className="max-w-md text-sm text-muted-foreground">
-            Scroll map of <code className="text-foreground/80">ElementsHomeView</code>. Matches
-            production section order; swap blocks before implementing layout changes.
+            Section order matches Yatao flow with Elements dark tokens (
+            <code className="text-foreground/80">#2F3A2E</code>, bronze accent). Product cards:
+            white commerce islands, py-28 sections, gap-6 grids. See{" "}
+            <code className="text-foreground/80">docs/yatao-section-audit.md</code>.
           </p>
         </div>
       </header>

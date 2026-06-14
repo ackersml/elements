@@ -29,3 +29,10 @@ yarn-error.log*
 
 # local brand assets (not for git or Tailwind scanning)
 Google Drive Elements/
+
+# generated Playwright scrape output (keep reference/yatao/README.md)
+reference/yatao/inspect-report.*
+reference/yatao/screenshot-*.png
+
+# full static clone output (large, do not commit)
+reference/yatao/clone/

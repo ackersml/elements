@@ -82,6 +82,19 @@
     "buyingStep3": "Insured doorstep delivery",
     "buyingStepLabel": "Step {step}",
     "trustPromiseLabel": "Promise",
+    "trustReturnTitle": "30-Day Refund",
+    "trustShippingTitle": "Secure Shipping",
+    "trustTuningTitle": "2 years tuning guarantee",
+    "trustSupportTitle": "Dedicated Support",
+    "trustReturn": "30-day refund guarantee",
+    "trustShipping": "Insured and world-wide",
+    "trustTuning": "Your handpan stays in perfect tune",
+    "trustSupport": "Our advice for you",
+    "reviewsEyebrow": "Verified buyers",
+    "reviewsTitle": "What practitioners are saying",
+    "reviewsVerified": "Verified purchase reviews",
+    "reviewsCta": "Shop the collection",
+    "iotmLimitedStock": "Limited stock",
     "raritiesEyebrow": "One-off builds & double-stacks",
     "bundlesEyebrow": "Hand-paired kits",
     "casesEyebrow": "Travel-ready, built to last",
@@ -92,7 +105,10 @@
     "footerColRead": "Read",
     "footerColLegal": "Legal",
     "footerSlow": "Slow commerce.",
-    "footerCities": "Bali, Indonesia"
+    "footerCities": "Bali, Indonesia",
+    "collectionCountOne": "instrument available",
+    "collectionCountMany": "instruments available",
+    "collectionEmpty": "Nothing in this collection yet."
   },
   "pages": {
     "journal": {
@@ -150,7 +166,8 @@
     "clear": "Clear cart",
     "redirecting": "Redirecting…",
     "checkoutError": "Checkout could not start. Try again.",
-    "secureNote": "Secure payment via Stripe Checkout."
+    "secureNote": "Secure payment via Stripe Checkout.",
+    "viewCart": "View full cart"
   },
   "product": {
     "quickBuy": "Quick buy",
@@ -159,6 +176,9 @@
     "buyNow": "Buy now — {price}",
     "addToCart": "Add to cart",
     "soldOut": "Sold out",
+    "sale": "Sale",
+    "preorder": "Pre-order",
+    "related": "You may also like",
     "redirecting": "Redirecting…",
     "checkoutError": "Checkout could not start. Try again.",
     "preorderNote": "Pre-order: lead time applies before shipment.",

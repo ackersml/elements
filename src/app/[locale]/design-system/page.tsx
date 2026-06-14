@@ -27,7 +27,7 @@ export default async function DesignSystemPage() {
   const t = await getTranslations("designSystem");
 
   return (
-    <div className="bg-card/30 py-20">
+    <div className="bg-white py-20">
       <div className="container-x max-w-4xl text-foreground">
         <h1 className="font-display text-4xl text-foreground">{t("title")}</h1>
         <p className="mt-2 text-muted-foreground">{t("intro")}</p>
@@ -61,7 +61,7 @@ export default async function DesignSystemPage() {
           </h2>
           <p className="font-display text-5xl tracking-tight">Display · Cinzel</p>
           <p className="max-w-prose font-body text-base leading-relaxed text-muted-foreground">
-            Body · DM Sans — {brandVision}
+            Body · Open Sans — {brandVision}
           </p>
         </section>
 

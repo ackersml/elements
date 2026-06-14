@@ -80,7 +80,7 @@ function TrackForm() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-full border border-border bg-background px-4 py-3 text-foreground outline-none focus:border-[color:var(--accent-c)]"
+              className="w-full rounded-lg border border-border bg-white px-4 py-3 text-foreground outline-none focus:border-[color:var(--ink)]"
               placeholder="you@example.com"
               required
             />
@@ -97,7 +97,7 @@ function TrackForm() {
               type="text"
               value={orderRef}
               onChange={(e) => setOrderRef(e.target.value)}
-              className="w-full rounded-full border border-border bg-background px-4 py-3 text-foreground outline-none focus:border-[color:var(--accent-c)]"
+              className="w-full rounded-lg border border-border bg-white px-4 py-3 text-foreground outline-none focus:border-[color:var(--ink)]"
               placeholder="From confirmation email or success page"
               required
             />

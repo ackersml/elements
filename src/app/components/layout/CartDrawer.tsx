@@ -2,6 +2,7 @@
 
 import * as Dialog from "@radix-ui/react-dialog";
 import { Minus, Plus, X } from "lucide-react";
+import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { Link } from "@/i18n/navigation";
@@ -61,10 +62,10 @@ export function CartDrawer({ children }: { children: React.ReactNode }) {
     <Dialog.Root open={drawerOpen} onOpenChange={setDrawerOpen}>
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-[90] bg-black/60 data-[state=open]:animate-in fade-in-0" />
+        <Dialog.Overlay className="fixed inset-0 z-[90] bg-black/40 data-[state=open]:animate-in fade-in-0" />
         <Dialog.Content
           className={cn(
-            "fixed right-0 top-0 z-[95] flex h-full w-full max-w-md flex-col border-l border-border bg-background",
+            "fixed right-0 top-0 z-[95] flex h-full w-full max-w-md flex-col border-l border-border bg-white",
             "data-[state=open]:animate-in slide-in-from-right duration-300"
           )}
         >
@@ -73,7 +74,7 @@ export function CartDrawer({ children }: { children: React.ReactNode }) {
               {t("title")}
             </Dialog.Title>
             <Dialog.Close
-              className="p-2 text-muted-foreground transition hover:text-[color:var(--accent-c)]"
+              className="p-2 text-muted-foreground transition hover:text-foreground"
               aria-label="Close"
             >
               <X size={20} />
@@ -100,46 +101,62 @@ export function CartDrawer({ children }: { children: React.ReactNode }) {
                   return (
                     <li
                       key={line.slug}
-                      className="flex flex-col gap-2 border-b border-border pb-6"
+                      className="flex gap-4 border-b border-border pb-6"
                     >
-                      <div className="flex justify-between gap-3">
-                        <p className="font-display text-base leading-tight text-foreground">
-                          {p.title}
-                        </p>
-                        <p className="text-sm text-foreground">
-                          {formatProductDisplay(
-                            p.priceCents * line.quantity,
-                            currency
-                          )}
-                        </p>
+                      <div className="relative size-20 shrink-0 overflow-hidden rounded-md border border-border bg-white">
+                        <Image
+                          src={p.heroImageUrl}
+                          alt=""
+                          fill
+                          sizes="80px"
+                          className="object-contain p-1.5"
+                        />
                       </div>
-                      <div className="flex items-center justify-between text-sm">
-                        <div className="inline-flex items-center rounded-full border border-border">
+                      <div className="flex min-w-0 flex-1 flex-col gap-2">
+                        <div className="flex justify-between gap-3">
+                          <div className="min-w-0">
+                            <p className="font-display text-base leading-tight text-foreground">
+                              {p.title}
+                            </p>
+                            <p className="mt-0.5 text-xs text-muted-foreground">
+                              {p.scale}
+                            </p>
+                          </div>
+                          <p className="shrink-0 text-sm text-foreground">
+                            {formatProductDisplay(
+                              p.priceCents * line.quantity,
+                              currency
+                            )}
+                          </p>
+                        </div>
+                        <div className="flex items-center justify-between text-sm">
+                          <div className="inline-flex items-center rounded-md border border-border">
+                            <button
+                              type="button"
+                              onClick={() => setQty(line.slug, line.quantity - 1)}
+                              className="grid size-9 place-items-center transition hover:text-[color:var(--sale-bg)]"
+                              aria-label="Decrease"
+                            >
+                              <Minus size={14} />
+                            </button>
+                            <span className="w-8 text-center">{line.quantity}</span>
+                            <button
+                              type="button"
+                              onClick={() => setQty(line.slug, line.quantity + 1)}
+                              className="grid size-9 place-items-center transition hover:text-[color:var(--sale-bg)]"
+                              aria-label="Increase"
+                            >
+                              <Plus size={14} />
+                            </button>
+                          </div>
                           <button
                             type="button"
-                            onClick={() => setQty(line.slug, line.quantity - 1)}
-                            className="grid size-9 place-items-center transition hover:text-[color:var(--accent-c)]"
-                            aria-label="Decrease"
+                            onClick={() => remove(line.slug)}
+                            className="text-muted-foreground underline-offset-4 transition hover:text-foreground hover:underline"
                           >
-                            <Minus size={14} />
-                          </button>
-                          <span className="w-8 text-center">{line.quantity}</span>
-                          <button
-                            type="button"
-                            onClick={() => setQty(line.slug, line.quantity + 1)}
-                            className="grid size-9 place-items-center transition hover:text-[color:var(--accent-c)]"
-                            aria-label="Increase"
-                          >
-                            <Plus size={14} />
+                            {t("remove")}
                           </button>
                         </div>
-                        <button
-                          type="button"
-                          onClick={() => remove(line.slug)}
-                          className="text-muted-foreground underline-offset-4 transition hover:text-foreground hover:underline"
-                        >
-                          {t("remove")}
-                        </button>
                       </div>
                     </li>
                   );
@@ -171,6 +188,13 @@ export function CartDrawer({ children }: { children: React.ReactNode }) {
               >
                 {loading ? t("redirecting") : t("checkout")}
               </button>
+              <Link
+                href="/cart"
+                onClick={() => setDrawerOpen(false)}
+                className="mx-auto block text-center text-xs text-muted-foreground transition hover:text-foreground"
+              >
+                {t("viewCart")}
+              </Link>
               <button
                 type="button"
                 onClick={() => clear()}

@@ -2,13 +2,18 @@
 
 import * as Dropdown from "@radix-ui/react-dropdown-menu";
 import { ChevronDown, Coins, Globe, Menu, ShoppingBag, X } from "lucide-react";
+import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { Link, usePathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { checkoutCurrencies, type CheckoutCurrency } from "@/lib/currency";
 import { useCartStore } from "@/lib/cart-store";
-import { shopCollectionHref, shopNavCollections } from "@/lib/shop-nav";
+import {
+  getCollectionPreviewImage,
+  shopCollectionHref,
+  shopNavCollections,
+} from "@/lib/shop-nav";
 import { cn } from "@/lib/utils";
 import { ElementsLogoLink } from "@/app/components/brand/ElementsLogo";
 import { CartDrawer } from "./CartDrawer";
@@ -30,62 +35,91 @@ export function SiteHeader({ variant = "sticky" }: { variant?: SiteHeaderVariant
   const count = lines.reduce((n, l) => n + l.quantity, 0);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const shell =
-    variant === "overlay"
-      ? "absolute inset-x-0 top-0 z-30"
-      : "sticky top-0 z-30 border-b border-border bg-[#2f3a2e]/95 backdrop-blur-md";
+  const isOverlay = variant === "overlay";
+
+  const shell = isOverlay
+    ? "absolute inset-x-0 top-0 z-30"
+    : "sticky top-0 z-30 border-b border-border bg-white/95 backdrop-blur-md shadow-elements-soft";
+
+  const navLink = isOverlay
+    ? "text-white/80 transition hover:text-white"
+    : "text-muted-foreground transition hover:text-foreground";
+
+  const iconBtn = isOverlay
+    ? "text-white/80 transition hover:text-white"
+    : "text-muted-foreground transition hover:text-foreground";
 
   return (
     <header className={shell}>
-      <div className="container-x flex items-center justify-between py-4 md:py-6">
-        <ElementsLogoLink compact className="text-foreground" />
+      <div className="container-x flex items-center justify-between py-4 md:py-5">
+        <ElementsLogoLink
+          compact
+          className={isOverlay ? "text-white" : "text-foreground"}
+        />
 
         <nav className="hidden items-center gap-8 text-sm lg:flex">
           <div className="group relative">
             <button
               type="button"
-              className="inline-flex items-center gap-1 text-muted-foreground transition hover:text-[color:var(--accent-c)]"
+              className={cn("inline-flex items-center gap-1", navLink)}
             >
               {t("shop")}
               <ChevronDown size={14} aria-hidden />
             </button>
             <div className="invisible absolute left-1/2 top-full z-[80] -translate-x-1/2 pt-4 opacity-0 transition group-hover:visible group-hover:opacity-100">
-              <div className="grid min-w-[360px] grid-cols-2 gap-x-8 gap-y-2 rounded-2xl border border-border bg-card p-5 shadow-2xl">
-                {shopLinks.map((item) => (
-                  <Link
-                    key={item.key}
-                    href={item.href}
-                    className="text-sm text-foreground transition hover:text-[color:var(--accent-c)]"
-                  >
-                    {t(item.key as "shopBeginner")}
-                  </Link>
-                ))}
+              <div className="w-[min(92vw,42rem)] rounded-lg border border-border bg-white p-4 shadow-2xl md:p-5">
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
+                  {shopNavCollections.map((item) => {
+                    const preview = getCollectionPreviewImage(item.collection);
+                    return (
+                      <Link
+                        key={item.key}
+                        href={shopCollectionHref(item.collection)}
+                        className="group/item block rounded-lg p-1.5 transition hover:bg-secondary"
+                      >
+                        <div className="relative aspect-square overflow-hidden rounded-md border border-border bg-white">
+                          {preview ? (
+                            <Image
+                              src={preview}
+                              alt=""
+                              fill
+                              sizes="96px"
+                              className="object-contain p-2 transition duration-500 group-hover/item:scale-[1.04]"
+                            />
+                          ) : null}
+                        </div>
+                        <span className="mt-2 block text-center text-xs leading-tight text-foreground transition group-hover/item:text-[color:var(--sale-bg)]">
+                          {t(item.key as "shopBeginner")}
+                        </span>
+                      </Link>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>
 
-          <Link
-            href="/journal"
-            className="text-muted-foreground transition hover:text-[color:var(--accent-c)]"
-          >
+          <Link href="/journal" className={navLink}>
             {t("journal")}
           </Link>
-          <Link
-            href="/showrooms"
-            className="text-muted-foreground transition hover:text-[color:var(--accent-c)]"
-          >
+          <Link href="/showrooms" className={navLink}>
             {t("showrooms")}
           </Link>
         </nav>
 
         <div className="flex items-center gap-4 text-sm md:gap-5">
           <Dropdown.Root>
-            <Dropdown.Trigger className="hidden items-center gap-1 text-muted-foreground transition hover:text-foreground md:inline-flex">
+            <Dropdown.Trigger
+              className={cn(
+                "hidden items-center gap-1 md:inline-flex",
+                iconBtn
+              )}
+            >
               <Globe size={14} aria-hidden />
               {locale.toUpperCase()}
             </Dropdown.Trigger>
             <Dropdown.Content
-              className="z-[80] min-w-[120px] rounded-xl border border-border bg-card p-1 shadow-2xl"
+              className="z-[80] min-w-[120px] rounded-lg border border-border bg-white p-1 shadow-2xl"
               align="end"
               sideOffset={8}
             >
@@ -94,7 +128,7 @@ export function SiteHeader({ variant = "sticky" }: { variant?: SiteHeaderVariant
                   <Link
                     href={pathname}
                     locale={loc}
-                    className="block rounded-lg px-3 py-2 text-sm capitalize outline-none hover:bg-secondary"
+                    className="block rounded-md px-3 py-2 text-sm capitalize outline-none hover:bg-secondary"
                   >
                     {loc}
                   </Link>
@@ -104,19 +138,19 @@ export function SiteHeader({ variant = "sticky" }: { variant?: SiteHeaderVariant
           </Dropdown.Root>
 
           <Dropdown.Root>
-            <Dropdown.Trigger className="inline-flex items-center gap-1 text-muted-foreground transition hover:text-foreground">
+            <Dropdown.Trigger className={cn("inline-flex items-center gap-1", iconBtn)}>
               <Coins size={14} aria-hidden />
               {currency}
             </Dropdown.Trigger>
             <Dropdown.Content
-              className="z-[80] min-w-[100px] rounded-xl border border-border bg-card p-1 shadow-2xl"
+              className="z-[80] min-w-[100px] rounded-lg border border-border bg-white p-1 shadow-2xl"
               align="end"
               sideOffset={8}
             >
               {checkoutCurrencies.map((c) => (
                 <Dropdown.Item
                   key={c}
-                  className="cursor-pointer rounded-lg px-3 py-2 text-sm capitalize outline-none hover:bg-secondary"
+                  className="cursor-pointer rounded-md px-3 py-2 text-sm capitalize outline-none hover:bg-secondary"
                   onSelect={() => setCurrency(c as CheckoutCurrency)}
                 >
                   {c}
@@ -129,10 +163,17 @@ export function SiteHeader({ variant = "sticky" }: { variant?: SiteHeaderVariant
             <button
               type="button"
               aria-label={t("cart")}
-              className="relative text-muted-foreground transition hover:text-[color:var(--accent-c)]"
+              className={cn("relative", iconBtn)}
             >
               <ShoppingBag size={18} />
-              <span className="absolute -right-2 -top-1.5 min-w-[1.25rem] rounded-full bg-[color:var(--accent-c)] px-1.5 text-center text-[10px] font-medium text-[color:var(--background)]">
+              <span
+                className={cn(
+                  "absolute -right-2 -top-1.5 min-w-[1.25rem] rounded-full px-1.5 text-center text-[10px] font-semibold",
+                  isOverlay
+                    ? "bg-white text-[color:var(--ink)]"
+                    : "bg-[color:var(--cta-bg)] text-white"
+                )}
+              >
                 {count}
               </span>
             </button>
@@ -140,7 +181,12 @@ export function SiteHeader({ variant = "sticky" }: { variant?: SiteHeaderVariant
 
           <button
             type="button"
-            className="border border-border px-3 py-2 text-xs uppercase tracking-[0.14em] text-muted-foreground lg:hidden"
+            className={cn(
+              "border px-3 py-2 text-xs uppercase tracking-[0.14em] lg:hidden",
+              isOverlay
+                ? "border-white/30 text-white"
+                : "border-border text-muted-foreground"
+            )}
             onClick={() => setMobileOpen((v) => !v)}
             aria-expanded={mobileOpen}
             aria-label="Menu"
@@ -152,7 +198,7 @@ export function SiteHeader({ variant = "sticky" }: { variant?: SiteHeaderVariant
 
       <div
         className={cn(
-          "border-t border-[color:var(--accent-c)]/20 bg-[#2f3a2e] lg:hidden",
+          "border-t border-border bg-white lg:hidden",
           mobileOpen ? "block" : "hidden"
         )}
       >

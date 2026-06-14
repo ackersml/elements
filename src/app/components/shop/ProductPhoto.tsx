@@ -10,7 +10,7 @@ type ProductPhotoProps = {
   frameClassName?: string;
   aspect?: "square" | "4/3" | "video" | "21/9" | "3/4" | "4/5";
   /** Tighter padding for category tiles; avoids clipping on hover. */
-  variant?: "default" | "tile";
+  variant?: "default" | "tile" | "commerce";
 };
 
 const aspectClass: Record<NonNullable<ProductPhotoProps["aspect"]>, string> = {
@@ -43,6 +43,7 @@ export function ProductPhoto({
         className={cn(
           "product-photo",
           variant === "tile" && "product-photo--tile",
+          variant === "commerce" && "product-photo--commerce",
           className
         )}
       />

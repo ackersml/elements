@@ -1,12 +1,8 @@
 "use client";
 
-import { useLocale, useTranslations } from "next-intl";
-import { useState, type MouseEvent } from "react";
+import { useTranslations } from "next-intl";
+import { type MouseEvent } from "react";
 import { useCartStore } from "@/lib/cart-store";
-import {
-  CheckoutError,
-  redirectToStripeCheckout,
-} from "@/lib/checkout-client";
 import { formatProductDisplay, getProductBySlug } from "@/lib/products";
 import { cn } from "@/lib/utils";
 
@@ -18,44 +14,30 @@ export function QuickBuyButton({
   className?: string;
 }) {
   const t = useTranslations("product");
-  const locale = useLocale();
   const currency = useCartStore((s) => s.currency);
-  const [loading, setLoading] = useState(false);
+  const add = useCartStore((s) => s.add);
+  const openDrawer = useCartStore((s) => s.openDrawer);
 
   const p = getProductBySlug(slug);
   if (!p || p.stockStatus === "sold_out") return null;
 
-  async function onClick(e: MouseEvent<HTMLButtonElement>) {
+  function onClick(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     e.stopPropagation();
-    setLoading(true);
-    try {
-      await redirectToStripeCheckout({
-        items: [{ slug, quantity: 1 }],
-        currency,
-        locale,
-      });
-    } catch (err) {
-      const message =
-        err instanceof CheckoutError ? err.message : t("checkoutError");
-      window.alert(message);
-      setLoading(false);
-    }
+    add(slug, 1);
+    openDrawer();
   }
 
   return (
     <button
       type="button"
-      onClick={(e) => void onClick(e)}
-      disabled={loading}
+      onClick={onClick}
       className={cn(
-        "btn-pill btn-ghost !min-h-10 whitespace-nowrap !px-4 text-xs disabled:opacity-60",
+        "btn-pill btn-ghost !min-h-10 whitespace-nowrap !px-4 !text-xs",
         className
       )}
     >
-      {loading
-        ? t("redirecting")
-        : `${t("quickBuy")} · ${formatProductDisplay(p.priceCents, currency)}`}
+      {`${t("quickBuy")} · ${formatProductDisplay(p.priceCents, currency)}`}
     </button>
   );
 }

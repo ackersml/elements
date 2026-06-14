@@ -34,7 +34,7 @@ export function ProductModelSection({ product }: Props) {
               className={cn(
                 "overflow-hidden rounded-lg border-2 transition",
                 active === i
-                  ? "border-[color:var(--accent-c)]"
+                  ? "border-[color:var(--ink)]"
                   : "border-transparent opacity-80 hover:opacity-100"
               )}
               aria-label={`View image ${i + 1}`}

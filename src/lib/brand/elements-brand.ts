@@ -1,24 +1,32 @@
 /**
- * Elements Handpan Store — branding kit (PDF: public/brand/from-pdf/handpan-store/).
- * Single source for design tokens and canonical English copy.
+ * Elements Handpan Store — branding kit.
+ * Light Yatao commerce shell; forest/bronze identity accents.
  */
 
 export const brandColors = {
-  background: "#2f3a2e",
-  card: "#3e4a3c",
-  foreground: "#e8decf",
+  background: "#ffffff",
+  card: "#faf9f7",
+  surfaceAccent: "#fff7f2",
+  foreground: "#0b0b0b",
+  foregroundMuted: "#3e3e3e",
   accent: "#d4b98a",
+  accentCommerce: "#a8624f",
+  forest: "#2f3a2e",
+  forestMoss: "#3e4a3c",
+  sandstone: "#e8decf",
   deepSoil: "#31251c",
   mossMid: "#656e63",
   mossLight: "#8b928a",
   mossPale: "#b2b7b1",
   accentLight: "#e2d3b0",
   accentPale: "#f5f1e8",
+  hairline: "#f7f7f7",
 } as const;
 
 export const brandFonts = {
   display: '"Cinzel", ui-serif, Georgia, serif',
-  body: '"DM Sans", ui-sans-serif, system-ui, sans-serif',
+  body: '"Open Sans", ui-sans-serif, system-ui, sans-serif',
+  label: '"Space Mono", ui-monospace, monospace',
 } as const;
 
 export const brandLockup = {
@@ -107,7 +115,6 @@ export const brandContact = {
   businessName: "Elements — Handpan & Sound Healing",
 } as const;
 
-/** PDF product card template (D Kurd 10 · Fire) — live prices stay in catalog */
 export const brandProductTemplateDKurd10 = {
   element: "fire" as BrandElementId,
   description:
