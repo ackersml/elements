@@ -59,13 +59,13 @@ export function SiteHeader({ variant = "sticky" }: { variant?: SiteHeaderVariant
 
         <nav className="hidden items-center gap-8 text-sm lg:flex">
           <div className="group relative">
-            <button
-              type="button"
+            <Link
+              href="/products"
               className={cn("inline-flex items-center gap-1", navLink)}
             >
-              {t("shop")}
+              {t("products")}
               <ChevronDown size={14} aria-hidden />
-            </button>
+            </Link>
             <div className="invisible absolute left-1/2 top-full z-[80] -translate-x-1/2 pt-4 opacity-0 transition group-hover:visible group-hover:opacity-100">
               <div className="w-[min(92vw,42rem)] rounded-lg border border-border bg-white p-4 shadow-2xl md:p-5">
                 <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
@@ -99,11 +99,14 @@ export function SiteHeader({ variant = "sticky" }: { variant?: SiteHeaderVariant
             </div>
           </div>
 
-          <Link href="/journal" className={navLink}>
-            {t("journal")}
+          <Link href="/services" className={navLink}>
+            {t("services")}
           </Link>
-          <Link href="/showrooms" className={navLink}>
-            {t("showrooms")}
+          <Link href="/about" className={navLink}>
+            {t("about")}
+          </Link>
+          <Link href="/contact" className={navLink}>
+            {t("contact")}
           </Link>
         </nav>
 
@@ -203,11 +206,20 @@ export function SiteHeader({ variant = "sticky" }: { variant?: SiteHeaderVariant
         )}
       >
         <ul className="container-x space-y-1 py-6 text-sm">
+          <li>
+            <Link
+              href="/products"
+              className="block py-2.5 font-display text-base text-foreground"
+              onClick={() => setMobileOpen(false)}
+            >
+              {t("products")}
+            </Link>
+          </li>
           {shopLinks.map((item) => (
             <li key={item.key}>
               <Link
                 href={item.href}
-                className="block py-2.5 text-foreground"
+                className="block py-2 pl-4 text-muted-foreground"
                 onClick={() => setMobileOpen(false)}
               >
                 {t(item.key as "shopBeginner")}
@@ -216,20 +228,29 @@ export function SiteHeader({ variant = "sticky" }: { variant?: SiteHeaderVariant
           ))}
           <li>
             <Link
-              href="/journal"
-              className="block py-2.5"
+              href="/services"
+              className="block py-2.5 font-display text-base text-foreground"
               onClick={() => setMobileOpen(false)}
             >
-              {t("journal")}
+              {t("services")}
             </Link>
           </li>
           <li>
             <Link
-              href="/showrooms"
-              className="block py-2.5"
+              href="/about"
+              className="block py-2.5 font-display text-base text-foreground"
               onClick={() => setMobileOpen(false)}
             >
-              {t("showrooms")}
+              {t("about")}
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/contact"
+              className="block py-2.5 font-display text-base text-foreground"
+              onClick={() => setMobileOpen(false)}
+            >
+              {t("contact")}
             </Link>
           </li>
         </ul>

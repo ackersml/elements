@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap");
 
 @import "tailwindcss";
 
@@ -78,7 +78,7 @@
   --radius-md: 6px;
   --radius-sm: 4px;
   --font-display: "Cinzel", ui-serif, Georgia, serif;
-  --font-body: "Open Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "DM Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Space Mono", ui-monospace, monospace;
   --ease-elements: cubic-bezier(0.4, 0, 0.2, 1);
   --duration-hero: 800ms;
@@ -253,6 +253,13 @@
     background: #ffffff;
   }
 
+  .product-photo--scene {
+    padding: 0;
+    object-fit: cover;
+    object-position: center;
+    background: transparent;
+  }
+
   .product-card {
     border-radius: 8px;
     border: 1px solid var(--hairline);
@@ -269,6 +276,10 @@
     border: 0;
     border-radius: 0;
     background: #ffffff;
+  }
+
+  .product-card-media .product-photo-frame--scene {
+    background: transparent;
   }
 
   .product-card-body {
@@ -311,6 +322,10 @@
 
     .product-photo--commerce {
       padding: 1.25rem;
+    }
+
+    .product-photo--scene {
+      padding: 0;
     }
 
     .product-card-body {

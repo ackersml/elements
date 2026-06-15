@@ -63,7 +63,7 @@ export function HomeHero({
       <div className="absolute inset-0 hero-fade" aria-hidden />
 
       <motion.div
-        className="relative container-x pb-12 md:pb-16"
+        className="relative container-x pt-20 pb-12 md:pt-24 md:pb-16"
         style={reduced ? undefined : { opacity: contentOpacity, y: contentY }}
       >
         <div className="max-w-3xl text-white">

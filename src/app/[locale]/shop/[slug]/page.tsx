@@ -5,6 +5,8 @@ import { ProductCard } from "@/app/components/shop/ProductCard";
 import { ClientPrice } from "@/app/[locale]/shop/ShopPriceClient";
 import { Link } from "@/i18n/navigation";
 import { getProductBySlug, getProductsByCollection } from "@/lib/products";
+import { getCollectionLabelKey, shopCollectionHref } from "@/lib/shop-nav";
+import { ShieldCheck, Truck, RotateCcw, Headphones } from "lucide-react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -34,7 +36,14 @@ export default async function ProductPage({ params }: Props) {
   if (!product) notFound();
 
   const t = await getTranslations("product");
-  const related = getProductsByCollection(product.collections[0] ?? "beginner")
+  const tm = await getTranslations("mag");
+  const tn = await getTranslations("nav");
+
+  const collection = product.collections[0] ?? "beginner";
+  const labelKey = getCollectionLabelKey(collection);
+  const collectionLabel = labelKey ? tn(labelKey) : null;
+
+  const related = getProductsByCollection(collection)
     .filter((p) => p.slug !== product.slug)
     .slice(0, 4);
 
@@ -43,6 +52,13 @@ export default async function ProductPage({ params }: Props) {
     product.compareAtPriceCents > product.priceCents;
   const soldOut = product.stockStatus === "sold_out";
   const isPreorder = product.stockStatus === "preorder";
+
+  const assurances = [
+    { icon: Truck, title: tm("trustShippingTitle"), body: tm("trustShipping") },
+    { icon: ShieldCheck, title: tm("trustTuningTitle"), body: tm("trustTuning") },
+    { icon: RotateCcw, title: tm("trustReturnTitle"), body: tm("trustReturn") },
+    { icon: Headphones, title: tm("trustSupportTitle"), body: tm("trustSupport") },
+  ];
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -67,12 +83,27 @@ export default async function ProductPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="bg-white">
-        <div className="container-x py-12 md:py-20">
-          <nav className="smallcaps text-muted-foreground" aria-label="Breadcrumb">
+        <div className="container-x pt-10 pb-14 md:pt-14 md:pb-20">
+          <nav
+            className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-[0.12em] text-muted-foreground"
+            aria-label="Breadcrumb"
+          >
             <Link href="/shop" className="transition hover:text-foreground">
-              Shop
-            </Link>{" "}
-            <span className="mx-2">/</span> <span>{product.title}</span>
+              {tn("shop")}
+            </Link>
+            {collectionLabel ? (
+              <>
+                <span aria-hidden>/</span>
+                <Link
+                  href={shopCollectionHref(collection)}
+                  className="transition hover:text-foreground"
+                >
+                  {collectionLabel}
+                </Link>
+              </>
+            ) : null}
+            <span aria-hidden>/</span>
+            <span className="text-foreground/80">{product.title}</span>
           </nav>
 
           <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
@@ -81,7 +112,12 @@ export default async function ProductPage({ params }: Props) {
             </div>
 
             <div className="max-w-xl">
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap items-center gap-2">
+                {collectionLabel ? (
+                  <span className="eyebrow eyebrow-rule !mr-2">
+                    {collectionLabel}
+                  </span>
+                ) : null}
                 {soldOut ? (
                   <span className="product-card-badge product-card-badge--sold">
                     {t("soldOut")}
@@ -103,7 +139,8 @@ export default async function ProductPage({ params }: Props) {
                 {product.title}
               </h1>
               <p className="mt-3 text-sm text-muted-foreground">
-                {product.scale} · {product.noteCount} notes · {product.maker}
+                {product.scale} &middot; {product.noteCount} notes &middot;{" "}
+                {product.maker}
               </p>
 
               <div className="mt-6 flex items-baseline gap-3">
@@ -117,7 +154,9 @@ export default async function ProductPage({ params }: Props) {
                 ) : null}
               </div>
 
-              <p className="mt-6 leading-relaxed text-muted-foreground">
+              <hr className="hairline-rule my-7" />
+
+              <p className="leading-relaxed text-foreground/80">
                 {product.description}
               </p>
 
@@ -125,50 +164,74 @@ export default async function ProductPage({ params }: Props) {
                 <ProductElementLine
                   element={product.element}
                   showKeywords
-                  className="mt-5"
+                  className="mt-6 smallcaps text-[color:var(--sale-bg)]"
                 />
               ) : null}
 
-              <dl className="mt-6 grid grid-cols-1 gap-x-8 gap-y-3 rounded-lg border border-border bg-[color:var(--surface-muted)] p-5 text-sm sm:grid-cols-2">
+              <dl className="mt-7 grid grid-cols-2 gap-x-8 gap-y-5 rounded-xl border border-border bg-[color:var(--surface-muted)] p-6 text-sm">
                 <div>
-                  <dt className="smallcaps inline text-muted-foreground">Scale:</dt>{" "}
-                  <dd className="inline">{product.scale}</dd>
+                  <dt className="smallcaps text-muted-foreground">Scale</dt>
+                  <dd className="mt-1 font-display text-base">{product.scale}</dd>
                 </div>
                 <div>
-                  <dt className="smallcaps inline text-muted-foreground">Notes:</dt>{" "}
-                  <dd className="inline">{product.noteCount}</dd>
+                  <dt className="smallcaps text-muted-foreground">Notes</dt>
+                  <dd className="mt-1 font-display text-base">
+                    {product.noteCount}
+                  </dd>
                 </div>
                 <div>
-                  <dt className="smallcaps inline text-muted-foreground">Maker:</dt>{" "}
-                  <dd className="inline">{product.maker}</dd>
+                  <dt className="smallcaps text-muted-foreground">Maker</dt>
+                  <dd className="mt-1 font-display text-base">{product.maker}</dd>
                 </div>
                 <div>
-                  <dt className="smallcaps inline text-muted-foreground">
-                    Weight / dimensions:
-                  </dt>{" "}
-                  <dd className="inline">
-                    {product.weightKg} kg · {product.dimensionsCm}
+                  <dt className="smallcaps text-muted-foreground">
+                    Weight / size
+                  </dt>
+                  <dd className="mt-1 font-display text-base">
+                    {product.weightKg} kg &middot; {product.dimensionsCm}
                   </dd>
                 </div>
               </dl>
 
-              <div className="mt-10 flex flex-wrap items-center gap-4">
+              <div className="mt-9 flex flex-wrap items-center gap-4">
                 <ProductBuyActions slug={product.slug} />
                 <Link href="/shop" className="link-arrow">
                   Back to shop
                 </Link>
               </div>
+
+              <ul className="mt-9 grid grid-cols-1 gap-4 border-t border-border pt-8 sm:grid-cols-2">
+                {assurances.map((a) => {
+                  const Icon = a.icon;
+                  return (
+                    <li key={a.title} className="flex gap-3">
+                      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg border border-border bg-[color:var(--surface-muted)] text-[color:var(--sale-bg)]">
+                        <Icon size={18} aria-hidden />
+                      </span>
+                      <div>
+                        <p className="text-sm font-semibold text-foreground">
+                          {a.title}
+                        </p>
+                        <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
+                          {a.body}
+                        </p>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
           </div>
         </div>
 
         {related.length > 0 && (
-          <section className="border-t border-border section-band-accent section-padding">
+          <section className="border-t border-border section-band-accent section-padding md:py-24">
             <div className="container-x">
-              <h2 className="font-display text-2xl tracking-tight md:text-3xl">
+              <p className="eyebrow eyebrow-rule">More from this collection</p>
+              <h2 className="mt-4 font-display text-2xl tracking-tight md:text-3xl">
                 {t("related")}
               </h2>
-              <div className="product-grid mt-8">
+              <div className="product-grid mt-10">
                 {related.map((p) => (
                   <ProductCard key={p.id} product={p} aspect="4/3" />
                 ))}

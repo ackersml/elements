@@ -1,4 +1,4 @@
-import { InfoPage } from "@/app/components/info/InfoPage";
+import { ShowroomsView } from "@/app/components/pages/ShowroomsView";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
@@ -13,16 +13,5 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ShowroomsPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: "pages" });
-  return (
-    <InfoPage
-      title={t("showrooms.title")}
-      eyebrow="Visit by appointment - Bali"
-      heroImage="/images/handpan-lifestyle-2.jpg"
-    >
-      <p>{t("showrooms.p1")}</p>
-      <p>{t("showrooms.p2")}</p>
-      <p>{t("showrooms.p3")}</p>
-    </InfoPage>
-  );
+  return <ShowroomsView />;
 }

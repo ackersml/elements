@@ -44,6 +44,18 @@ export type Product = {
   element?: BrandElementId;
 };
 
+/** Elemental scene art for collection grids (from brand imagery). */
+const COLLECTION_SCENE_BY_ELEMENT: Partial<Record<BrandElementId, string>> = {
+  air: "/images/collection/handpan-air.png",
+  fire: "/images/collection/handpan-fire.png",
+  earth: "/images/collection/handpan-earth.png",
+};
+
+export function getCollectionSceneUrl(product: Product): string | undefined {
+  if (!product.element) return undefined;
+  return COLLECTION_SCENE_BY_ELEMENT[product.element];
+}
+
 /** Product photography: PNG cutouts from `scripts/process-product-pngs.py` (rembg). */
 const PHOTO = (file: string) =>
   `/products/${file.replace(/\.jpe?g$/i, ".png")}`;
@@ -148,6 +160,31 @@ export const products: Product[] = [
     element: "air",
     description:
       "Compact layout with clear voice leading—open, breathable Celtic colours without overtones fighting.",
+  },
+  {
+    id: "p11",
+    title: "Sanctuary — C Minor 15",
+    slug: "sanctuary-c-minor-15",
+    priceCents: 180_000,
+    compareAtPriceCents: null,
+    currency: "eur",
+    images: [PHOTO("d-kurd-12.jpg"), PHOTO("d-kurd-12-back.jpg")],
+    heroImageUrl: PHOTO("d-kurd-12.jpg"),
+    modelUrl: null,
+    audioSamples: [],
+    scale: "C Minor",
+    noteCount: 15,
+    maker: "Elements Forge",
+    weightKg: 4.5,
+    dimensionsCm: "56 × 26 cm",
+    supplierSku: null,
+    leadTimeDays: 21,
+    stockStatus: "in_stock",
+    tags: ["beginner"],
+    collections: ["beginner", "extended"],
+    element: "air",
+    description:
+      "The C Minor 15 is defined by its deep, atmospheric tone and extended range. With its rich harmonic layers and expansive layout, it invites intricate melodies and immersive exploration, offering a powerful, expressive playing experience.",
   },
   {
     id: "p5",
@@ -294,4 +331,17 @@ export function getProductsByCollection(collection: string): Product[] {
 
 export function getProductsByTag(tag: string): Product[] {
   return products.filter((p) => p.tags.includes(tag));
+}
+
+/** Homepage collection row — air, fire, earth (Yatao mockup order). */
+const COLLECTION_SHOWCASE_SLUGS = [
+  "trailhead-d-celtic-9",
+  "studio-handpan-d-kurd-10",
+  "sanctuary-c-minor-15",
+] as const;
+
+export function getCollectionShowcaseProducts(): Product[] {
+  return COLLECTION_SHOWCASE_SLUGS.map((slug) => getProductBySlug(slug)).filter(
+    (p): p is Product => Boolean(p)
+  );
 }

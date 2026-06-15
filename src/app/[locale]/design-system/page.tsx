@@ -61,7 +61,7 @@ export default async function DesignSystemPage() {
           </h2>
           <p className="font-display text-5xl tracking-tight">Display · Cinzel</p>
           <p className="max-w-prose font-body text-base leading-relaxed text-muted-foreground">
-            Body · Open Sans — {brandVision}
+            Body · DM Sans — {brandVision}
           </p>
         </section>
 

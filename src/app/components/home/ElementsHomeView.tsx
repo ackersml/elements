@@ -11,6 +11,7 @@ import {
   getProducts,
   getProductsByCollection,
   getProductsByTag,
+  getCollectionShowcaseProducts,
 } from "@/lib/products";
 import { shopCollectionHref } from "@/lib/shop-nav";
 import { cn } from "@/lib/utils";
@@ -158,6 +159,7 @@ export function ElementsHomeView() {
   const tn = useTranslations("nav");
   const id = useId();
   const beginners = getProductsByTag("beginner");
+  const collectionShowcase = getCollectionShowcaseProducts();
   const rarities = getProductsByCollection("rare");
   const bundles = getProductsByCollection("bundles");
   const cases = getProductsByTag("accessory");
@@ -277,8 +279,14 @@ export function ElementsHomeView() {
           <p className="eyebrow mb-6">{tm("beginnerEyebrow")}</p>
           <h3 className="mb-8 font-display text-2xl md:text-3xl">Beginner handpans</h3>
           <MotionStagger className="product-grid" staggerDelay={0.08}>
-            {beginners.map((p) => (
-              <ProductCard key={p.id} product={p} showElement aspect="square" />
+            {collectionShowcase.map((p) => (
+              <ProductCard
+                key={p.id}
+                product={p}
+                showElement
+                aspect="square"
+                collectionScene
+              />
             ))}
           </MotionStagger>
         </div>

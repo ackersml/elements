@@ -6,6 +6,7 @@ import { Link } from "@/i18n/navigation";
 import { useCartStore } from "@/lib/cart-store";
 import {
   formatProductDisplay,
+  getCollectionSceneUrl,
   type Product,
 } from "@/lib/products";
 import { cn } from "@/lib/utils";
@@ -17,6 +18,8 @@ type ProductCardProps = {
   product: Product;
   aspect?: "square" | "4/3" | "video" | "21/9" | "3/4" | "4/5";
   showElement?: boolean;
+  /** Use elemental scene art instead of product cutout photography. */
+  collectionScene?: boolean;
   className?: string;
 };
 
@@ -24,6 +27,7 @@ export function ProductCard({
   product,
   aspect = "square",
   showElement = false,
+  collectionScene = false,
   className,
 }: ProductCardProps) {
   const t = useTranslations("product");
@@ -31,6 +35,10 @@ export function ProductCard({
   const images =
     product.images.length > 0 ? product.images : [product.heroImageUrl];
   const [imageIndex, setImageIndex] = useState(0);
+  const sceneUrl = collectionScene ? getCollectionSceneUrl(product) : undefined;
+  const displaySrc = sceneUrl ?? images[imageIndex] ?? product.heroImageUrl;
+  const photoVariant = sceneUrl ? "scene" : "commerce";
+  const showImageDots = !sceneUrl && images.length > 1;
 
   const isSale =
     product.compareAtPriceCents != null &&
@@ -61,15 +69,16 @@ export function ProductCard({
           </div>
 
           <ProductPhoto
-            src={images[imageIndex] ?? product.heroImageUrl}
+            src={displaySrc}
             alt={product.title}
             aspect={aspect}
-            variant="commerce"
+            variant={photoVariant}
+            frameClassName={sceneUrl ? "product-photo-frame--scene" : undefined}
             sizes="(max-width: 768px) 100vw, 25vw"
             className="transition-transform duration-500 ease-out group-hover:scale-[1.03]"
           />
 
-          {images.length > 1 ? (
+          {showImageDots ? (
             <div
               className="absolute inset-x-0 bottom-3 z-10 flex justify-center gap-1.5"
               onClick={(e) => e.preventDefault()}

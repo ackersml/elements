@@ -25,7 +25,7 @@ export const brandColors = {
 
 export const brandFonts = {
   display: '"Cinzel", ui-serif, Georgia, serif',
-  body: '"Open Sans", ui-sans-serif, system-ui, sans-serif',
+  body: '"DM Sans", ui-sans-serif, system-ui, sans-serif',
   label: '"Space Mono", ui-monospace, monospace',
 } as const;
 
@@ -36,7 +36,7 @@ export const brandLockup = {
 } as const;
 
 export const brandTaglines = {
-  primary: "Sound · Presence · Source",
+  primary: "Silence \u00B7 Presence \u00B7 Source",
   primarySeparator: " · ",
   category: "Handpan & sound healing",
   location: "Bali, Indonesia",

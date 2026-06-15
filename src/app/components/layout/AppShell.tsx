@@ -16,15 +16,37 @@ const ROUTES_WITH_OWN_HEADER = new Set([
   "/shipping",
   "/returns",
   "/privacy",
+  "/products",
+  "/services",
+  "/about",
+  "/shop",
 ]);
 
 /** Routes whose page components render their own footer. */
-const ROUTES_WITH_OWN_FOOTER = new Set(["/", "", "/homepage-outline"]);
+const ROUTES_WITH_OWN_FOOTER = new Set([
+  "/",
+  "",
+  "/homepage-outline",
+  "/contact",
+  "/products",
+  "/services",
+  "/about",
+  "/showrooms",
+  "/shop",
+]);
+
+/** Path prefixes whose page components render their own header and footer. */
+const PREFIXES_WITH_OWN_CHROME = ["/collections/"];
+
+function rendersOwnChrome(pathname: string): boolean {
+  return PREFIXES_WITH_OWN_CHROME.some((prefix) => pathname.startsWith(prefix));
+}
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const hasOwnHeader = ROUTES_WITH_OWN_HEADER.has(pathname);
-  const hasOwnFooter = ROUTES_WITH_OWN_FOOTER.has(pathname);
+  const ownChrome = rendersOwnChrome(pathname);
+  const hasOwnHeader = ownChrome || ROUTES_WITH_OWN_HEADER.has(pathname);
+  const hasOwnFooter = ownChrome || ROUTES_WITH_OWN_FOOTER.has(pathname);
 
   return (
     <>
