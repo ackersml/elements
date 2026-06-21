@@ -1,14 +1,10 @@
 import createMiddleware from "next-intl/middleware";
-import { NextRequest, NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 import { routing } from "./i18n/routing";
 
 const intlMiddleware = createMiddleware(routing);
 
 export default function middleware(request: NextRequest) {
-  // Land the bare domain on the course landing page.
-  if (request.nextUrl.pathname === "/") {
-    return NextResponse.redirect(new URL("/course", request.url));
-  }
   return intlMiddleware(request);
 }
 
