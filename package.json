@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "scrape:yatao": "node scripts/scrape-yatao-reference.mjs",
     "clone:yatao": "node scripts/clone-yatao.mjs",
-    "clone:backfill": "node scripts/backfill-clone-assets.mjs"
+    "clone:backfill": "node scripts/backfill-clone-assets.mjs",
+    "import:photos": ".venv-import/bin/python scripts/import-photo-archive.py"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "1.1.15",

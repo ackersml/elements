@@ -26,6 +26,8 @@ yarn-error.log*
 
 # local image tooling
 .venv-img/
+.venv-import/
+.tmp-photo-import/
 
 # local brand assets (not for git or Tailwind scanning)
 Google Drive Elements/

@@ -9,6 +9,10 @@ import {
   getCollectionSceneUrl,
   type Product,
 } from "@/lib/products";
+import {
+  cardPhotosFor,
+  isProductPhotoSlug,
+} from "@/lib/product-photos";
 import { cn } from "@/lib/utils";
 import { ProductElementLine } from "@/app/components/shop/ProductElementLine";
 import { ProductPhoto } from "@/app/components/shop/ProductPhoto";
@@ -20,7 +24,18 @@ type ProductCardProps = {
   showElement?: boolean;
   /** Use elemental scene art instead of product cutout photography. */
   collectionScene?: boolean;
+  /** Homepage rails: even image cells, no card chrome. */
+  layout?: "default" | "rail";
   className?: string;
+};
+
+const aspectClass: Record<NonNullable<ProductCardProps["aspect"]>, string> = {
+  square: "aspect-square",
+  "4/3": "aspect-[4/3]",
+  video: "aspect-video",
+  "21/9": "aspect-[21/9]",
+  "3/4": "aspect-[3/4]",
+  "4/5": "aspect-[4/5]",
 };
 
 export function ProductCard({
@@ -28,17 +43,29 @@ export function ProductCard({
   aspect = "square",
   showElement = false,
   collectionScene = false,
+  layout = "default",
   className,
 }: ProductCardProps) {
+  const isRail = layout === "rail";
   const t = useTranslations("product");
   const currency = useCartStore((s) => s.currency);
   const images =
     product.images.length > 0 ? product.images : [product.heroImageUrl];
+  const catalogCard = isProductPhotoSlug(product.slug)
+    ? cardPhotosFor(product.slug)
+    : null;
+  /** Cards: top on load, side on hover; full gallery stays on PDP. */
+  const cardImages = catalogCard
+    ? [catalogCard.primary, catalogCard.hover]
+    : images.slice(0, 2);
   const [imageIndex, setImageIndex] = useState(0);
   const sceneUrl = collectionScene ? getCollectionSceneUrl(product) : undefined;
-  const displaySrc = sceneUrl ?? images[imageIndex] ?? product.heroImageUrl;
+  const primarySrc = sceneUrl ?? cardImages[0] ?? product.heroImageUrl;
+  const hoverSrc = sceneUrl ?? cardImages[1] ?? primarySrc;
+  const displaySrc = sceneUrl ?? cardImages[imageIndex] ?? product.heroImageUrl;
   const photoVariant = sceneUrl ? "scene" : "commerce";
-  const showImageDots = !sceneUrl && images.length > 1;
+  const showImageDots = !sceneUrl && cardImages.length > 2;
+  const showHoverSwap = !sceneUrl && cardImages.length > 1 && imageIndex === 0;
 
   const isSale =
     product.compareAtPriceCents != null &&
@@ -46,10 +73,94 @@ export function ProductCard({
   const soldOut = product.stockStatus === "sold_out";
   const isPreorder = product.stockStatus === "preorder";
 
+  const photoStackClass = cn(
+    "product-card-photo-stack",
+    isRail ? "product-card-photo-stack--rail" : aspectClass[aspect]
+  );
+
+  const primaryFrameClass = cn(
+    "product-card-photo-layer product-card-photo-layer--primary",
+    sceneUrl && "product-photo-frame--scene",
+    isRail && "product-photo-frame--rail"
+  );
+
+  const hoverFrameClass = cn(
+    "product-card-photo-layer product-card-photo-layer--hover",
+    isRail && "product-photo-frame--rail"
+  );
+
+  function renderPhotos() {
+    if (showHoverSwap) {
+      return (
+        <div className={photoStackClass}>
+          <ProductPhoto
+            src={primarySrc}
+            alt={product.title}
+            aspect={aspect}
+            variant={photoVariant}
+            frameClassName={primaryFrameClass}
+            sizes={
+              isRail
+                ? "(max-width: 768px) 45vw, 20vw"
+                : "(max-width: 768px) 100vw, 25vw"
+            }
+            className={cn(
+              !isRail &&
+                "transition-transform duration-500 ease-out group-hover:scale-[1.03]",
+              isRail && "product-photo--rail"
+            )}
+          />
+          <ProductPhoto
+            src={hoverSrc}
+            alt=""
+            aspect={aspect}
+            variant={photoVariant}
+            frameClassName={hoverFrameClass}
+            sizes={
+              isRail
+                ? "(max-width: 768px) 45vw, 20vw"
+                : "(max-width: 768px) 100vw, 25vw"
+            }
+            className={cn(
+              !isRail &&
+                "transition-transform duration-500 ease-out group-hover:scale-[1.03]",
+              isRail && "product-photo--rail"
+            )}
+          />
+        </div>
+      );
+    }
+
+    return (
+      <ProductPhoto
+        src={displaySrc}
+        alt={product.title}
+        aspect={aspect}
+        variant={photoVariant}
+        frameClassName={cn(
+          sceneUrl && "product-photo-frame--scene",
+          isRail && "product-photo-frame--rail"
+        )}
+        sizes={
+          isRail
+            ? "(max-width: 768px) 45vw, 20vw"
+            : "(max-width: 768px) 100vw, 25vw"
+        }
+        className={cn(
+          !isRail &&
+            "transition-transform duration-500 ease-out group-hover:scale-[1.03]",
+          isRail && "product-photo--rail"
+        )}
+      />
+    );
+  }
+
   return (
-    <article className={cn("product-card group", className)}>
+    <article className={cn("product-card group", isRail && "product-card--rail", className)}>
       <Link href={`/shop/${product.slug}`} className="block">
-        <div className="product-card-media relative">
+        <div className="product-card-media relative overflow-hidden">
+          {renderPhotos()}
+
           <div className="pointer-events-none absolute left-3 top-3 z-10 flex flex-wrap gap-1.5">
             {soldOut ? (
               <span className="product-card-badge product-card-badge--sold">
@@ -68,22 +179,12 @@ export function ProductCard({
             ) : null}
           </div>
 
-          <ProductPhoto
-            src={displaySrc}
-            alt={product.title}
-            aspect={aspect}
-            variant={photoVariant}
-            frameClassName={sceneUrl ? "product-photo-frame--scene" : undefined}
-            sizes="(max-width: 768px) 100vw, 25vw"
-            className="transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-          />
-
           {showImageDots ? (
             <div
               className="absolute inset-x-0 bottom-3 z-10 flex justify-center gap-1.5"
               onClick={(e) => e.preventDefault()}
             >
-              {images.map((_, i) => (
+              {cardImages.map((_, i) => (
                 <button
                   key={i}
                   type="button"
@@ -106,7 +207,7 @@ export function ProductCard({
         </div>
       </Link>
 
-      <div className="product-card-body">
+      <div className={cn("product-card-body flex flex-col", isRail && "product-card-body--rail")}>
         <Link href={`/shop/${product.slug}`} className="block min-w-0 flex-1">
           <p className="font-display text-base leading-snug text-foreground transition group-hover:text-[color:var(--sale-bg)] md:text-lg">
             {product.title}

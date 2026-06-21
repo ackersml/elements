@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600;700&display=swap");
 
 @import "tailwindcss";
 
@@ -164,6 +164,18 @@
     background: var(--surface-accent);
   }
 
+  .section-band-muted {
+    background: var(--surface-muted);
+  }
+
+  .section-band-sandstone {
+    background: color-mix(in oklab, var(--sandstone) 42%, white);
+  }
+
+  .section-band-forest {
+    background: color-mix(in oklab, var(--pine-grove) 8%, var(--surface-muted));
+  }
+
   .section-band-dark {
     background: var(--pine-grove);
     color: var(--sandstone);
@@ -249,7 +261,7 @@
   }
 
   .product-photo--commerce {
-    padding: 1rem;
+    padding: 0.5rem;
     background: #ffffff;
   }
 
@@ -263,7 +275,7 @@
   .product-card {
     border-radius: 8px;
     border: 1px solid var(--hairline);
-    background: var(--surface-muted);
+    background: #ffffff;
     overflow: hidden;
     transition: box-shadow 300ms var(--ease-elements);
   }
@@ -311,6 +323,113 @@
     color: var(--preorder-text);
   }
 
+  /* Homepage rails — Yatao-style even image grid, no card chrome */
+  .product-card--rail {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .product-card--rail:hover {
+    box-shadow: none;
+  }
+
+  .product-card--rail .product-card-media {
+    background: transparent;
+  }
+
+  .product-card-photo-stack {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+  }
+
+  .product-card-photo-stack--rail {
+    width: 100%;
+    margin-inline: auto;
+  }
+
+  @media (min-width: 768px) {
+    .product-card-photo-stack--rail {
+      width: 96%;
+    }
+  }
+
+  .product-card-photo-layer {
+    position: absolute;
+    inset: 0;
+    aspect-ratio: unset;
+    overflow: hidden;
+    border: 0;
+    border-radius: 0;
+    transition: opacity 300ms var(--ease-elements);
+  }
+
+  .product-card--rail .product-card-photo-layer {
+    overflow: visible;
+  }
+
+  .product-card--rail .product-card-media {
+    overflow: visible;
+  }
+
+  .product-card-photo-layer--primary {
+    z-index: 1;
+    opacity: 1;
+  }
+
+  .product-card-photo-layer--hover {
+    z-index: 2;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .product-card.group:hover .product-card-photo-layer--primary {
+    opacity: 0;
+  }
+
+  .product-card.group:hover .product-card-photo-layer--hover {
+    opacity: 1;
+  }
+
+  .product-card-photo-layer .product-photo {
+    padding: 0;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .product-card--rail .product-photo-frame--rail {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .product-card--rail .product-photo--rail {
+    padding: 0;
+    background: transparent;
+  }
+
+  .product-card--rail .product-photo--commerce.product-photo--rail {
+    background: transparent;
+  }
+
+  .product-card--rail .product-card-body--rail {
+    flex: 1;
+    padding: 0.875rem 0 0;
+  }
+
+  @media (min-width: 768px) {
+    .product-card--rail .product-card-body--rail {
+      padding-top: 1rem;
+    }
+  }
+
   @media (min-width: 768px) {
     .product-photo {
       padding: 1.25rem;
@@ -321,7 +440,7 @@
     }
 
     .product-photo--commerce {
-      padding: 1.25rem;
+      padding: 0.75rem;
     }
 
     .product-photo--scene {
@@ -569,6 +688,54 @@
       gap: 1rem;
     }
   }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .product-rail {
+    margin-inline: 0;
+    padding-inline: 0;
+    mask-image: none;
+  }
+
+  .product-rail-track {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.75rem 1rem;
+    overflow: visible;
+    scroll-snap-type: none;
+    padding-bottom: 0;
+  }
+
+  @media (min-width: 768px) {
+    .product-rail-track {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 2.5rem 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .product-rail-track {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 2.75rem 1.75rem;
+    }
+  }
+
+  .product-rail-item {
+    width: 100%;
+    min-width: 0;
+    scroll-snap-align: unset;
+  }
+
+  .home-promo-tile {
+    box-shadow: 0 12px 40px rgb(11 11 11 / 0.12);
+  }
 }
 
 @keyframes marquee-x {
@@ -595,4 +762,74 @@
 
 .animate-marquee-vertical {
   animation: marquee-vertical var(--duration, 42s) linear infinite;
+}
+
+/* ── Dany Rud course page (/course): Poppins everywhere, sage palette ── */
+.course-scope,
+.course-scope h1,
+.course-scope h2,
+.course-scope h3,
+.course-scope h4,
+.course-scope h5,
+.course-scope h6,
+.course-scope p,
+.course-scope span,
+.course-scope a,
+.course-scope button,
+.course-scope li,
+.course-scope input {
+  font-family: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0;
+}
+
+.course-scope {
+  --sage: #8c9a96;
+  --sage-deep: #5e6f6a;
+  --sage-light: #9eaba6;
+  --sage-darktext: #3a4744;
+  background-color: var(--sage);
+  background-image:
+    radial-gradient(140% 90% at 78% 18%, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0) 42%),
+    radial-gradient(120% 80% at 12% 88%, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 46%),
+    radial-gradient(90% 70% at 50% 50%, rgba(70, 86, 82, 0.18) 0%, rgba(70, 86, 82, 0) 60%);
+}
+
+.course-scope .course-heading {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.08;
+}
+
+/* Bulletproof entrance: content is visible by default; the CSS animation only
+   fades it in. If the animation never runs (reduced motion, odd browser), the
+   content still shows — unlike JS-driven opacity:0 starts. */
+@keyframes course-fade-up {
+  from {
+    transform: translateY(18px);
+  }
+  to {
+    transform: none;
+  }
+}
+
+/* Opacity stays 1 at all times (never animated), so content is ALWAYS visible
+   even if the animation engine is throttled/frozen. Only the subtle slide animates. */
+.course-scope .cfade {
+  opacity: 1;
+  animation: course-fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.course-scope .cfade-2 {
+  animation-delay: 0.08s;
+}
+.course-scope .cfade-3 {
+  animation-delay: 0.16s;
+}
+.course-scope .cfade-4 {
+  animation-delay: 0.24s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .course-scope .cfade {
+    animation: none;
+  }
 }

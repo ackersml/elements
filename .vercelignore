@@ -1,0 +1,8 @@
+node_modules
+.next
+.git
+.vercel-elements-bak
+.venv-import
+public/images
+public/brand
+public/audio

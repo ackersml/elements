@@ -34,7 +34,7 @@ export function CustomerReviews({ id }: { id: string }) {
   return (
     <section
       aria-labelledby={id}
-      className="border-y border-border bg-white section-padding"
+      className="border-y border-border section-band-accent section-padding"
     >
       <div className="container-x">
         <MotionHeading
@@ -73,7 +73,7 @@ export function CustomerReviews({ id }: { id: string }) {
           {reviews.map((r) => (
             <blockquote
               key={r.author}
-              className="rounded-lg border border-border bg-[color:var(--surface-muted)] p-6 md:p-8"
+              className="rounded-lg border border-border bg-white p-6 shadow-sm md:p-8"
             >
               <div className="flex gap-0.5" aria-hidden>
                 {Array.from({ length: 5 }).map((_, i) => (

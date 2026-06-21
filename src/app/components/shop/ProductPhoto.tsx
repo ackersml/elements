@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { PHOTO_ASSET_VERSION, productPhotoPath } from "@/lib/product-photos";
 import { cn } from "@/lib/utils";
 
 type ProductPhotoProps = {
@@ -32,10 +33,13 @@ export function ProductPhoto({
   aspect = "square",
   variant = "default",
 }: ProductPhotoProps) {
+  const imageSrc = productPhotoPath(src);
+
   return (
     <div className={cn("product-photo-frame", aspectClass[aspect], frameClassName)}>
       <Image
-        src={src}
+        key={`${imageSrc}-${PHOTO_ASSET_VERSION}`}
+        src={imageSrc}
         alt={alt}
         fill
         priority={priority}
