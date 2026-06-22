@@ -7,7 +7,11 @@ import { SectionBackdrop } from "@/app/components/layout/SectionBackdrop";
 import { ProductCard } from "@/app/components/shop/ProductCard";
 import type { Product } from "@/lib/products";
 import { cn } from "@/lib/utils";
-import { MotionReveal, MotionStagger } from "./motion/motion-primitives";
+import {
+  MotionHorizontalRail,
+  MotionMagnetic,
+  MotionReveal,
+} from "./motion/motion-primitives";
 
 type RailBand = "white" | "accent" | "muted" | "sandstone" | "forest";
 
@@ -66,7 +70,12 @@ export function ProductRail({
       )}
     >
       {backdrop ? (
-        <SectionBackdrop src={backdrop} tint={backdropTint} opacity={0.22} />
+        <SectionBackdrop
+          src={backdrop}
+          tint={backdropTint}
+          opacity={0.22}
+          parallax
+        />
       ) : null}
 
       <div className="relative container-x">
@@ -87,12 +96,8 @@ export function ProductRail({
 
         {beforeRail ? <div className="mt-8">{beforeRail}</div> : null}
 
-        <div className="product-rail mt-10">
-          <MotionStagger
-            className="product-rail-track no-scrollbar"
-            childClassName="product-rail-item"
-            staggerDelay={0.08}
-          >
+        <div className="mt-10">
+          <MotionHorizontalRail staggerDelay={0.08}>
             {products.map((product) => (
               <ProductCard
                 key={product.id}
@@ -103,13 +108,15 @@ export function ProductRail({
                 layout="rail"
               />
             ))}
-          </MotionStagger>
+          </MotionHorizontalRail>
         </div>
 
         <MotionReveal className="mt-10 flex justify-end" delay={0.1}>
-          <Link href={ctaHref} className="btn-pill btn-primary">
-            {ctaLabel} <ArrowRight size={16} aria-hidden />
-          </Link>
+          <MotionMagnetic>
+            <Link href={ctaHref} className="btn-pill btn-primary">
+              {ctaLabel} <ArrowRight size={16} aria-hidden />
+            </Link>
+          </MotionMagnetic>
         </MotionReveal>
       </div>
     </section>

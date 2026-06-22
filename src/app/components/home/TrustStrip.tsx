@@ -3,7 +3,7 @@
 import { Handshake, Headphones, RotateCcw, Truck } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Marquee } from "@/components/ui/marquee";
-import { MotionStagger } from "./motion/motion-primitives";
+import { MotionReveal, MotionStagger } from "./motion/motion-primitives";
 
 const trustItems = [
   { key: "trustReturn", icon: RotateCcw, titleKey: "trustReturnTitle" },
@@ -23,13 +23,15 @@ export function TrustStrip() {
         className="border-b border-border bg-[color:var(--surface-accent)] py-2.5 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]"
         aria-hidden
       >
-        <Marquee speed="slow" pauseOnHover className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+        <MotionReveal y={8} delay={0}>
+          <Marquee speed="slow" pauseOnHover className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
           {marqueeItems.map((label) => (
             <span key={label} className="mx-6 shrink-0">
               {label}
             </span>
           ))}
         </Marquee>
+        </MotionReveal>
       </div>
 
       <section

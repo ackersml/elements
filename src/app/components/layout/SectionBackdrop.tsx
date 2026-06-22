@@ -1,5 +1,10 @@
+"use client";
+
 import Image from "next/image";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import { cn } from "@/lib/utils";
+import { useReducedMotion } from "@/app/components/home/motion/useReducedMotion";
 
 type Tint = "white" | "cream" | "forest" | "sandstone";
 
@@ -10,6 +15,8 @@ type Props = {
   className?: string;
   vignetteBottom?: boolean;
   tint?: Tint;
+  /** Subtle vertical parallax on scroll (±8%). */
+  parallax?: boolean;
 };
 
 const tintOverlay: Record<Tint, string> = {
@@ -26,23 +33,43 @@ export function SectionBackdrop({
   className,
   vignetteBottom = false,
   tint = "white",
+  parallax = false,
 }: Props) {
+  const ref = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const imageY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
+
+  const imageLayer = (
+    <Image
+      src={src}
+      alt=""
+      fill
+      sizes="100vw"
+      style={{ opacity, objectPosition: position }}
+      className="object-cover"
+    />
+  );
+
   return (
     <div
+      ref={ref}
       aria-hidden
       className={cn(
         "pointer-events-none absolute inset-0 overflow-hidden",
         className
       )}
     >
-      <Image
-        src={src}
-        alt=""
-        fill
-        sizes="100vw"
-        style={{ opacity, objectPosition: position }}
-        className="object-cover"
-      />
+      {parallax && !reduced ? (
+        <motion.div className="absolute inset-0 scale-110" style={{ y: imageY }}>
+          {imageLayer}
+        </motion.div>
+      ) : (
+        imageLayer
+      )}
       <div
         className={cn(
           "absolute inset-0 bg-gradient-to-b",

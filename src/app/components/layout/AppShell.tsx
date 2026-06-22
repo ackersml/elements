@@ -3,6 +3,8 @@
 import type { ReactNode } from "react";
 import { SiteFooter } from "./SiteFooter";
 import { SiteHeader } from "./SiteHeader";
+import { PageTransition } from "./PageTransition";
+import { SmoothScrollProvider } from "./SmoothScrollProvider";
 import { usePathname } from "@/i18n/navigation";
 
 /** Routes whose page components render their own overlay header (via InfoPage or ElementsHomeView). */
@@ -49,10 +51,12 @@ export function AppShell({ children }: { children: ReactNode }) {
   const hasOwnFooter = ownChrome || ROUTES_WITH_OWN_FOOTER.has(pathname);
 
   return (
-    <>
+    <SmoothScrollProvider>
       {!hasOwnHeader ? <SiteHeader /> : null}
-      <main className={hasOwnHeader ? undefined : "min-h-screen"}>{children}</main>
+      <main className={hasOwnHeader ? undefined : "min-h-screen"}>
+        <PageTransition>{children}</PageTransition>
+      </main>
       {!hasOwnFooter ? <SiteFooter /> : null}
-    </>
+    </SmoothScrollProvider>
   );
 }

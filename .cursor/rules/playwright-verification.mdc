@@ -1,0 +1,15 @@
+---
+description: Use Playwright MCP for page verification and runtime errors
+alwaysApply: true
+---
+
+# Playwright verification
+
+When investigating homepage, shop, or UI bugs:
+
+1. Use the **Playwright** MCP server first (not Chrome DevTools).
+2. Navigate to `http://localhost:3000/` (or the affected route) before proposing fixes.
+3. Check `browser_console_messages` at level `error` after navigation.
+4. Confirm the fix by reloading and verifying zero console errors.
+
+Ensure `npm run dev` is running on port 3000 before browser checks.

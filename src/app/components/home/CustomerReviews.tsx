@@ -69,6 +69,7 @@ export function CustomerReviews({ id }: { id: string }) {
         <MotionStagger
           className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-3"
           staggerDelay={0.14}
+          variant="tilt"
         >
           {reviews.map((r) => (
             <blockquote

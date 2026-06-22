@@ -156,7 +156,13 @@ export function ProductCard({
   }
 
   return (
-    <article className={cn("product-card group", isRail && "product-card--rail", className)}>
+    <article
+      className={cn(
+        "product-card group",
+        isRail && "product-card--rail product-card--rail-motion",
+        className
+      )}
+    >
       <Link href={`/shop/${product.slug}`} className="block">
         <div className="product-card-media relative overflow-hidden">
           {renderPhotos()}

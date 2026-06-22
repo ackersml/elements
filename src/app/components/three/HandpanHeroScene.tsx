@@ -22,9 +22,10 @@ export default function HandpanHeroScene() {
   return (
     <Canvas
       camera={{ position: [0, 0.15, 3.45], fov: 42 }}
-      className="h-[min(520px,68vh)] w-full touch-none bg-transparent"
+      className="hero-3d-canvas h-[min(520px,68vh)] w-full touch-none bg-transparent"
+      style={{ background: "transparent" }}
       shadows
-      gl={{ antialias: true, alpha: true }}
+      gl={{ antialias: true, alpha: true, premultipliedAlpha: true }}
     >
       <color attach="background" args={["transparent"]} />
       <ambientLight intensity={0.26} />

@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { MotionReveal, MotionStagger } from "./motion/motion-primitives";
+import { MotionReveal, MotionScaleReveal } from "./motion/motion-primitives";
 
 type PromoTile = {
   key: string;
@@ -68,16 +68,13 @@ export function HomePromoGrid() {
           </h2>
         </MotionReveal>
 
-        <MotionStagger
-          className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:gap-6"
-          staggerDelay={0.1}
-        >
-          {tiles.map((tile) => (
-            <Link
-              key={tile.key}
-              href={tile.href}
-              className="home-promo-tile group relative block min-h-[220px] overflow-hidden rounded-xl border border-border md:min-h-[280px]"
-            >
+        <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:gap-6">
+          {tiles.map((tile, index) => (
+            <MotionScaleReveal key={tile.key} delay={index * 0.1}>
+              <Link
+                href={tile.href}
+                className="home-promo-tile home-promo-tile--motion group relative block min-h-[220px] overflow-hidden rounded-xl border border-border md:min-h-[280px]"
+              >
               <Image
                 src={tile.image}
                 alt=""
@@ -105,8 +102,9 @@ export function HomePromoGrid() {
                 </span>
               </div>
             </Link>
+            </MotionScaleReveal>
           ))}
-        </MotionStagger>
+        </div>
       </div>
     </section>
   );

@@ -24,7 +24,7 @@ export function HeroAudioGate() {
   const barsActive = src ? playing && !muted : visualPlaying;
 
   return (
-    <div className="mt-10 inline-flex max-w-full flex-wrap items-center gap-4 rounded-full border border-border bg-card/60 py-2 pl-2 pr-5 backdrop-blur">
+    <div className="hero-audio-gate mt-10 inline-flex max-w-full flex-wrap items-center gap-4 rounded-full border border-white/25 bg-black/30 py-2 pl-2 pr-5 backdrop-blur-md">
       {src ? (
         <audio ref={ref} src={src} loop muted={muted} playsInline preload="metadata" />
       ) : null}
@@ -56,7 +56,7 @@ export function HeroAudioGate() {
       >
         {barsActive ? <Pause size={16} /> : <Play size={16} className="ml-0.5" />}
       </button>
-      <span className="smallcaps text-muted-foreground">
+      <span className="smallcaps text-white/70">
         {src ? "Tap to hear a single tone" : "Tap to pulse the tone strip"}
       </span>
       <span className="hidden items-center gap-1 sm:flex">

@@ -4,7 +4,7 @@ import * as Dropdown from "@radix-ui/react-dropdown-menu";
 import { ChevronDown, Coins, Globe, Menu, ShoppingBag, X } from "lucide-react";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, usePathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { checkoutCurrencies, type CheckoutCurrency } from "@/lib/currency";
@@ -34,11 +34,23 @@ export function SiteHeader({ variant = "sticky" }: { variant?: SiteHeaderVariant
   const lines = useCartStore((s) => s.lines);
   const count = lines.reduce((n, l) => n + l.quantity, 0);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   const isOverlay = variant === "overlay";
 
+  useEffect(() => {
+    if (!isOverlay) return;
+    const onScroll = () => setScrolled(window.scrollY > 72);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [isOverlay]);
+
   const shell = isOverlay
-    ? "absolute inset-x-0 top-0 z-30"
+    ? cn(
+        "absolute inset-x-0 top-0 z-30 transition-[padding,background-color,backdrop-filter] duration-500",
+        scrolled && "bg-black/25 backdrop-blur-md"
+      )
     : "sticky top-0 z-30 border-b border-border bg-white/95 backdrop-blur-md shadow-elements-soft";
 
   const navLink = isOverlay
@@ -51,10 +63,19 @@ export function SiteHeader({ variant = "sticky" }: { variant?: SiteHeaderVariant
 
   return (
     <header className={shell}>
-      <div className="container-x flex items-center justify-between py-4 md:py-5">
+      <div
+        className={cn(
+          "container-x flex items-center justify-between transition-[padding] duration-500",
+          isOverlay && scrolled ? "py-3 md:py-3.5" : "py-4 md:py-5"
+        )}
+      >
         <ElementsLogoLink
           compact
-          className={isOverlay ? "text-white" : "text-foreground"}
+          className={cn(
+            isOverlay ? "text-white" : "text-foreground",
+            "origin-left transition-transform duration-500",
+            isOverlay && scrolled && "scale-[0.92]"
+          )}
         />
 
         <nav className="hidden items-center gap-8 text-sm lg:flex">

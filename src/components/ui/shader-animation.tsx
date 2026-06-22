@@ -95,16 +95,28 @@ export function ShaderAnimation({ className }: ShaderAnimationProps) {
     };
 
     container.appendChild(renderer.domElement);
+    renderer.domElement.style.background = "transparent";
+    renderer.domElement.style.display = "block";
     onWindowResize();
     window.addEventListener("resize", onWindowResize, false);
 
     const tick = () => {
       uniforms.time.value += reduced ? 0.015 : 0.035;
       renderer.render(scene, camera);
-      if (!reduced) {
+      if (!reduced && !document.hidden) {
         raf.id = window.requestAnimationFrame(tick);
       }
     };
+
+    const onVisibility = () => {
+      if (document.hidden) {
+        window.cancelAnimationFrame(raf.id);
+      } else if (!reduced) {
+        raf.id = window.requestAnimationFrame(tick);
+      }
+    };
+
+    document.addEventListener("visibilitychange", onVisibility);
 
     if (!reduced) {
       raf.id = window.requestAnimationFrame(tick);
@@ -113,6 +125,7 @@ export function ShaderAnimation({ className }: ShaderAnimationProps) {
     }
 
     return () => {
+      document.removeEventListener("visibilitychange", onVisibility);
       window.removeEventListener("resize", onWindowResize, false);
       window.cancelAnimationFrame(raf.id);
       if (renderer.domElement.parentNode === container) {

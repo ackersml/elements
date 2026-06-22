@@ -19,12 +19,14 @@ import { SectionBackdrop } from "@/app/components/layout/SectionBackdrop";
 import { CustomerReviews } from "@/app/components/home/CustomerReviews";
 import { HomeHero } from "@/app/components/home/HomeHero";
 import { HomePromoGrid } from "@/app/components/home/HomePromoGrid";
+import { InstrumentOfMonthSection } from "@/app/components/home/InstrumentOfMonthSection";
 import { ProductRail } from "@/app/components/home/ProductRail";
 import { TrustStrip } from "@/app/components/home/TrustStrip";
 import {
-  MotionClipImage,
+  MotionBorderGrow,
   MotionHeading,
   MotionReveal,
+  MotionScaleReveal,
   MotionStagger,
 } from "@/app/components/home/motion/motion-primitives";
 
@@ -229,48 +231,11 @@ export function ElementsHomeView() {
       <TrustStrip />
 
       {instrumentMonth ? (
-        <section
-          aria-labelledby={`${id}-iotm`}
-          className="relative overflow-hidden border-b border-border section-band-accent section-padding"
-        >
-          <SectionBackdrop
-            src="/images/handpan-lifestyle-13.jpg"
-            tint="cream"
-            opacity={0.28}
-          />
-          <div className="relative container-x grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
-            <MotionClipImage
-              src={instrumentMonth.heroImageUrl}
-              alt={instrumentMonth.title}
-              className="aspect-square overflow-hidden rounded-xl border border-border bg-white lg:aspect-[4/5]"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-            />
-            <MotionReveal className="max-w-lg" delay={0.12}>
-              <div className="flex flex-wrap items-center gap-3">
-                <p className="eyebrow eyebrow-rule">Instrument of the month</p>
-                <span className="rounded-full border border-[color:var(--sale-bg)]/30 bg-[color:var(--surface-accent)] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[color:var(--sale-bg)]">
-                  {tm("iotmLimitedStock")}
-                </span>
-              </div>
-              <h2
-                id={`${id}-iotm`}
-                className="mt-5 font-display text-3xl leading-tight md:text-5xl"
-              >
-                {instrumentMonth.title}
-              </h2>
-              <p className="mt-3 text-sm text-muted-foreground">
-                {instrumentMonth.scale} &middot; {instrumentMonth.noteCount} notes
-              </p>
-              <p className="mt-6 text-foreground/85">{instrumentMonth.description}</p>
-              <div className="mt-8 flex flex-wrap items-center gap-4">
-                <Link href={`/shop/${instrumentMonth.slug}`} className="link-arrow">
-                  Open details <ArrowRight size={14} aria-hidden />
-                </Link>
-                <QuickBuyButton slug={instrumentMonth.slug} />
-              </div>
-            </MotionReveal>
-          </div>
-        </section>
+        <InstrumentOfMonthSection
+          product={instrumentMonth}
+          limitedLabel={tm("iotmLimitedStock")}
+          titleId={`${id}-iotm`}
+        />
       ) : null}
 
       <ProductRail
@@ -325,22 +290,20 @@ export function ElementsHomeView() {
           src="/images/handpan-lifestyle-4.jpg"
           tint="cream"
           opacity={0.2}
+          parallax
         />
         <div className="relative container-x">
           <SectionHeading
             eyebrow={tm("categoriesEyebrow")}
             title={<span id={`${id}-mag-cat`}>{tm("categoriesTitle")}</span>}
           />
-          <MotionStagger
-            className="grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-4"
-            staggerDelay={0.1}
-          >
-            {categoryTiles.map((tile) => (
-              <Link
-                key={tile.key}
-                href={tile.href}
-                className="group relative block overflow-hidden rounded-lg border border-border bg-transparent"
-              >
+          <div className="grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-4">
+            {categoryTiles.map((tile, index) => (
+              <MotionScaleReveal key={tile.key} delay={index * 0.08}>
+                <Link
+                  href={tile.href}
+                  className="category-tile group relative block overflow-hidden rounded-lg border border-border bg-transparent"
+                >
                 <div className="relative aspect-[3/4] overflow-hidden">
                   <ProductPhoto
                     src={tile.image}
@@ -348,7 +311,7 @@ export function ElementsHomeView() {
                     aspect="3/4"
                     variant="tile"
                     sizes="(max-width: 640px) 50vw, 25vw"
-                    frameClassName="!absolute !inset-0 !h-full !w-full !rounded-none !border-0 !aspect-auto"
+                    frameClassName="category-tile-photo !absolute !inset-0 !h-full !w-full !rounded-none !border-0 !aspect-auto"
                     className="transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                   />
                 </div>
@@ -356,15 +319,16 @@ export function ElementsHomeView() {
                   className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"
                   aria-hidden
                 />
-                <div className="absolute inset-x-0 bottom-0 p-5 text-white md:p-6">
+                <div className="absolute inset-x-0 bottom-0 p-5 text-white transition-transform duration-500 ease-out group-hover:translate-y-[-4px] md:p-6">
                   <h3 className="font-display text-lg md:text-2xl">{tile.title}</h3>
                   <span className="smallcaps mt-2 inline-flex items-center gap-2 text-[color:var(--bronze-accent)]">
                     {tm("seeMore")} <ArrowRight size={12} aria-hidden />
                   </span>
                 </div>
               </Link>
+              </MotionScaleReveal>
             ))}
-          </MotionStagger>
+          </div>
         </div>
       </section>
 
@@ -385,12 +349,9 @@ export function ElementsHomeView() {
             <MotionStagger className="grid gap-5 sm:grid-cols-2" staggerDelay={0.1}>
               {[tm("whyChoose1"), tm("whyChoose2"), tm("whyChoose3"), tm("whyChoose4")].map(
                 (line) => (
-                  <div
-                    key={line}
-                    className="border-l-2 border-[color:var(--sale-bg)] py-1 pl-5 text-foreground/90"
-                  >
-                    {line}
-                  </div>
+                  <MotionBorderGrow key={line}>
+                    <p className="py-1 text-foreground/90">{line}</p>
+                  </MotionBorderGrow>
                 )
               )}
             </MotionStagger>
@@ -467,6 +428,7 @@ export function ElementsHomeView() {
           src="/images/sound-healing-13.jpg"
           tint="cream"
           opacity={0.18}
+          parallax
         />
         <div className="relative container-x grid grid-cols-1 gap-10 lg:grid-cols-12">
           <div className="lg:col-span-5">
@@ -479,12 +441,12 @@ export function ElementsHomeView() {
             <p>{tm("buyingGuideEssence")}</p>
             <MotionStagger className="grid gap-6 pt-2 sm:grid-cols-3" staggerDelay={0.12}>
               {[tm("buyingStep1"), tm("buyingStep2"), tm("buyingStep3")].map((s, i) => (
-                <div key={s} className="border-l-2 border-[color:var(--sale-bg)] pl-4">
+                <MotionBorderGrow key={s}>
                   <p className="smallcaps text-[color:var(--sale-bg)]">
                     {tm("buyingStepLabel", { step: i + 1 })}
                   </p>
                   <p className="mt-2">{s}</p>
-                </div>
+                </MotionBorderGrow>
               ))}
             </MotionStagger>
           </div>
