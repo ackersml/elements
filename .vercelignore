@@ -1,9 +1,12 @@
 node_modules
 .next
 .git
+.vercel
 .vercel-elements-bak
 .venv-import
+.venv-img
 .tmp-photo-import
 Google Drive Elements
 .cursor
 scripts/__pycache__
+reference/yatao/clone
