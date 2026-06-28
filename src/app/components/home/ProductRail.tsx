@@ -31,6 +31,11 @@ type ProductRailProps = {
   backdrop?: string;
   backdropTint?: "white" | "cream" | "forest" | "sandstone";
   beforeRail?: ReactNode;
+  /** Default cards with borders (beginner grid); rail = flush image cells. */
+  cardLayout?: "default" | "rail";
+  /** Grid on desktop; carousel = horizontal scroll at all breakpoints. */
+  display?: "grid" | "carousel";
+  quickAddOnHover?: boolean;
 };
 
 const bandClass: Record<RailBand, string> = {
@@ -57,8 +62,14 @@ export function ProductRail({
   backdrop,
   backdropTint = "cream",
   beforeRail,
+  cardLayout = "rail",
+  display = "grid",
+  quickAddOnHover = false,
 }: ProductRailProps) {
   if (products.length === 0) return null;
+
+  const isCarousel = display === "carousel";
+  const isWide = aspect === "21/9";
 
   return (
     <section
@@ -97,7 +108,14 @@ export function ProductRail({
         {beforeRail ? <div className="mt-8">{beforeRail}</div> : null}
 
         <div className="mt-10">
-          <MotionHorizontalRail staggerDelay={0.08}>
+          <MotionHorizontalRail
+            staggerDelay={0.08}
+            trackClassName={cn(
+              isCarousel && "product-rail-track--carousel",
+              isCarousel && isWide && "product-rail-track--wide"
+            )}
+            childClassName={cn(isCarousel && isWide && "product-rail-item--wide")}
+          >
             {products.map((product) => (
               <ProductCard
                 key={product.id}
@@ -105,7 +123,8 @@ export function ProductRail({
                 aspect={aspect}
                 showElement={showElement}
                 collectionScene={collectionScene}
-                layout="rail"
+                layout={cardLayout}
+                quickAddOnHover={quickAddOnHover && cardLayout === "default"}
               />
             ))}
           </MotionHorizontalRail>

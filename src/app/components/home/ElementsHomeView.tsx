@@ -14,11 +14,14 @@ import {
 import { shopCollectionHref } from "@/lib/shop-nav";
 import { cn } from "@/lib/utils";
 import { SiteHeader } from "@/app/components/layout/SiteHeader";
+import { AnnouncementBar } from "@/app/components/layout/AnnouncementBar";
 import { ProductPhoto } from "@/app/components/shop/ProductPhoto";
 import { SectionBackdrop } from "@/app/components/layout/SectionBackdrop";
+import { BundleOfferSection } from "@/app/components/home/BundleOfferSection";
 import { CustomerReviews } from "@/app/components/home/CustomerReviews";
 import { HomeHero } from "@/app/components/home/HomeHero";
 import { HomePromoGrid } from "@/app/components/home/HomePromoGrid";
+import { InfoStrip } from "@/app/components/home/InfoStrip";
 import { InstrumentOfMonthSection } from "@/app/components/home/InstrumentOfMonthSection";
 import { ProductRail } from "@/app/components/home/ProductRail";
 import { TrustStrip } from "@/app/components/home/TrustStrip";
@@ -216,19 +219,24 @@ export function ElementsHomeView() {
 
   return (
     <div className="relative bg-[color:var(--surface-muted)] text-foreground">
-      <SiteHeader />
-      <HomeHero
-        eyebrow={t("eyebrow")}
-        titleLine1={t("titleLine1")}
-        titleAccent={t("titleItalic")}
-        sub={t("sub")}
-        kicker={tm("heroKicker")}
-        ctaPrimary={t("ctaPrimary")}
-        ctaSecondary={t("ctaSecondary")}
-        ctaLearn={t("ctaLearn")}
-      />
+      <AnnouncementBar />
+      <div className="relative">
+        <SiteHeader variant="overlay" />
+        <HomeHero
+          eyebrow={t("eyebrow")}
+          titleLine1={t("titleLine1")}
+          titleAccent={t("titleItalic")}
+          sub={t("sub")}
+          kicker={tm("heroKicker")}
+          ctaPrimary={t("ctaPrimary")}
+          ctaSecondary={t("ctaSecondary")}
+          ctaLearn={t("ctaLearn")}
+        />
+      </div>
 
       <TrustStrip />
+
+      <InfoStrip />
 
       {instrumentMonth ? (
         <InstrumentOfMonthSection
@@ -239,16 +247,18 @@ export function ElementsHomeView() {
       ) : null}
 
       <ProductRail
-        id={`${id}-fys`}
-        eyebrow={tm("findSoundEyebrow")}
-        title={tm("findSoundTitle")}
-        description={tm("findSoundBlurb")}
-        products={findYourSound}
-        ctaLabel={tm("shopCtaAll")}
-        ctaHref="/shop"
-        band="sandstone"
-        backdrop="/images/sound-healing-8.jpg"
-        backdropTint="sandstone"
+        id={`${id}-beg`}
+        eyebrow={tm("beginnerEyebrow")}
+        title={tm("beginnerTitle")}
+        description={tm("beginnerBlurb")}
+        products={beginners}
+        ctaLabel={tm("shopCtaBeginner")}
+        ctaHref={shopCollectionHref("beginner")}
+        band="white"
+        aspect="4/3"
+        cardLayout="default"
+        display="grid"
+        quickAddOnHover
       />
 
       <CustomerReviews id={`${id}-reviews`} />
@@ -262,18 +272,22 @@ export function ElementsHomeView() {
         ctaLabel={tm("shopCtaRare")}
         ctaHref={shopCollectionHref("rare")}
         band="accent"
+        aspect="21/9"
+        display="carousel"
         backdrop="/images/handpan-lifestyle-15.jpg"
         backdropTint="cream"
       />
 
+      <BundleOfferSection id={`${id}-bundles`} products={bundles.slice(0, 2)} />
+
       <ProductRail
-        id={`${id}-bd`}
-        eyebrow={tm("bundlesCasesEyebrow")}
-        title={tm("bundlesCasesTitle")}
-        description={tm("bundlesCasesBlurb")}
-        products={[...bundles, ...cases]}
-        ctaLabel={tm("shopCtaBundlesCases")}
-        ctaHref={shopCollectionHref("bundles")}
+        id={`${id}-cases`}
+        eyebrow={tm("casesEyebrow")}
+        title={tm("casesTitle")}
+        description={tm("casesBlurb")}
+        products={cases}
+        ctaLabel={tm("shopCtaAccessories")}
+        ctaHref={shopCollectionHref("accessories")}
         band="forest"
         backdrop="/images/handpan-lifestyle-2.jpg"
         backdropTint="forest"
@@ -331,6 +345,19 @@ export function ElementsHomeView() {
           </div>
         </div>
       </section>
+
+      <ProductRail
+        id={`${id}-fys`}
+        eyebrow={tm("findSoundEyebrow")}
+        title={tm("findSoundTitle")}
+        description={tm("findSoundBlurb")}
+        products={findYourSound}
+        ctaLabel={tm("shopCtaAll")}
+        ctaHref="/shop"
+        band="sandstone"
+        backdrop="/images/sound-healing-8.jpg"
+        backdropTint="sandstone"
+      />
 
       <section
         aria-labelledby={`${id}-assurance`}

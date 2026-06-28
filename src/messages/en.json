@@ -134,6 +134,11 @@
     "footerColLegal": "Legal",
     "footerSlow": "Slow commerce.",
     "footerCities": "Bali, Indonesia",
+    "announcementText": "Free insured shipping on handpan orders over €2,000",
+    "announcementLink": "Shipping details",
+    "infoStripLabel": "Shipping and service",
+    "infoStripMessage": "Every instrument ships insured with tuning documentation and a 30-day return window.",
+    "infoStripCta": "Explore the shop",
     "collectionCountOne": "instrument available",
     "collectionCountMany": "instruments available",
     "collectionEmpty": "Nothing in this collection yet."

@@ -26,6 +26,8 @@ type ProductCardProps = {
   collectionScene?: boolean;
   /** Homepage rails: even image cells, no card chrome. */
   layout?: "default" | "rail";
+  /** Yatao-style Quick Buy overlay on image hover (default cards only). */
+  quickAddOnHover?: boolean;
   className?: string;
 };
 
@@ -44,6 +46,7 @@ export function ProductCard({
   showElement = false,
   collectionScene = false,
   layout = "default",
+  quickAddOnHover = false,
   className,
 }: ProductCardProps) {
   const isRail = layout === "rail";
@@ -208,6 +211,18 @@ export function ProductCard({
                   }}
                 />
               ))}
+            </div>
+          ) : null}
+
+          {quickAddOnHover && !soldOut ? (
+            <div
+              className="product-card-quick-add pointer-events-none absolute inset-x-0 bottom-0 z-20 p-4 opacity-0 transition-opacity duration-300 group-hover:pointer-events-auto group-hover:opacity-100"
+              onClick={(e) => e.preventDefault()}
+            >
+              <QuickBuyButton
+                slug={product.slug}
+                className="btn-primary pointer-events-auto w-full !justify-center !text-[11px] uppercase tracking-[0.12em]"
+              />
             </div>
           ) : null}
         </div>
