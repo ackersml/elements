@@ -725,6 +725,25 @@
       );
   }
 
+  .hero-video-cover {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .hero-video-cover iframe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 56.25vw;
+    min-height: 100%;
+    min-width: 177.78vh;
+    transform: translate(-50%, -50%);
+    border: 0;
+  }
+
   @media (max-width: 767px) {
     .hero-fade {
       background: linear-gradient(
@@ -732,6 +751,35 @@
         rgba(11, 11, 11, 0.25) 0%,
         rgba(11, 11, 11, 0.2) 30%,
         rgba(11, 11, 11, 0.85) 100%
+      );
+    }
+  }
+
+  /* Homepage hero video — faded overlay for legible copy */
+  .hero-fade--video {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(11, 11, 11, 0.48) 0%,
+        rgba(11, 11, 11, 0.28) 35%,
+        rgba(11, 11, 11, 0.12) 60%,
+        rgba(11, 11, 11, 0.22) 100%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(11, 11, 11, 0.22) 0%,
+        rgba(11, 11, 11, 0.08) 35%,
+        rgba(11, 11, 11, 0.58) 100%
+      );
+  }
+
+  @media (max-width: 767px) {
+    .hero-fade--video {
+      background: linear-gradient(
+        180deg,
+        rgba(11, 11, 11, 0.28) 0%,
+        rgba(11, 11, 11, 0.18) 30%,
+        rgba(11, 11, 11, 0.62) 100%
       );
     }
   }

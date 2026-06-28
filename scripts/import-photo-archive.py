@@ -37,7 +37,7 @@ FOLDER_SLUGS: dict[str, str] = {
 FOLDER_FILE_ORDER: dict[str, list[str]] = {
     "1": ["DSC01299.png", "DSC01297.png", "DSC01300.png", "DSC01301.png"],
     "2": ["DSC01314.png", "DSC01319.png", "DSC01312.png"],
-    "3": ["DSC01324.png", "DSC01323.png", "DSC01322.png"],
+    "3": ["DSC01322.png", "DSC01323.png", "DSC01324.png"],
     "4": ["DSC01365.png", "DSC01366.png", "DSC01367.png"],
     "5": ["DSC01371.png", "DSC01372.png", "DSC01374.png"],
     "6": ["DSC01377.png", "DSC01384.png", "DSC01408.png"],

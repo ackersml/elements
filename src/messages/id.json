@@ -210,7 +210,10 @@
     "redirecting": "Redirecting…",
     "checkoutError": "Checkout could not start. Try again.",
     "preorderNote": "Pre-order: lead time applies before shipment.",
-    "elementLabel": "Element"
+    "elementLabel": "Element",
+    "video": "Video",
+    "watchVideo": "Watch {title} demo video",
+    "viewImage": "View image {index}"
   },
   "success": {
     "title": "Thank you for choosing Elements",
