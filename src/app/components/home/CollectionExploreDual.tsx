@@ -1,6 +1,5 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
@@ -29,42 +28,22 @@ export function CollectionExploreDual({ tiles }: { tiles: ExploreTile[] }) {
           <MotionScaleReveal key={tile.key} delay={index * 0.08}>
             <Link
               href={tile.href}
-              className={`explore-dual-tile group relative flex min-h-[420px] flex-col items-center justify-end overflow-hidden p-8 md:min-h-[480px] md:p-12 ${
+              aria-label={`${tm("exploreCta")} ${tile.title}`}
+              className={`explore-dual-tile group relative flex min-h-[540px] flex-col items-center justify-end overflow-hidden p-8 md:min-h-[640px] md:p-12 ${
                 tile.variant === "origins" ? "explore-dual-tile--origins" : ""
               }`}
             >
               <Image
                 src={tile.image}
-                alt=""
+                alt={tile.title}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
+                className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.02]"
               />
               <div className="explore-dual-tile__shade" aria-hidden />
-              <div className="relative z-10 flex flex-col items-center text-center">
-                <p className="font-display text-2xl tracking-[0.25em] text-white md:text-3xl">
-                  {tile.title}
-                </p>
-                <div className="mt-6 flex gap-3">
-                  {tile.productImages.slice(0, 2).map((src) => (
-                    <div
-                      key={src}
-                      className="relative h-16 w-16 overflow-hidden rounded-full border border-white/20 bg-white/10 md:h-20 md:w-20"
-                    >
-                      <Image
-                        src={src}
-                        alt=""
-                        fill
-                        sizes="80px"
-                        className="object-contain object-center p-1"
-                      />
-                    </div>
-                  ))}
-                </div>
-                <span className="btn-pill mt-8 border border-white/30 bg-white/10 text-white backdrop-blur-sm transition group-hover:bg-white group-hover:text-[color:var(--ink)]">
-                  {tm("exploreCta")} <ArrowRight size={14} aria-hidden />
-                </span>
-              </div>
+              <span className="btn-pill relative z-10 !bg-white !px-8 !text-[color:var(--ink)] font-medium shadow-lg transition group-hover:!bg-white/90">
+                {tm("exploreCta")}
+              </span>
             </Link>
           </MotionScaleReveal>
         ))}
