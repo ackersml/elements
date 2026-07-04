@@ -26,23 +26,27 @@ export function SeriesCardsSection({
 
   if (variant === "canva") {
     return (
-      <section id={id} aria-label="Shop by series" className="canva-series">
+      <section id={id} aria-label="Shop by category" className="canva-series">
         <div className="canva-series__grid">
           {cards.map((card) => (
             <Link
               key={card.key}
               href={card.href}
-              className="canva-series__card group"
+              className={`canva-series__card canva-series__card--${card.key} group`}
             >
-              <Image
-                src={card.image}
-                alt=""
-                fill
-                sizes="(max-width: 640px) 50vw, 25vw"
-                className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]"
-              />
-              <div className="canva-series__shade" aria-hidden />
-              <span className="sr-only">{card.title}</span>
+              <p className="canva-series__label">{card.title}</p>
+              <div className="canva-series__handpan">
+                <Image
+                  src="/images/canva/elements/center-handpan.webp"
+                  alt=""
+                  fill
+                  sizes="(max-width: 640px) 50vw, 25vw"
+                  className="object-contain object-center transition-transform duration-500 ease-out group-hover:scale-105"
+                />
+              </div>
+              <span className="canva-series__cta">
+                {tm("seeMore")} <ArrowRight size={13} aria-hidden />
+              </span>
             </Link>
           ))}
         </div>

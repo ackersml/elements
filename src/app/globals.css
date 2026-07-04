@@ -2128,16 +2128,66 @@
 
 .canva-series__card {
   position: relative;
-  display: block;
-  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: clamp(380px, 42vw, 460px);
+  padding: 2.25rem 1.25rem 2rem;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  text-align: center;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.canva-series__shade {
+.canva-series__card--signature {
+  background: radial-gradient(115% 85% at 50% 22%, #2c3a2a 0%, #16211500 62%), #182417;
+}
+.canva-series__card--origins {
+  background: radial-gradient(115% 85% at 50% 22%, #3d2a1c 0%, #201409 60%), #1c130b;
+}
+.canva-series__card--cases {
+  background: radial-gradient(115% 85% at 50% 22%, #2a2d33 0%, #14161a 60%), #14161a;
+}
+.canva-series__card--all {
+  background: radial-gradient(115% 85% at 50% 22%, #24312a 0%, #121a15 60%), #111a14;
+}
+
+.canva-series__label {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 1.5vw, 1.2rem);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #f3efe6;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
+}
+
+.canva-series__handpan {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.35), transparent 55%);
+  display: grid;
+  place-items: center;
+  padding: clamp(2.5rem, 7vw, 4rem);
+  filter: drop-shadow(0 20px 34px rgba(0, 0, 0, 0.55));
+}
+
+.canva-series__cta {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--bronze-accent);
+  transition: gap 200ms ease;
+}
+.canva-series__card:hover .canva-series__cta {
+  gap: 0.7rem;
 }
 
 .canva-home .explore-dual-tile {
