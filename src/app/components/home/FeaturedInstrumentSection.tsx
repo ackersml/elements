@@ -5,9 +5,18 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ProductPhoto } from "@/app/components/shop/ProductPhoto";
+import { MoodLoopVideo } from "@/app/components/home/MoodLoopVideo";
 import { canvaAssets } from "@/lib/canva-assets";
 import { brandLockup } from "@/lib/brand/elements-brand";
 import type { Product } from "@/lib/products";
+
+/** Looping demo clip for the featured stage (extracted from the Drive demo). */
+const FEATURED_VIDEOS: Record<string, { src: string; poster: string }> = {
+  "signature-d-kurd-10": {
+    src: "/videos/featured-d-kurd-10.mp4",
+    poster: "/videos/featured-d-kurd-10.jpg",
+  },
+};
 
 type FeaturedInstrumentSectionProps = {
   product: Product;
@@ -21,6 +30,7 @@ export function FeaturedInstrumentSection({
   variant = "default",
 }: FeaturedInstrumentSectionProps) {
   const tm = useTranslations("mag");
+  const featuredVideo = FEATURED_VIDEOS[product.slug];
 
   if (variant === "canva") {
     return (
@@ -45,14 +55,23 @@ export function FeaturedInstrumentSection({
           </div>
 
           <div className="canva-featured__stage">
-            <Image
-              src={canvaAssets.featuredLifestyle}
-              alt={product.title}
-              fill
-              sizes="(max-width: 768px) 100vw, 768px"
-              className="object-cover object-center"
-              priority
-            />
+            {featuredVideo ? (
+              <MoodLoopVideo
+                src={featuredVideo.src}
+                poster={featuredVideo.poster}
+                label={`${product.title} being played`}
+                className="h-full w-full object-cover object-center"
+              />
+            ) : (
+              <Image
+                src={canvaAssets.featuredLifestyle}
+                alt={product.title}
+                fill
+                sizes="(max-width: 768px) 100vw, 768px"
+                className="object-cover object-center"
+                priority
+              />
+            )}
           </div>
 
           <div className="canva-featured__bar">
