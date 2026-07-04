@@ -38,3 +38,13 @@ reference/yatao/screenshot-*.png
 
 # full static clone output (large, do not commit)
 reference/yatao/clone/
+
+# python
+__pycache__/
+
+# local backups / scratch
+.vercel-elements-bak/
+
+# design drop zone (keep the guide, ignore dropped originals)
+design-drop/*
+!design-drop/README.md

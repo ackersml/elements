@@ -11,7 +11,6 @@ import {
   MotionStagger,
 } from "@/app/components/home/motion/motion-primitives";
 import {
-  getCollectionShowcaseProducts,
   getProductsByCollection,
   getProductsByTag,
 } from "@/lib/products";
@@ -19,46 +18,36 @@ import { shopCollectionHref } from "@/lib/shop-nav";
 import { PageHero } from "./PageHero";
 
 export function ProductsView() {
-  const beginners = getCollectionShowcaseProducts();
-  const extended = getProductsByCollection("extended");
-  const rare = getProductsByCollection("rare");
-  const bundles = getProductsByCollection("bundles");
+  const signature = getProductsByCollection("signature");
+  const origins = getProductsByCollection("origins");
   const accessories = getProductsByTag("accessory");
 
   const groups = [
     {
-      key: "beginner",
-      eyebrow: "Approachable scales, honest builds",
-      title: "Beginner handpans",
+      key: "signature",
+      eyebrow: "Crafted by Amir Raga · Iran",
+      title: "Signature Series",
       blurb:
-        "Balanced, forgiving instruments for first listens and daily practice.",
-      products: beginners,
+        "Premium Elements voice: high-grade stainless steel, meditative resonance and refined scale selection.",
+      products: signature,
       aspect: "square" as const,
       collectionScene: true,
     },
     {
-      key: "extended",
-      eyebrow: "More range, more voice",
-      title: "Extended scales",
+      key: "origins",
+      eyebrow: "Crafted by Xi · China",
+      title: "Elements Origins",
       blurb:
-        "Additional bottom and top notes for players ready to expand their phrasing.",
-      products: extended,
-      aspect: "4/3" as const,
-    },
-    {
-      key: "rare",
-      eyebrow: "One-off builds & double-stacks",
-      title: "Rarities",
-      blurb: "Limited voicings and special builds, allocated as they leave the bench.",
-      products: rare,
+        "A wider catalogue range from accessible starter instruments to expanded professional layouts.",
+      products: origins,
       aspect: "21/9" as const,
     },
     {
       key: "accessories",
       eyebrow: "Travel-ready, built to last",
       title: "Cases & accessories",
-      blurb: "Protection and care gear matched to each instrument.",
-      products: accessories,
+      blurb: "Softcase included with every handpan. Hardcase upgrades for airline travel.",
+      products: accessories.filter((p) => !p.tags.includes("included")),
       aspect: "video" as const,
     },
   ].filter((g) => g.products.length > 0);
@@ -123,7 +112,7 @@ export function ProductsView() {
                     key={p.id}
                     product={p}
                     aspect={group.aspect}
-                    showElement={group.key === "beginner"}
+                    showElement={group.key === "signature"}
                     collectionScene={group.collectionScene}
                   />
                 ))}
@@ -132,39 +121,6 @@ export function ProductsView() {
           </section>
         );
       })}
-
-      {bundles.length > 0 && (
-        <section className="border-y border-border bg-white section-padding md:py-32">
-          <div className="container-x">
-            <MotionReveal className="mb-10 max-w-2xl md:mb-14">
-              <p className="eyebrow eyebrow-rule">Hand-paired kits</p>
-              <h2 className="mt-4 font-display text-3xl leading-tight md:text-4xl">
-                Bundle offers
-              </h2>
-            </MotionReveal>
-            <MotionStagger
-              className="grid grid-cols-1 gap-4 md:grid-cols-2"
-              staggerDelay={0.14}
-            >
-              {bundles.map((b) => (
-                <div
-                  key={b.id}
-                  className="rounded-lg border border-border bg-[color:var(--surface-muted)] p-8 md:p-10"
-                >
-                  <h3 className="font-display text-2xl md:text-3xl">{b.title}</h3>
-                  <p className="mt-4 text-foreground/80">{b.description}</p>
-                  <Link
-                    href={`/shop/${b.slug}`}
-                    className="link-arrow mt-8 inline-flex"
-                  >
-                    View bundle <ArrowRight size={14} aria-hidden />
-                  </Link>
-                </div>
-              ))}
-            </MotionStagger>
-          </div>
-        </section>
-      )}
 
       <section className="section-band-dark section-padding md:py-36">
         <MotionReveal className="container-x mx-auto max-w-2xl text-center">

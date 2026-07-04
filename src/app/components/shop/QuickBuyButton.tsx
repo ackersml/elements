@@ -9,9 +9,11 @@ import { cn } from "@/lib/utils";
 export function QuickBuyButton({
   slug,
   className,
+  labelOnly = false,
 }: {
   slug: string;
   className?: string;
+  labelOnly?: boolean;
 }) {
   const t = useTranslations("product");
   const currency = useCartStore((s) => s.currency);
@@ -37,7 +39,9 @@ export function QuickBuyButton({
         className
       )}
     >
-      {`${t("quickBuy")} · ${formatProductDisplay(p.priceCents, currency)}`}
+      {labelOnly
+        ? t("quickBuy").toUpperCase()
+        : `${t("quickBuy")} · ${formatProductDisplay(p.priceCents, currency)}`}
     </button>
   );
 }

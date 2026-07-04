@@ -37,13 +37,22 @@ export default async function CollectionPage({ params }: Props) {
   const labelKey = getCollectionLabelKey(handle)!;
   const list = getProductsByCollection(handle);
 
+  const descriptionKey =
+    handle === "signature"
+      ? "signatureCollectionBlurb"
+      : handle === "origins"
+        ? "originsCollectionBlurb"
+        : handle === "accessories"
+          ? "casesBlurb"
+          : "collectionBlurb";
+
   return (
     <CollectionView
       products={list}
       activeCollection={handle}
       eyebrow={tm("collectionEyebrow")}
       title={tn(labelKey)}
-      description={tm("collectionBlurb")}
+      description={tm(descriptionKey)}
     />
   );
 }

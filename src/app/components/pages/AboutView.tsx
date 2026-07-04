@@ -12,14 +12,16 @@ import {
 } from "@/app/components/home/motion/motion-primitives";
 import {
   brandElements,
-  formatElementKeywords,
+  formatElementTagline,
 } from "@/lib/brand/elements-brand";
 import { PageHero } from "./PageHero";
 
 const ELEMENT_IMAGE: Partial<Record<string, string>> = {
-  earth: "/images/collection/handpan-earth.png",
-  fire: "/images/collection/handpan-fire.png",
-  air: "/images/collection/handpan-air.png",
+  earth: "/images/canva/elements/earth.webp",
+  fire: "/images/canva/elements/fire.webp",
+  air: "/images/canva/elements/air.webp",
+  water: "/images/canva/elements/water.webp",
+  space: "/images/canva/elements/space.webp",
 };
 
 const values = [
@@ -138,8 +140,11 @@ export function AboutView() {
                     )}
                   </div>
                   <h3 className="mt-5 font-display text-xl text-white">{el.name}</h3>
+                  <p className="mt-2 text-[11px] leading-relaxed text-[color:var(--bronze-accent)]">
+                    {formatElementTagline(el.id)}
+                  </p>
                   <p className="mt-2 text-[11px] leading-relaxed text-[color:var(--sandstone)]/65">
-                    {formatElementKeywords(el.id)}
+                    {el.description}
                   </p>
                 </div>
               );

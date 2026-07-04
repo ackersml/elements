@@ -2,10 +2,8 @@ import { getProductsByCollection } from "@/lib/products";
 
 /** Shop collections linked in header / footer (excludes paused categories). */
 export const shopNavCollections = [
-  { key: "shopBeginner", collection: "beginner" },
-  { key: "shopExtended", collection: "extended" },
-  { key: "shopRare", collection: "rare" },
-  { key: "shopBundles", collection: "bundles" },
+  { key: "shopSignature", collection: "signature" },
+  { key: "shopOrigins", collection: "origins" },
   { key: "shopAccessories", collection: "accessories" },
 ] as const;
 

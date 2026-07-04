@@ -39,7 +39,7 @@ export default async function ProductPage({ params }: Props) {
   const tm = await getTranslations("mag");
   const tn = await getTranslations("nav");
 
-  const collection = product.collections[0] ?? "beginner";
+  const collection = product.collections[0] ?? "signature";
   const labelKey = getCollectionLabelKey(collection);
   const collectionLabel = labelKey ? tn(labelKey) : null;
 

@@ -4,8 +4,10 @@ import { ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ProductCard } from "@/app/components/shop/ProductCard";
+import { ShopSectionShell } from "@/app/components/home/ShopSectionShell";
 import type { Product } from "@/lib/products";
 import { shopCollectionHref } from "@/lib/shop-nav";
+import { MotionReveal } from "./motion/motion-primitives";
 
 type BundleOfferSectionProps = {
   id: string;
@@ -18,12 +20,16 @@ export function BundleOfferSection({ id, products }: BundleOfferSectionProps) {
   if (products.length === 0) return null;
 
   return (
-    <section
-      aria-labelledby={id}
-      className="border-b border-border section-band-accent section-padding"
-    >
-      <div className="container-x">
-        <div className="max-w-3xl">
+    <ShopSectionShell
+      id={id}
+      labelledBy={id}
+      band="accent"
+      backdrop="/images/handpan-lifestyle-6.jpg"
+      backdropTint="cream"
+      backdropOpacity={0.28}
+      watermark="Bundles"
+      header={
+        <MotionReveal className="max-w-3xl">
           <p className="eyebrow eyebrow-rule">{tm("bundlesEyebrow")}</p>
           <h2
             id={id}
@@ -32,9 +38,10 @@ export function BundleOfferSection({ id, products }: BundleOfferSectionProps) {
             {tm("bundlesTitle")}
           </h2>
           <p className="mt-4 max-w-2xl text-muted-foreground">{tm("bundlesBlurb")}</p>
-        </div>
-
-        <div className="bundle-offer-grid mt-10">
+        </MotionReveal>
+      }
+      deck={
+        <div className="bundle-offer-grid">
           {products.map((product) => (
             <ProductCard
               key={product.id}
@@ -42,17 +49,18 @@ export function BundleOfferSection({ id, products }: BundleOfferSectionProps) {
               aspect="4/3"
               layout="default"
               quickAddOnHover
-              className="bundle-offer-card"
+              className="shop-product-card bundle-offer-card"
             />
           ))}
         </div>
-
-        <div className="mt-10 flex justify-end">
+      }
+      footer={
+        <MotionReveal className="flex justify-end" delay={0.1}>
           <Link href={shopCollectionHref("bundles")} className="btn-pill btn-primary">
             {tm("shopCtaBundles")} <ArrowRight size={16} aria-hidden />
           </Link>
-        </div>
-      </div>
-    </section>
+        </MotionReveal>
+      }
+    />
   );
 }

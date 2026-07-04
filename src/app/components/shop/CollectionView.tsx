@@ -25,10 +25,8 @@ const SORT_OPTIONS: { key: SortKey; label: string }[] = [
 
 const HERO_IMAGE: Record<string, string> = {
   all: "/images/handpan-lifestyle-7.jpg",
-  beginner: "/images/handpan-lifestyle-13.jpg",
-  extended: "/images/handpan-lifestyle-5.jpg",
-  rare: "/images/handpan-lifestyle-8.jpg",
-  bundles: "/images/handpan-lifestyle-10.jpg",
+  signature: "/images/handpan-lifestyle-13.jpg",
+  origins: "/images/handpan-lifestyle-8.jpg",
   accessories: "/images/handpan-lifestyle-12.jpg",
 };
 
@@ -79,7 +77,7 @@ export function CollectionView({
     },
     ...shopNavCollections.map((c) => ({
       key: c.collection,
-      label: tn(c.key as "shopBeginner"),
+      label: tn(c.key as "shopSignature"),
       href: shopCollectionHref(c.collection),
       active: activeCollection === c.collection,
     })),
@@ -211,7 +209,7 @@ export function CollectionView({
                   product={p}
                   aspect="4/3"
                   showElement
-                  collectionScene={activeCollection === "beginner"}
+                  collectionScene={activeCollection === "signature"}
                 />
               ))}
             </MotionStagger>

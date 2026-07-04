@@ -11,6 +11,7 @@ const nextConfig = {
     root: __dirname,
   },
   images: {
+    qualities: [75, 90, 100],
     remotePatterns: [
       { protocol: "https", hostname: "cdn.shopify.com", pathname: "/**" },
     ],

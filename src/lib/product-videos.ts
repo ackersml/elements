@@ -3,15 +3,20 @@
  * Files must be shared as "Anyone with the link can view".
  */
 export const productVideoIds = {
-  "sanctuary-b-amara-9": "104ayx2pSObQn0S_rLMRxzGrbrMIvIpGX", // B2 MYSTIC 9
-  "trailhead-d-celtic-9": "1SM-H5lMcCiz7TlH8BVUu4OvxCn94iZys", // D AGEAN 18
-  "ultimate-d-kurd-16": "1SOFTdl8TgUG2e7z4TukfHOJ7wFXm4WzA", // D ASHA 16
-  "studio-handpan-d-kurd-10": "1X77dCJKa5h8ngmMVtWTap_1irDSFooQe", // D KURD 10
-  "atelier-c-sharp-pygmy-17": "1mPcYmFfFu9GPjFrLg__XLgYly44rCMOJ", // D KURD 18
-  "atelier-f-sharp-pygmy-17": "1m73Hv507yLUFP4hUZ9DE83Fq5LRRBfNA", // E AMARA 20
-  "nordlys-f-sharp-15": "1fmg1rzCRSd4a4sEOuL5xliAoTzlkbRn6", // F# NORDLYS 15
-  "sanctuary-c-minor-15": "1Ai7Kc1Z9ArrQpMz4Ytn4u5tPDDAde9nZ", // C MINOR 15
-  "copper-veil-d-kurd-12": "1AH-qiSTmiffm6MVJROBLSic8phALoCsc", // D KURD 12
+  // Signature Series
+  "signature-d-kurd-10": "1X77dCJKa5h8ngmMVtWTap_1irDSFooQe",
+  "signature-d-kurd-12": "1AH-qiSTmiffm6MVJROBLSic8phALoCsc",
+  "signature-c-minor-15": "1Ai7Kc1Z9ArrQpMz4Ytn4u5tPDDAde9nZ",
+  "signature-d-aegean-10": "1SM-H5lMcCiz7TlH8BVUu4OvxCn94iZys",
+  "signature-f-sharp-nordlys-14": "1fmg1rzCRSd4a4sEOuL5xliAoTzlkbRn6",
+  // Origins
+  "origins-d-kurd-10": "1X77dCJKa5h8ngmMVtWTap_1irDSFooQe",
+  "origins-d-kurd-18": "1mPcYmFfFu9GPjFrLg__XLgYly44rCMOJ",
+  "origins-d-aegean-18": "1SM-H5lMcCiz7TlH8BVUu4OvxCn94iZys",
+  "origins-f-sharp-nordlys-15": "1fmg1rzCRSd4a4sEOuL5xliAoTzlkbRn6",
+  "origins-e-amara-20": "1m73Hv507yLUFP4hUZ9DE83Fq5LRRBfNA",
+  "origins-b2-mystic-9": "104ayx2pSObQn0S_rLMRxzGrbrMIvIpGX",
+  "origins-d-ashakarian-16": "1SOFTdl8TgUG2e7z4TukfHOJ7wFXm4WzA",
 } as const;
 
 export type ProductVideoSlug = keyof typeof productVideoIds;

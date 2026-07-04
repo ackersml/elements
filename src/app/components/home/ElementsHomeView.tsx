@@ -1,74 +1,29 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
-import type { ReactNode } from "react";
-import { useId, useState } from "react";
+import { useId } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { QuickBuyButton } from "@/app/components/shop/QuickBuyButton";
 import {
-  getProducts,
+  getProductBySlug,
   getProductsByCollection,
-  getProductsByTag,
 } from "@/lib/products";
 import { shopCollectionHref } from "@/lib/shop-nav";
-import { cn } from "@/lib/utils";
+import { canvaAssets } from "@/lib/canva-assets";
 import { SiteHeader } from "@/app/components/layout/SiteHeader";
 import { AnnouncementBar } from "@/app/components/layout/AnnouncementBar";
-import { ProductPhoto } from "@/app/components/shop/ProductPhoto";
-import { SectionBackdrop } from "@/app/components/layout/SectionBackdrop";
-import { BundleOfferSection } from "@/app/components/home/BundleOfferSection";
-import { CustomerReviews } from "@/app/components/home/CustomerReviews";
-import { HomeHero } from "@/app/components/home/HomeHero";
-import { HomePromoGrid } from "@/app/components/home/HomePromoGrid";
-import { InfoStrip } from "@/app/components/home/InfoStrip";
-import { InstrumentOfMonthSection } from "@/app/components/home/InstrumentOfMonthSection";
-import { ProductRail } from "@/app/components/home/ProductRail";
-import { TrustStrip } from "@/app/components/home/TrustStrip";
 import {
-  MotionBorderGrow,
-  MotionHeading,
-  MotionReveal,
-  MotionScaleReveal,
-  MotionStagger,
-} from "@/app/components/home/motion/motion-primitives";
-
-function SectionHeading({
-  eyebrow,
-  title,
-  rule = true,
-  center = false,
-  eyebrowAccent = false,
-  headingClassName,
-}: {
-  eyebrow?: string;
-  title: ReactNode;
-  rule?: boolean;
-  center?: boolean;
-  eyebrowAccent?: boolean;
-  headingClassName?: string;
-}) {
-  const titleText = typeof title === "string" ? title : undefined;
-
-  return (
-    <MotionHeading
-      eyebrow={eyebrow}
-      title={titleText ?? title}
-      center={center}
-      className={cn(
-        "mb-12 md:mb-16",
-        headingClassName,
-        center ? "mx-auto max-w-2xl" : "max-w-3xl"
-      )}
-      eyebrowClassName={cn(
-        "eyebrow",
-        rule && "eyebrow-rule",
-        eyebrowAccent && "!text-[color:var(--accent-c)]"
-      )}
-      titleClassName="mt-4 font-display text-3xl leading-[1.05] tracking-tight md:text-5xl"
-    />
-  );
-}
+  CollectionExploreDual,
+  defaultExploreTiles,
+} from "@/app/components/home/CollectionExploreDual";
+import {
+  buildMoodGridItems,
+  ElementMoodGridSection,
+} from "@/app/components/home/ElementMoodGridSection";
+import { ElementsWheelSection } from "@/app/components/home/ElementsWheelSection";
+import { FeaturedInstrumentSection } from "@/app/components/home/FeaturedInstrumentSection";
+import { HomeHero } from "@/app/components/home/HomeHero";
+import { SeriesCardsSection } from "@/app/components/home/SeriesCardsSection";
+import { HighlightsRaritiesSection } from "@/app/components/home/HighlightsRaritiesSection";
 
 function HomePageFooter() {
   const t = useTranslations("mag");
@@ -77,10 +32,8 @@ function HomePageFooter() {
   const year = new Date().getFullYear();
 
   const shopLinks: { label: string; href: string }[] = [
-    { label: tn("shopBeginner"), href: shopCollectionHref("beginner") },
-    { label: tn("shopExtended"), href: shopCollectionHref("extended") },
-    { label: tn("shopRare"), href: shopCollectionHref("rare") },
-    { label: tn("shopBundles"), href: shopCollectionHref("bundles") },
+    { label: tn("shopSignature"), href: shopCollectionHref("signature") },
+    { label: tn("shopOrigins"), href: shopCollectionHref("origins") },
     { label: tn("shopAccessories"), href: shopCollectionHref("accessories") },
   ];
 
@@ -158,340 +111,114 @@ function HomePageFooter() {
 }
 
 export function ElementsHomeView() {
-  const t = useTranslations("hero");
   const tm = useTranslations("mag");
   const tn = useTranslations("nav");
   const id = useId();
-  const beginners = getProductsByCollection("beginner");
-  const rarities = getProductsByCollection("rare");
-  const bundles = getProductsByCollection("bundles");
-  const cases = getProductsByTag("accessory");
-  const findYourSound = getProducts().slice(0, 3);
-  const instrumentMonth = getProducts().find((p) => p.slug === "copper-veil-d-kurd-12");
 
-  const catHandpan = beginners[0] ?? getProducts()[0];
-  const catCase = cases[0];
-  const catExtended =
-    getProductsByCollection("extended")[0] ?? getProductsByCollection("rare")[0];
+  // Canva homepage — section order mirrors "elements canva design.pdf".
+  const signature = getProductsByCollection("signature");
+  const origins = getProductsByCollection("origins");
+  const featuredDkurd = getProductBySlug("signature-d-kurd-10");
 
-  const categoryTiles = [
+  // Highlights & Rarities — the four one-off / rare builds from the Canva comp.
+  const highlightSlugs = [
+    "signature-d-kurd-12",
+    "signature-f-sharp-low-pygmy-18",
+    "origins-f-sharp-nordlys-15",
+    "origins-b2-mystic-9",
+  ];
+  const highlightProducts = highlightSlugs
+    .map((slug) => getProductBySlug(slug))
+    .filter((p): p is NonNullable<typeof p> => Boolean(p));
+
+  const moodProducts = [
+    getProductBySlug("signature-d-kurd-10"),
+    getProductBySlug("origins-f-sharp-nordlys-15"),
+  ].filter((p): p is NonNullable<typeof p> => Boolean(p));
+
+  const seriesCards: {
+    key: string;
+    title: string;
+    href: string;
+    image: string;
+  }[] = [
     {
-      key: "handpans",
-      title: tm("catHandpans"),
-      href: shopCollectionHref("beginner"),
-      image: catHandpan?.heroImageUrl,
+      key: "signature",
+      title: tn("shopSignature"),
+      href: shopCollectionHref("signature"),
+      image: canvaAssets.series.elements,
     },
     {
-      key: "extended",
-      title: tn("shopExtended"),
-      href: shopCollectionHref("extended"),
-      image: catExtended?.heroImageUrl,
+      key: "origins",
+      title: tn("shopOrigins"),
+      href: shopCollectionHref("origins"),
+      image: canvaAssets.series.origins,
     },
     {
       key: "cases",
       title: tm("catCases"),
       href: shopCollectionHref("accessories"),
-      image: catCase?.heroImageUrl,
+      image: canvaAssets.series.accessory,
     },
     {
-      key: "rarities",
-      title: tn("shopRare"),
-      href: shopCollectionHref("rare"),
-      image: rarities[0]?.heroImageUrl,
+      key: "all",
+      title: tm("promoAllTitle"),
+      href: "/shop",
+      image: canvaAssets.series.shopAll,
     },
-  ].filter((c): c is typeof c & { image: string } => Boolean(c.image));
+  ];
 
-  const [newsEmail, setNewsEmail] = useState("");
-  const [newsDone, setNewsDone] = useState(false);
-
-  const caseSwatches = (
-    <div className="flex flex-wrap gap-2">
-      {["Graphite", "Ochre", "Slate", "Umber"].map((s) => (
-        <span
-          key={s}
-          className="smallcaps rounded-full border border-border px-4 py-1.5 text-xs text-muted-foreground"
-        >
-          {s}
-        </span>
-      ))}
-    </div>
+  const exploreTiles = defaultExploreTiles(
+    tn("shopSignature"),
+    tn("shopOrigins"),
+    shopCollectionHref("signature"),
+    shopCollectionHref("origins"),
+    signature.slice(0, 2).map((p) => p.heroImageUrl),
+    origins.slice(0, 2).map((p) => p.heroImageUrl)
   );
 
   return (
     <div className="relative bg-[color:var(--surface-muted)] text-foreground">
       <AnnouncementBar />
+
+      {/* 1 — Header + Hero (Bali) */}
       <div className="relative">
         <SiteHeader variant="overlay" />
-        <HomeHero
-          eyebrow={t("eyebrow")}
-          titleLine1={t("titleLine1")}
-          titleAccent={t("titleItalic")}
-          sub={t("sub")}
-          kicker={tm("heroKicker")}
-          ctaPrimary={t("ctaPrimary")}
-          ctaSecondary={t("ctaSecondary")}
-          ctaLearn={t("ctaLearn")}
-        />
+        <HomeHero variant="canva" />
       </div>
 
-      <TrustStrip />
-
-      <InfoStrip />
-
-      {instrumentMonth ? (
-        <InstrumentOfMonthSection
-          product={instrumentMonth}
-          limitedLabel={tm("iotmLimitedStock")}
-          titleId={`${id}-iotm`}
+      {/* 2 — Brand mark + featured D Kurd 10 */}
+      {featuredDkurd ? (
+        <FeaturedInstrumentSection
+          id={`${id}-featured`}
+          product={featuredDkurd}
+          variant="canva"
         />
       ) : null}
 
-      <ProductRail
-        id={`${id}-beg`}
-        eyebrow={tm("beginnerEyebrow")}
-        title={tm("beginnerTitle")}
-        description={tm("beginnerBlurb")}
-        products={beginners}
-        ctaLabel={tm("shopCtaBeginner")}
-        ctaHref={shopCollectionHref("beginner")}
-        band="white"
-        aspect="4/3"
-        cardLayout="default"
-        display="grid"
-        quickAddOnHover
-      />
+      {/* 3 — The five elements */}
+      <ElementsWheelSection id={`${id}-elements`} variant="canva" />
 
-      <CustomerReviews id={`${id}-reviews`} />
-
-      <ProductRail
-        id={`${id}-rar`}
-        eyebrow={tm("raritiesEyebrow")}
-        title={tm("raritiesTitle")}
-        description={tm("raritiesBlurb")}
-        products={rarities}
-        ctaLabel={tm("shopCtaRare")}
-        ctaHref={shopCollectionHref("rare")}
-        band="accent"
-        aspect="21/9"
-        display="carousel"
-        backdrop="/images/handpan-lifestyle-15.jpg"
-        backdropTint="cream"
-      />
-
-      <BundleOfferSection id={`${id}-bundles`} products={bundles.slice(0, 2)} />
-
-      <ProductRail
-        id={`${id}-cases`}
-        eyebrow={tm("casesEyebrow")}
-        title={tm("casesTitle")}
-        description={tm("casesBlurb")}
-        products={cases}
-        ctaLabel={tm("shopCtaAccessories")}
-        ctaHref={shopCollectionHref("accessories")}
-        band="forest"
-        backdrop="/images/handpan-lifestyle-2.jpg"
-        backdropTint="forest"
-        beforeRail={caseSwatches}
-      />
-
-      <HomePromoGrid />
-
-      <section
-        className="relative overflow-hidden border-b border-border section-band-accent section-padding"
-        aria-labelledby={`${id}-mag-cat`}
-      >
-        <SectionBackdrop
-          src="/images/handpan-lifestyle-4.jpg"
-          tint="cream"
-          opacity={0.2}
-          parallax
+      {/* 4 — Mood grid (Premium Series pairing) */}
+      {moodProducts.length > 0 ? (
+        <ElementMoodGridSection
+          id={`${id}-mood`}
+          items={buildMoodGridItems(moodProducts, tm("premiumSeries"))}
+          variant="canva"
         />
-        <div className="relative container-x">
-          <SectionHeading
-            eyebrow={tm("categoriesEyebrow")}
-            title={<span id={`${id}-mag-cat`}>{tm("categoriesTitle")}</span>}
-          />
-          <div className="grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-4">
-            {categoryTiles.map((tile, index) => (
-              <MotionScaleReveal key={tile.key} delay={index * 0.08}>
-                <Link
-                  href={tile.href}
-                  className="category-tile group relative block overflow-hidden rounded-lg border border-border bg-transparent"
-                >
-                <div className="relative aspect-[3/4] overflow-hidden">
-                  <ProductPhoto
-                    src={tile.image}
-                    alt=""
-                    aspect="3/4"
-                    variant="tile"
-                    sizes="(max-width: 640px) 50vw, 25vw"
-                    frameClassName="category-tile-photo !absolute !inset-0 !h-full !w-full !rounded-none !border-0 !aspect-auto"
-                    className="transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-                  />
-                </div>
-                <div
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"
-                  aria-hidden
-                />
-                <div className="absolute inset-x-0 bottom-0 p-5 text-white transition-transform duration-500 ease-out group-hover:translate-y-[-4px] md:p-6">
-                  <h3 className="font-display text-lg md:text-2xl">{tile.title}</h3>
-                  <span className="smallcaps mt-2 inline-flex items-center gap-2 text-[color:var(--bronze-accent)]">
-                    {tm("seeMore")} <ArrowRight size={12} aria-hidden />
-                  </span>
-                </div>
-              </Link>
-              </MotionScaleReveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      ) : null}
 
-      <ProductRail
-        id={`${id}-fys`}
-        eyebrow={tm("findSoundEyebrow")}
-        title={tm("findSoundTitle")}
-        description={tm("findSoundBlurb")}
-        products={findYourSound}
-        ctaLabel={tm("shopCtaAll")}
-        ctaHref="/shop"
-        band="sandstone"
-        backdrop="/images/sound-healing-8.jpg"
-        backdropTint="sandstone"
+      {/* 5 — Highlights and Rarities */}
+      <HighlightsRaritiesSection
+        id={`${id}-highlights`}
+        products={highlightProducts.length > 0 ? highlightProducts : signature}
       />
 
-      <section
-        aria-labelledby={`${id}-assurance`}
-        className="border-b border-border section-band-accent section-padding"
-      >
-        <div className="container-x grid gap-12 lg:grid-cols-2 lg:gap-16">
-          <div>
-            <SectionHeading
-              eyebrow={tm("whyChooseEyebrow")}
-              title={<span id={`${id}-assurance`}>{tm("assuranceTitle")}</span>}
-              headingClassName="!mb-6 md:!mb-8"
-            />
-            <p className="-mt-4 mb-8 max-w-xl text-muted-foreground md:-mt-6">
-              {tm("assuranceBlurb")}
-            </p>
-            <MotionStagger className="grid gap-5 sm:grid-cols-2" staggerDelay={0.1}>
-              {[tm("whyChoose1"), tm("whyChoose2"), tm("whyChoose3"), tm("whyChoose4")].map(
-                (line) => (
-                  <MotionBorderGrow key={line}>
-                    <p className="py-1 text-foreground/90">{line}</p>
-                  </MotionBorderGrow>
-                )
-              )}
-            </MotionStagger>
-          </div>
-          <MotionReveal className="rounded-lg border border-border bg-white p-8 md:p-10">
-            <p className="eyebrow eyebrow-rule !text-[color:var(--sale-bg)]">
-              {tm("warrantyEyebrow")}
-            </p>
-            <h3 className="mt-5 font-display text-2xl leading-tight md:text-3xl">
-              {tm("warrantyTitle")}
-            </h3>
-            <p className="mt-4 text-foreground/85">{tm("warrantyBody")}</p>
-            <a href="#how-order" className="btn-pill btn-primary mt-8 inline-flex">
-              {tm("warrantyCta")} <ArrowRight size={16} aria-hidden />
-            </a>
-          </MotionReveal>
-        </div>
-      </section>
+      {/* 6 — Series cards */}
+      <SeriesCardsSection id={`${id}-series`} cards={seriesCards} variant="canva" />
 
-      <section
-        aria-labelledby={`${id}-jd`}
-        className="border-b border-border section-band-accent section-padding"
-      >
-        <div className="container-x">
-          <MotionReveal className="rounded-lg border border-border bg-white p-8 md:p-14">
-            <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-12">
-              <div className="lg:col-span-6">
-                <p className="eyebrow eyebrow-rule">{tm("newsletterEyebrowAlt")}</p>
-                <h2
-                  id={`${id}-jd`}
-                  className="mt-4 font-display text-3xl leading-tight md:text-4xl"
-                >
-                  Journal dispatch
-                </h2>
-                <p className="mt-5 max-w-md text-foreground/80">{tm("newsletterBodyAlt")}</p>
-                <Link href="/journal" className="link-arrow mt-5 inline-flex">
-                  Open the Journal page <ArrowRight size={14} aria-hidden />
-                </Link>
-              </div>
-              <form
-                className="flex flex-col gap-3 sm:flex-row lg:col-span-6 lg:mt-12"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  if (newsEmail) setNewsDone(true);
-                }}
-              >
-                <label htmlFor="news-email" className="sr-only">
-                  Email
-                </label>
-                <input
-                  id="news-email"
-                  type="email"
-                  required
-                  value={newsEmail}
-                  onChange={(e) => setNewsEmail(e.target.value)}
-                  placeholder="you@studio.com"
-                  className="min-h-12 flex-1 rounded-lg border border-border bg-white px-5 text-sm outline-none focus:border-[color:var(--ink)]"
-                />
-                <button type="submit" className="btn-pill btn-primary">
-                  {newsDone ? "Subscribed" : "Subscribe"}
-                </button>
-              </form>
-            </div>
-          </MotionReveal>
-        </div>
-      </section>
-
-      <section
-        id="how-order"
-        aria-labelledby={`${id}-bg`}
-        className="relative overflow-hidden border-b border-border section-band-muted section-padding"
-      >
-        <SectionBackdrop
-          src="/images/sound-healing-13.jpg"
-          tint="cream"
-          opacity={0.18}
-          parallax
-        />
-        <div className="relative container-x grid grid-cols-1 gap-10 lg:grid-cols-12">
-          <div className="lg:col-span-5">
-            <SectionHeading
-              title={<span id={`${id}-bg`}>Buying guide</span>}
-              eyebrow="No rush tactics"
-            />
-          </div>
-          <div className="space-y-6 text-foreground/85 lg:col-span-7">
-            <p>{tm("buyingGuideEssence")}</p>
-            <MotionStagger className="grid gap-6 pt-2 sm:grid-cols-3" staggerDelay={0.12}>
-              {[tm("buyingStep1"), tm("buyingStep2"), tm("buyingStep3")].map((s, i) => (
-                <MotionBorderGrow key={s}>
-                  <p className="smallcaps text-[color:var(--sale-bg)]">
-                    {tm("buyingStepLabel", { step: i + 1 })}
-                  </p>
-                  <p className="mt-2">{s}</p>
-                </MotionBorderGrow>
-              ))}
-            </MotionStagger>
-          </div>
-        </div>
-
-        <MotionReveal className="container-x mt-16">
-          <div className="flex flex-col gap-6 rounded-lg border border-border bg-[color:var(--surface-muted)] p-8 md:flex-row md:items-center md:justify-between md:p-10">
-            <div>
-              <p className="eyebrow eyebrow-rule">{tm("showroomsHomeEyebrow")}</p>
-              <h3 className="mt-3 font-display text-2xl md:text-3xl">Showrooms</h3>
-              <p className="mt-3 max-w-xl text-foreground/80">{tm("showroomsHomeBody")}</p>
-            </div>
-            <Link href="/showrooms" className="link-arrow shrink-0">
-              Showrooms detail <ArrowRight size={14} aria-hidden />
-            </Link>
-          </div>
-        </MotionReveal>
-      </section>
+      {/* 7 — Explore split (Elements / Origins) */}
+      <CollectionExploreDual tiles={exploreTiles} />
 
       <HomePageFooter />
     </div>

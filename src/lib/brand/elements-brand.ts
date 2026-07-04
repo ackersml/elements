@@ -58,14 +58,60 @@ export type BrandElement = {
   id: BrandElementId;
   name: string;
   keywords: [string, string, string];
+  /** Canva mock tagline — three editorial descriptors */
+  tagline: [string, string, string];
+  /** Long-form copy for homepage wheel and About */
+  description: string;
+  /** Path under public/images/canva/elements/ */
+  imageSrc: string;
 };
 
 export const brandElements: BrandElement[] = [
-  { id: "earth", name: "Earth", keywords: ["Grounding", "Trust", "Steadiness"] },
-  { id: "water", name: "Water", keywords: ["Flow", "Sensitivity", "Emotional truth"] },
-  { id: "fire", name: "Fire", keywords: ["Pulse", "Expression", "Aliveness"] },
-  { id: "air", name: "Air", keywords: ["Breath", "Openness", "Clarity"] },
-  { id: "space", name: "Space", keywords: ["Silence", "Presence", "Source"] },
+  {
+    id: "space",
+    name: "Space",
+    keywords: ["Silence", "Presence", "Source"],
+    tagline: ["Infinite", "Expansive", "Still"],
+    description:
+      "Open tunings that create a sense of vastness, silence, and limitless possibility. Space scales invite deep meditation, introspection, and complete freedom of expression.",
+    imageSrc: "/images/canva/elements/space.webp",
+  },
+  {
+    id: "fire",
+    name: "Fire",
+    keywords: ["Pulse", "Expression", "Aliveness"],
+    tagline: ["Passionate", "Powerful", "Dynamic"],
+    description:
+      "Dynamic scales filled with energy and intensity. Fire awakens courage, inspiration, and transformation, inviting expressive rhythms and bold musical journeys.",
+    imageSrc: "/images/canva/elements/fire.webp",
+  },
+  {
+    id: "water",
+    name: "Water",
+    keywords: ["Flow", "Sensitivity", "Emotional truth"],
+    tagline: ["Fluid", "Emotional", "Deep"],
+    description:
+      "Expressive scales that ebb and flow with natural emotion. Water encourages surrender, reflection, and calm, moving effortlessly between softness and depth.",
+    imageSrc: "/images/canva/elements/water.webp",
+  },
+  {
+    id: "earth",
+    name: "Earth",
+    keywords: ["Grounding", "Trust", "Steadiness"],
+    tagline: ["Grounded", "Warm", "Stable"],
+    description:
+      "Rich, balanced scales with a strong emotional foundation. Earth evokes safety, presence, and connection, creating melodies that feel rooted and deeply comforting.",
+    imageSrc: "/images/canva/elements/earth.webp",
+  },
+  {
+    id: "air",
+    name: "Air",
+    keywords: ["Breath", "Openness", "Clarity"],
+    tagline: ["Light", "Flowing", "Free"],
+    description:
+      "Bright, melodic scales that feel effortless and uplifting. Air carries movement, curiosity, and gentle optimism, allowing every note to drift naturally into the next.",
+    imageSrc: "/images/canva/elements/air.webp",
+  },
 ];
 
 export const brandHero = {
@@ -134,4 +180,9 @@ export function formatElementLabel(id: BrandElementId): string {
 export function formatElementKeywords(id: BrandElementId): string {
   const { keywords } = getBrandElement(id);
   return keywords.join(" · ");
+}
+
+export function formatElementTagline(id: BrandElementId): string {
+  const { tagline } = getBrandElement(id);
+  return tagline.join(" · ");
 }

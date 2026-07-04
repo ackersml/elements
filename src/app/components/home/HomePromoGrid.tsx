@@ -29,10 +29,10 @@ export function HomePromoGrid() {
       accent: true,
     },
     {
-      key: "extended",
-      title: tn("shopExtended"),
+      key: "signature",
+      title: tn("shopSignature"),
       subtitle: tm("promoExtendedSub"),
-      href: "/collections/extended",
+      href: "/collections/signature",
       image: "/images/handpan-lifestyle-9.jpg",
     },
     {

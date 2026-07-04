@@ -3,10 +3,10 @@
 import { ArrowRight } from "lucide-react";
 import type { ReactNode } from "react";
 import { Link } from "@/i18n/navigation";
-import { SectionBackdrop } from "@/app/components/layout/SectionBackdrop";
 import { ProductCard } from "@/app/components/shop/ProductCard";
 import type { Product } from "@/lib/products";
 import { cn } from "@/lib/utils";
+import { ShopSectionShell } from "@/app/components/home/ShopSectionShell";
 import {
   MotionHorizontalRail,
   MotionMagnetic,
@@ -30,20 +30,14 @@ type ProductRailProps = {
   band?: RailBand;
   backdrop?: string;
   backdropTint?: "white" | "cream" | "forest" | "sandstone";
+  backdropOpacity?: number;
   beforeRail?: ReactNode;
-  /** Default cards with borders (beginner grid); rail = flush image cells. */
+  watermark?: string;
+  /** Default cards with borders (Yatao white islands); rail = flush image cells. */
   cardLayout?: "default" | "rail";
   /** Grid on desktop; carousel = horizontal scroll at all breakpoints. */
   display?: "grid" | "carousel";
   quickAddOnHover?: boolean;
-};
-
-const bandClass: Record<RailBand, string> = {
-  white: "bg-white",
-  accent: "section-band-accent",
-  muted: "section-band-muted",
-  sandstone: "section-band-sandstone",
-  forest: "section-band-forest",
 };
 
 export function ProductRail({
@@ -61,8 +55,10 @@ export function ProductRail({
   band = "accent",
   backdrop,
   backdropTint = "cream",
+  backdropOpacity,
   beforeRail,
-  cardLayout = "rail",
+  watermark,
+  cardLayout = "default",
   display = "grid",
   quickAddOnHover = false,
 }: ProductRailProps) {
@@ -72,28 +68,19 @@ export function ProductRail({
   const isWide = aspect === "21/9";
 
   return (
-    <section
-      aria-labelledby={id}
-      className={cn(
-        "relative overflow-hidden border-b border-border section-padding",
-        bandClass[band],
-        className
-      )}
-    >
-      {backdrop ? (
-        <SectionBackdrop
-          src={backdrop}
-          tint={backdropTint}
-          opacity={0.22}
-          parallax
-        />
-      ) : null}
-
-      <div className="relative container-x">
+    <ShopSectionShell
+      id={id}
+      labelledBy={id}
+      band={band}
+      backdrop={backdrop}
+      backdropTint={backdropTint}
+      backdropOpacity={backdropOpacity}
+      watermark={watermark}
+      className={className}
+      deckClassName={cn(isCarousel && "shop-section-deck--carousel")}
+      header={
         <MotionReveal className="max-w-3xl">
-          {eyebrow ? (
-            <p className="eyebrow eyebrow-rule">{eyebrow}</p>
-          ) : null}
+          {eyebrow ? <p className="eyebrow eyebrow-rule">{eyebrow}</p> : null}
           <h2
             id={id}
             className="mt-4 font-display text-3xl leading-[1.05] tracking-tight md:text-5xl"
@@ -104,40 +91,40 @@ export function ProductRail({
             <p className="mt-4 max-w-2xl text-muted-foreground">{description}</p>
           ) : null}
         </MotionReveal>
-
-        {beforeRail ? <div className="mt-8">{beforeRail}</div> : null}
-
-        <div className="mt-10">
-          <MotionHorizontalRail
-            staggerDelay={0.08}
-            trackClassName={cn(
-              isCarousel && "product-rail-track--carousel",
-              isCarousel && isWide && "product-rail-track--wide"
-            )}
-            childClassName={cn(isCarousel && isWide && "product-rail-item--wide")}
-          >
-            {products.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                aspect={aspect}
-                showElement={showElement}
-                collectionScene={collectionScene}
-                layout={cardLayout}
-                quickAddOnHover={quickAddOnHover && cardLayout === "default"}
-              />
-            ))}
-          </MotionHorizontalRail>
-        </div>
-
-        <MotionReveal className="mt-10 flex justify-end" delay={0.1}>
+      }
+      beforeDeck={beforeRail}
+      deck={
+        <MotionHorizontalRail
+          staggerDelay={0.08}
+          trackClassName={cn(
+            isCarousel && "product-rail-track--carousel",
+            isCarousel && isWide && "product-rail-track--wide"
+          )}
+          childClassName={cn(isCarousel && isWide && "product-rail-item--wide")}
+        >
+          {products.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              aspect={aspect}
+              showElement={showElement}
+              collectionScene={collectionScene}
+              layout={cardLayout}
+              quickAddOnHover={quickAddOnHover && cardLayout === "default"}
+              className={cardLayout === "default" ? "shop-product-card" : undefined}
+            />
+          ))}
+        </MotionHorizontalRail>
+      }
+      footer={
+        <MotionReveal className="flex justify-end" delay={0.1}>
           <MotionMagnetic>
             <Link href={ctaHref} className="btn-pill btn-primary">
               {ctaLabel} <ArrowRight size={16} aria-hidden />
             </Link>
           </MotionMagnetic>
         </MotionReveal>
-      </div>
-    </section>
+      }
+    />
   );
 }
