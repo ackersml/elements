@@ -5,9 +5,22 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ProductPhoto } from "@/app/components/shop/ProductPhoto";
+import { MoodLoopVideo } from "@/app/components/home/MoodLoopVideo";
 import { useCartStore } from "@/lib/cart-store";
 import { formatProductDisplay, type Product } from "@/lib/products";
 import { canvaAssets } from "@/lib/canva-assets";
+
+/** Looping handpan demo clips (extracted from the Drive demo videos). */
+const MOOD_VIDEOS: Record<string, { src: string; poster: string }> = {
+  "signature-d-kurd-10": {
+    src: "/videos/mood-d-kurd-10.mp4",
+    poster: "/videos/mood-d-kurd-10.jpg",
+  },
+  "origins-f-sharp-nordlys-15": {
+    src: "/videos/mood-nordlys-15.mp4",
+    poster: "/videos/mood-nordlys-15.jpg",
+  },
+};
 
 export type MoodGridItem = {
   product: Product;
@@ -41,18 +54,30 @@ function MoodProductCard({
   const currency = useCartStore((s) => s.currency);
   const price = formatProductDisplay(product.priceCents, currency);
   const moods = product.moods ?? [];
+  const vid = MOOD_VIDEOS[product.slug];
 
   return (
     <div className="canva-mood-cell canva-mood-cell--card">
       <div className="canva-mood-card__top">
-        <ProductPhoto
-          src={product.heroImageUrl}
-          alt={product.title}
-          aspect="square"
-          variant="studio"
-          sizes="160px"
-          frameClassName="!w-28 md:!w-32"
-        />
+        <div className="canva-mood-card__media">
+          {vid ? (
+            <MoodLoopVideo
+              src={vid.src}
+              poster={vid.poster}
+              label={`${product.title} being played`}
+              className="h-full w-full object-cover"
+            />
+          ) : (
+            <ProductPhoto
+              src={product.heroImageUrl}
+              alt={product.title}
+              aspect="square"
+              variant="studio"
+              sizes="220px"
+              className="h-full w-full object-cover"
+            />
+          )}
+        </div>
         <div>
           <p className="canva-mood-card__series">{seriesLabel}</p>
           <h3 className="canva-mood-card__title">{product.title}</h3>

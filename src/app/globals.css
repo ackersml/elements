@@ -1643,49 +1643,27 @@
 }
 
 .element-wheel__desktop {
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: auto auto auto;
-  gap: 0.75rem;
   max-width: 56rem;
   margin-inline: auto;
 }
 
-.element-wheel__slot--space {
-  grid-column: 2;
-  grid-row: 1;
-}
-
-.element-wheel__slot--fire {
-  grid-column: 1;
-  grid-row: 2;
-}
-
-.element-wheel__slot--center {
-  grid-column: 2;
-  grid-row: 2;
-  display: grid;
-  place-items: center;
-}
-
-.element-wheel__slot--water {
-  grid-column: 3;
-  grid-row: 2;
-}
-
-.element-wheel__slot--earth {
-  grid-column: 1;
-  grid-row: 3;
-}
-
-.element-wheel__slot--air {
-  grid-column: 3;
-  grid-row: 3;
-}
-
-.element-wheel-center {
+.element-wheel__quad {
   position: relative;
-  width: min(100%, 220px);
-  aspect-ratio: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.element-wheel__center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(40%, 420px);
+  aspect-ratio: 710 / 750;
+  z-index: 5;
+  pointer-events: none;
+  filter: drop-shadow(0 26px 40px rgba(0, 0, 0, 0.55));
 }
 
 .mood-chip {
@@ -1901,23 +1879,42 @@
 .canva-wheel__grid .element-wheel__desktop {
   max-width: none;
   width: 100%;
-  gap: 0;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-template-rows: minmax(180px, 22vw) minmax(220px, 28vw) minmax(180px, 22vw);
 }
 
-.canva-wheel__grid .element-wheel-panel {
+/* full-bleed graded bands, centered copy — matches the Canva elements wheel */
+.element-wheel-panel--compact {
   border-radius: 0;
   border: 0;
-  min-height: 100%;
+  min-height: clamp(240px, 26vw, 340px);
 }
 
-.canva-wheel__grid .element-wheel-panel--compact {
-  min-height: 100%;
+.element-wheel-panel--compact:hover {
+  border-color: transparent;
 }
 
-.canva-wheel__grid .element-wheel-center {
-  width: min(72%, 280px);
+.element-wheel-panel--space.element-wheel-panel--compact {
+  min-height: clamp(180px, 18vw, 240px);
+}
+
+.element-wheel-panel--compact .element-wheel-panel__shade {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.32) 0%,
+    rgba(0, 0, 0, 0.12) 45%,
+    rgba(0, 0, 0, 0.34) 100%
+  );
+}
+
+.element-wheel-panel--compact .element-wheel-panel__copy {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 1.75rem 1.5rem;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.55);
+}
+
+.element-wheel-panel--compact .element-wheel-panel__copy > * {
+  max-width: 22rem;
 }
 
 .canva-mood-grid__board {
@@ -1954,7 +1951,19 @@
 .canva-mood-card__top {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.15rem;
+}
+
+.canva-mood-card__media {
+  position: relative;
+  flex-shrink: 0;
+  width: clamp(128px, 34%, 200px);
+  aspect-ratio: 1;
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 18px 34px -18px rgba(0, 0, 0, 0.7);
+  background: #12160f;
 }
 
 .canva-mood-card__series {

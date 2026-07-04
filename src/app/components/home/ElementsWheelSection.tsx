@@ -93,32 +93,22 @@ export function ElementsWheelSection({
         ) : null}
 
         <div className={`element-wheel ${variant === "canva" ? "canva-wheel__grid" : "mt-12 md:mt-16"}`}>
-          <div className="element-wheel__desktop hidden lg:grid">
-            <div className="element-wheel__slot element-wheel__slot--space">
-              <ElementPanel id="space" compact={variant === "canva"} />
-            </div>
-            <div className="element-wheel__slot element-wheel__slot--fire">
+          <div className="element-wheel__desktop hidden lg:block">
+            <ElementPanel id="space" compact={variant === "canva"} />
+            <div className="element-wheel__quad">
               <ElementPanel id="fire" compact={variant === "canva"} />
-            </div>
-            <div className="element-wheel__slot element-wheel__slot--center">
-              <div className="element-wheel-center">
+              <ElementPanel id="water" compact={variant === "canva"} />
+              <ElementPanel id="earth" compact={variant === "canva"} />
+              <ElementPanel id="air" compact={variant === "canva"} />
+              <div className="element-wheel__center">
                 <Image
                   src={canvaAssets.elements.centerHandpan}
                   alt=""
                   fill
-                  sizes="320px"
+                  sizes="420px"
                   className="object-contain object-center drop-shadow-2xl"
                 />
               </div>
-            </div>
-            <div className="element-wheel__slot element-wheel__slot--water">
-              <ElementPanel id="water" compact={variant === "canva"} />
-            </div>
-            <div className="element-wheel__slot element-wheel__slot--earth">
-              <ElementPanel id="earth" compact={variant === "canva"} />
-            </div>
-            <div className="element-wheel__slot element-wheel__slot--air">
-              <ElementPanel id="air" compact={variant === "canva"} />
             </div>
           </div>
 
