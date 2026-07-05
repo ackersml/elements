@@ -38,13 +38,8 @@ export function HomeHero(props: HomeHeroProps) {
             className="object-cover object-center"
           />
         </div>
-        <div className="absolute inset-0 bg-black/15" aria-hidden />
-        <div className="relative px-4 py-28 text-center">
-          <p className="canva-hero-script" aria-hidden>
-            Bali
-          </p>
-          <p className="sr-only">{brandTaglines.location}</p>
-        </div>
+        <div className="absolute inset-0 bg-black/10" aria-hidden />
+        <p className="sr-only">{brandTaglines.location}</p>
       </section>
     );
   }
