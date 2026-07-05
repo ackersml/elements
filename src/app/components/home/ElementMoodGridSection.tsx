@@ -213,7 +213,7 @@ export function buildMoodGridItems(
 ): MoodGridItem[] {
   const lifestyles = [
     canvaAssets.featuredLifestyle,
-    canvaAssets.explore.origins,
+    "/images/canva/mood-nordlys-lifestyle.webp",
   ];
 
   return products.map((product, i) => ({
