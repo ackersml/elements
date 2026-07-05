@@ -37,7 +37,7 @@ export function SeriesCardsSection({
               <p className="canva-series__label">{card.title}</p>
               <div className="canva-series__handpan">
                 <Image
-                  src="/images/canva/elements/center-handpan.webp"
+                  src={`/images/canva/series/card-${card.key}.webp`}
                   alt=""
                   fill
                   sizes="(max-width: 640px) 50vw, 25vw"
