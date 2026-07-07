@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { canvaAssets } from "@/lib/canva-assets";
 import { brandTaglines } from "@/lib/brand/elements-brand";
+import { HeroVideoBackground } from "@/app/components/home/HeroVideoBackground";
 
 type HomeHeroDefaultProps = {
   variant?: "default";
@@ -29,17 +30,15 @@ export function HomeHero(props: HomeHeroProps) {
     return (
       <section className="canva-hero relative flex min-h-[88svh] items-center justify-center overflow-hidden md:min-h-[92vh]">
         <div className="absolute inset-0">
-          <Image
-            src={canvaAssets.heroBali}
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center"
-          />
+          <HeroVideoBackground />
         </div>
-        <div className="absolute inset-0 bg-black/10" aria-hidden />
-        <p className="sr-only">{brandTaglines.location}</p>
+        <div className="absolute inset-0 bg-black/15" aria-hidden />
+        <div className="relative px-4 py-28 text-center">
+          <p className="canva-hero-script" aria-hidden>
+            Bali
+          </p>
+          <p className="sr-only">{brandTaglines.location}</p>
+        </div>
       </section>
     );
   }

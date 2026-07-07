@@ -10,15 +10,23 @@ import { useCartStore } from "@/lib/cart-store";
 import { formatProductDisplay, type Product } from "@/lib/products";
 import { canvaAssets } from "@/lib/canva-assets";
 
-/** Looping handpan demo clips (extracted from the Drive demo videos). */
-const MOOD_VIDEOS: Record<string, { src: string; poster: string }> = {
+/**
+ * Mood media: the demo footage plays in the wide landscape cell, and a still
+ * top-down handpan shot sits in the round product cell.
+ */
+const MOOD_MEDIA: Record<
+  string,
+  { rectVideo: string; rectPoster: string; circle: string }
+> = {
   "signature-d-kurd-10": {
-    src: "/videos/mood-d-kurd-10.mp4",
-    poster: "/videos/mood-d-kurd-10.jpg",
+    rectVideo: "/videos/featured-d-kurd-10.mp4",
+    rectPoster: "/videos/featured-d-kurd-10.jpg",
+    circle: "/videos/mood-d-kurd-circle.webp",
   },
   "origins-f-sharp-nordlys-15": {
-    src: "/videos/mood-nordlys-15.mp4",
-    poster: "/videos/mood-nordlys-15.jpg",
+    rectVideo: "/videos/mood-nordlys-rect.mp4",
+    rectPoster: "/videos/mood-nordlys-lifestyle.webp",
+    circle: "/videos/mood-nordlys-circle.webp",
   },
 };
 
@@ -28,16 +36,26 @@ export type MoodGridItem = {
   seriesLabel: string;
 };
 
-function MoodLifestyle({ src }: { src: string }) {
+function MoodLifestyle({ item }: { item: MoodGridItem }) {
+  const media = MOOD_MEDIA[item.product.slug];
   return (
     <div className="canva-mood-cell canva-mood-cell--image">
-      <Image
-        src={src}
-        alt=""
-        fill
-        sizes="(max-width: 768px) 100vw, 50vw"
-        className="object-cover object-center"
-      />
+      {media ? (
+        <MoodLoopVideo
+          src={media.rectVideo}
+          poster={media.rectPoster}
+          label={`${item.product.title} being played`}
+          className="h-full w-full object-cover object-center"
+        />
+      ) : (
+        <Image
+          src={item.lifestyleSrc}
+          alt=""
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover object-center"
+        />
+      )}
       <div className="pointer-events-none absolute inset-0 bg-black/15" aria-hidden />
     </div>
   );
@@ -54,18 +72,19 @@ function MoodProductCard({
   const currency = useCartStore((s) => s.currency);
   const price = formatProductDisplay(product.priceCents, currency);
   const moods = product.moods ?? [];
-  const vid = MOOD_VIDEOS[product.slug];
+  const media = MOOD_MEDIA[product.slug];
 
   return (
     <div className="canva-mood-cell canva-mood-cell--card">
       <div className="canva-mood-card__top">
         <div className="canva-mood-card__media">
-          {vid ? (
-            <MoodLoopVideo
-              src={vid.src}
-              poster={vid.poster}
-              label={`${product.title} being played`}
-              className="h-full w-full object-cover"
+          {media ? (
+            <Image
+              src={media.circle}
+              alt={product.title}
+              fill
+              sizes="220px"
+              className="object-cover object-center"
             />
           ) : (
             <ProductPhoto
@@ -181,10 +200,10 @@ export function ElementMoodGridSection({
         className="canva-mood-grid section-band-forest"
       >
         <div className="canva-mood-grid__board">
-          <MoodLifestyle src={first.lifestyleSrc} />
+          <MoodLifestyle item={first} />
           <MoodProductCard item={first} moodLabel={tm("moodLabel")} />
           <MoodProductCard item={second} moodLabel={tm("moodLabel")} />
-          <MoodLifestyle src={second.lifestyleSrc} />
+          <MoodLifestyle item={second} />
         </div>
       </section>
     );
