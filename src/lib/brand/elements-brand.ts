@@ -184,5 +184,6 @@ export function formatElementKeywords(id: BrandElementId): string {
 
 export function formatElementTagline(id: BrandElementId): string {
   const { tagline } = getBrandElement(id);
-  return tagline.join(" · ");
+  // Canva elements wheel renders taglines period-separated: "Infinite. Expansive. Still."
+  return tagline.join(". ") + ".";
 }

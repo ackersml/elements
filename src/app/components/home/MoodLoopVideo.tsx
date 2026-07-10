@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef, useState } from "react";
+import { Pause, Play } from "lucide-react";
 
 /**
- * Small (~400KB) muted handpan loop that plays while on screen and pauses
- * when scrolled away. `muted` is set imperatively because React's `muted`
- * attribute is unreliable and would otherwise block autoplay.
+ * Homepage demo clip. Unlike the hero background, these load **paused** on a
+ * poster still and only play — with sound — when the visitor clicks. Clicking
+ * again pauses; starting one clip pauses any other that is playing so only a
+ * single audio source is ever heard.
  */
 export function MoodLoopVideo({
   src,
@@ -19,36 +21,55 @@ export function MoodLoopVideo({
   className?: string;
 }) {
   const ref = useRef<HTMLVideoElement>(null);
+  const [playing, setPlaying] = useState(false);
 
-  useEffect(() => {
+  const toggle = () => {
     const el = ref.current;
     if (!el) return;
-    el.muted = true;
-    el.defaultMuted = true;
-    const tryPlay = () => el.play().catch(() => {});
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) tryPlay();
-        else el.pause();
-      },
-      { threshold: 0.15 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
+    if (el.paused) {
+      // Pause any other homepage clip so only one plays with sound at a time.
+      document
+        .querySelectorAll<HTMLVideoElement>("video[data-sound-video]")
+        .forEach((v) => {
+          if (v !== el) v.pause();
+        });
+      el.muted = false;
+      void el.play().catch(() => {});
+    } else {
+      el.pause();
+    }
+  };
 
   return (
-    <video
-      ref={ref}
-      className={className}
-      src={src}
-      poster={poster}
-      autoPlay
-      muted
-      loop
-      playsInline
-      preload="auto"
-      aria-label={label}
-    />
+    <div
+      className={`sound-video ${className ?? ""}`}
+      role="button"
+      tabIndex={0}
+      aria-label={playing ? `Pause ${label}` : `Play ${label} with sound`}
+      onClick={toggle}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggle();
+        }
+      }}
+    >
+      <video
+        ref={ref}
+        data-sound-video
+        className="absolute inset-0 h-full w-full object-cover object-center"
+        src={src}
+        poster={poster}
+        playsInline
+        preload="metadata"
+        aria-label={label}
+        onPlay={() => setPlaying(true)}
+        onPause={() => setPlaying(false)}
+        onEnded={() => setPlaying(false)}
+      />
+      <span className={`sound-video__btn${playing ? " sound-video__btn--playing" : ""}`} aria-hidden>
+        {playing ? <Pause size={20} fill="currentColor" /> : <Play size={22} fill="currentColor" />}
+      </span>
+    </div>
   );
 }

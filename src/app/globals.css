@@ -1962,6 +1962,50 @@
   overflow: hidden;
 }
 
+/* Click-to-play (with sound) homepage clips — paused on load. */
+.sound-video {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.sound-video__btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 3;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  width: 66px;
+  height: 66px;
+  padding-left: 3px;
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(15, 20, 15, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.8);
+  transition: transform 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.sound-video:hover .sound-video__btn {
+  background: rgba(15, 20, 15, 0.68);
+  transform: translate(-50%, -50%) scale(1.06);
+}
+
+/* Pause control only surfaces on hover so it doesn't cover the playing clip. */
+.sound-video__btn--playing {
+  opacity: 0;
+  padding-left: 0;
+}
+
+.sound-video:hover .sound-video__btn--playing,
+.sound-video:focus-visible .sound-video__btn--playing {
+  opacity: 1;
+}
+
 .canva-mood-cell--card {
   display: flex;
   flex-direction: column;
