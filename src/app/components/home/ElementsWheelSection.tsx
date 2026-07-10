@@ -42,7 +42,15 @@ const PANEL_SLOT: Record<BrandElementId, string> = {
   air: "element-wheel-panel--air",
 };
 
-function ElementPanel({ id, compact }: { id: BrandElementId; compact?: boolean }) {
+function ElementPanel({
+  id,
+  compact,
+  inlineSymbol = true,
+}: {
+  id: BrandElementId;
+  compact?: boolean;
+  inlineSymbol?: boolean;
+}) {
   const el = brandElements.find((e) => e.id === id)!;
 
   return (
@@ -68,14 +76,16 @@ function ElementPanel({ id, compact }: { id: BrandElementId; compact?: boolean }
         <p className="mt-3 text-xs leading-relaxed text-white/75 md:text-sm">
           {el.description}
         </p>
-        <Image
-          src={ELEMENT_SYMBOL[id]}
-          alt=""
-          width={48}
-          height={48}
-          className="element-wheel-panel__symbol"
-          aria-hidden
-        />
+        {inlineSymbol ? (
+          <Image
+            src={ELEMENT_SYMBOL[id]}
+            alt=""
+            width={48}
+            height={48}
+            className="element-wheel-panel__symbol"
+            aria-hidden
+          />
+        ) : null}
       </div>
     </article>
   );
@@ -123,10 +133,10 @@ export function ElementsWheelSection({
           <div className="element-wheel__desktop hidden lg:block">
             <ElementPanel id="space" compact={variant === "canva"} />
             <div className="element-wheel__quad">
-              <ElementPanel id="fire" compact={variant === "canva"} />
-              <ElementPanel id="water" compact={variant === "canva"} />
-              <ElementPanel id="earth" compact={variant === "canva"} />
-              <ElementPanel id="air" compact={variant === "canva"} />
+              <ElementPanel id="fire" compact={variant === "canva"} inlineSymbol={false} />
+              <ElementPanel id="water" compact={variant === "canva"} inlineSymbol={false} />
+              <ElementPanel id="earth" compact={variant === "canva"} inlineSymbol={false} />
+              <ElementPanel id="air" compact={variant === "canva"} inlineSymbol={false} />
               <div className="element-wheel__center">
                 <Image
                   src={canvaAssets.elements.centerHandpan}
@@ -135,6 +145,19 @@ export function ElementsWheelSection({
                   sizes="420px"
                   className="object-contain object-center drop-shadow-2xl"
                 />
+              </div>
+              {/* Element glyphs circling the central handpan (Canva layout). */}
+              <div className="element-wheel__symbol-ring" aria-hidden>
+                {(["fire", "water", "earth", "air"] as const).map((elId) => (
+                  <Image
+                    key={elId}
+                    src={ELEMENT_SYMBOL[elId]}
+                    alt=""
+                    width={48}
+                    height={48}
+                    className={`element-wheel__ring-symbol element-wheel__ring-symbol--${elId}`}
+                  />
+                ))}
               </div>
             </div>
           </div>

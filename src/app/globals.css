@@ -1670,6 +1670,59 @@
   filter: drop-shadow(0 1px 10px rgba(0, 0, 0, 0.55));
 }
 
+/* Desktop: the four quad glyphs circle the central handpan (Canva layout). */
+.element-wheel__symbol-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(64%, 660px);
+  aspect-ratio: 1 / 1;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.element-wheel__ring-symbol {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 11px rgba(0, 0, 0, 0.6));
+}
+
+.element-wheel__ring-symbol--fire {
+  left: 0;
+  top: 43%;
+  transform: translate(-50%, -50%);
+}
+
+.element-wheel__ring-symbol--water {
+  right: 0;
+  top: 43%;
+  transform: translate(50%, -50%);
+}
+
+.element-wheel__ring-symbol--earth {
+  left: 15%;
+  bottom: 3%;
+  transform: translate(-50%, 50%);
+}
+
+.element-wheel__ring-symbol--air {
+  right: 15%;
+  bottom: 3%;
+  transform: translate(50%, 50%);
+}
+
+/* Space glyph sits at the base of its band, just above the handpan. */
+.element-wheel-panel--space.element-wheel-panel--compact .element-wheel-panel__symbol {
+  position: absolute;
+  bottom: 8%;
+  left: 50%;
+  margin-top: 0;
+  transform: translateX(-50%);
+}
+
 .element-wheel__desktop {
   max-width: 56rem;
   margin-inline: auto;
