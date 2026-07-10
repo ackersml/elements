@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { Droplet, Flame, Leaf, Moon, Wind, type LucideIcon } from "lucide-react";
 import {
   brandElements,
   formatElementTagline,
@@ -15,6 +16,15 @@ import {
 
 const WHEEL_ORDER: BrandElementId[] = ["space", "fire", "water", "earth", "air"];
 
+/** Element line-icons — matches the Canva elements-wheel and mood-grid icons. */
+export const ELEMENT_ICON: Record<BrandElementId, LucideIcon> = {
+  space: Moon,
+  fire: Flame,
+  water: Droplet,
+  earth: Leaf,
+  air: Wind,
+};
+
 const PANEL_SLOT: Record<BrandElementId, string> = {
   space: "element-wheel-panel--space",
   fire: "element-wheel-panel--fire",
@@ -25,6 +35,7 @@ const PANEL_SLOT: Record<BrandElementId, string> = {
 
 function ElementPanel({ id, compact }: { id: BrandElementId; compact?: boolean }) {
   const el = brandElements.find((e) => e.id === id)!;
+  const Icon = ELEMENT_ICON[id];
 
   return (
     <article
@@ -43,12 +54,17 @@ function ElementPanel({ id, compact }: { id: BrandElementId; compact?: boolean }
         <h3 id={`element-${id}`} className="font-display text-xl text-white md:text-2xl">
           {el.name}
         </h3>
-        <p className="mt-1 text-[11px] uppercase tracking-[0.2em] text-[color:var(--bronze-accent)]">
+        <p className="element-wheel-panel__tagline mt-1">
           {formatElementTagline(id)}
         </p>
         <p className="mt-3 text-xs leading-relaxed text-white/75 md:text-sm">
           {el.description}
         </p>
+        <Icon
+          className="element-wheel-panel__icon"
+          strokeWidth={1.4}
+          aria-hidden
+        />
       </div>
     </article>
   );

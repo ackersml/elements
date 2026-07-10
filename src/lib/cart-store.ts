@@ -28,7 +28,7 @@ export const useCartStore = create<CartState>()(
   persist(
     (set, get) => ({
       lines: [],
-      currency: "usd",
+      currency: "eur",
       drawerOpen: false,
       add: (slug, quantity = 1) => {
         const lines = [...get().lines];
@@ -63,7 +63,7 @@ export const useCartStore = create<CartState>()(
         lines: state.lines,
         currency: isCheckoutCurrency(state.currency)
           ? state.currency
-          : "usd",
+          : "eur",
       }),
     }
   )

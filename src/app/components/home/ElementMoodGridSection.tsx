@@ -9,6 +9,18 @@ import { MoodLoopVideo } from "@/app/components/home/MoodLoopVideo";
 import { useCartStore } from "@/lib/cart-store";
 import { formatProductDisplay, type Product } from "@/lib/products";
 import { canvaAssets } from "@/lib/canva-assets";
+import { ELEMENT_ICON } from "@/app/components/home/ElementsWheelSection";
+import type { BrandElementId } from "@/lib/brand/elements-brand";
+
+/**
+ * Canva mood-grid icon sets — the featured pairings use the catalogue's dual
+ * elemental identity (e.g. D Kurd is "Fire + Earth"), which the single
+ * `product.element` field doesn't capture.
+ */
+const MOOD_ELEMENT_ICONS: Record<string, BrandElementId[]> = {
+  "signature-d-kurd-10": ["fire", "earth"],
+  "origins-f-sharp-nordlys-15": ["space"],
+};
 
 /**
  * Mood media: the demo footage plays in the wide landscape cell, and a still
@@ -25,7 +37,7 @@ const MOOD_MEDIA: Record<
   },
   "origins-f-sharp-nordlys-15": {
     rectVideo: "/videos/mood-nordlys-rect.mp4",
-    rectPoster: "/videos/mood-nordlys-lifestyle.webp",
+    rectPoster: "/images/canva/mood-nordlys-lifestyle.webp",
     circle: "/videos/mood-nordlys-circle.webp",
   },
 };
@@ -64,18 +76,25 @@ function MoodLifestyle({ item }: { item: MoodGridItem }) {
 function MoodProductCard({
   item,
   moodLabel,
+  mirror = false,
 }: {
   item: MoodGridItem;
   moodLabel: string;
+  mirror?: boolean;
 }) {
   const { product, seriesLabel } = item;
   const currency = useCartStore((s) => s.currency);
   const price = formatProductDisplay(product.priceCents, currency);
   const moods = product.moods ?? [];
   const media = MOOD_MEDIA[product.slug];
+  const iconIds =
+    MOOD_ELEMENT_ICONS[product.slug] ??
+    (product.element ? [product.element] : []);
 
   return (
-    <div className="canva-mood-cell canva-mood-cell--card">
+    <div
+      className={`canva-mood-cell canva-mood-cell--card${mirror ? " canva-mood-cell--mirror" : ""}`}
+    >
       <div className="canva-mood-card__top">
         <div className="canva-mood-card__media">
           {media ? (
@@ -97,23 +116,34 @@ function MoodProductCard({
             />
           )}
         </div>
-        <div>
-          <p className="canva-mood-card__series">{seriesLabel}</p>
-          <h3 className="canva-mood-card__title">{product.title}</h3>
+        <div className="canva-mood-card__heading">
+          <div>
+            <h3 className="canva-mood-card__title">{product.title}</h3>
+            <p className="canva-mood-card__series">{seriesLabel}</p>
+          </div>
+          {iconIds.length > 0 ? (
+            <span className="canva-mood-card__el-icons">
+              {iconIds.map((elId) => {
+                const Icon = ELEMENT_ICON[elId];
+                return (
+                  <Icon
+                    key={elId}
+                    className="canva-mood-card__el-icon"
+                    strokeWidth={1.4}
+                    aria-hidden
+                  />
+                );
+              })}
+            </span>
+          ) : null}
         </div>
       </div>
       <p className="canva-mood-card__desc">{product.description}</p>
       {moods.length > 0 ? (
-        <div className="canva-mood-card__moods">
-          <p className="canva-mood-card__mood-label">{moodLabel}</p>
-          <div className="flex flex-wrap gap-2">
-            {moods.map((mood) => (
-              <span key={mood} className="mood-chip">
-                {mood}
-              </span>
-            ))}
-          </div>
-        </div>
+        <p className="canva-mood-card__mood">
+          <span className="canva-mood-card__mood-label">{moodLabel}:</span>{" "}
+          {moods.join(" - ")}
+        </p>
       ) : null}
       <div className="canva-mood-card__footer">
         <p className="canva-mood-card__price">{price}</p>
@@ -152,16 +182,10 @@ function MoodCardRow({ item, moodLabel }: { item: MoodGridItem; moodLabel: strin
           {product.description}
         </p>
         {moods.length > 0 ? (
-          <div className="mt-5">
-            <p className="smallcaps text-white/50">{moodLabel}</p>
-            <div className="mt-2 flex flex-wrap gap-2">
-              {moods.map((mood) => (
-                <span key={mood} className="mood-chip">
-                  {mood}
-                </span>
-              ))}
-            </div>
-          </div>
+          <p className="mt-5 text-sm text-[color:var(--sandstone)]/85">
+            <span className="smallcaps text-white/50">{moodLabel}:</span>{" "}
+            {moods.join(" - ")}
+          </p>
         ) : null}
         <div className="mt-6 flex flex-wrap items-center gap-4">
           <p className="font-display text-xl text-white">{price}</p>
@@ -202,7 +226,7 @@ export function ElementMoodGridSection({
         <div className="canva-mood-grid__board">
           <MoodLifestyle item={first} />
           <MoodProductCard item={first} moodLabel={tm("moodLabel")} />
-          <MoodProductCard item={second} moodLabel={tm("moodLabel")} />
+          <MoodProductCard item={second} moodLabel={tm("moodLabel")} mirror />
           <MoodLifestyle item={second} />
         </div>
       </section>

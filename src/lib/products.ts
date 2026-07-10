@@ -150,6 +150,7 @@ export const products: Product[] = [
     photoSlug: "copper-veil-d-kurd-12",
     description:
       "The extended D Kurd 12 keeps the familiar emotional language of D minor while opening more melodic routes in the upper register. Forgiving for beginners and spacious for experienced improvisation.",
+    moods: ["Expressive", "Stable", "Warm", "Melodic"],
   }),
   handpan({
     id: "sig-g-minor-14",
@@ -164,6 +165,7 @@ export const products: Product[] = [
     photoSlug: "ultimate-d-kurd-16",
     description:
       "A low, grounded minor instrument with a more physical bass presence than standard D-root pans. Suited to ritual intensity, weight and a strong emotional foundation with clear melodic paths.",
+    moods: ["Dark", "Earthy", "Powerful", "Ceremonial"],
   }),
   handpan({
     id: "sig-c-minor-15",
@@ -178,6 +180,7 @@ export const products: Product[] = [
     photoSlug: "sanctuary-c-minor-15",
     description:
       "A broad C minor soundscape designed for inner work, ambient composition and deep listening. The extended range creates a wide emotional arc from shadowed bass tones into clear upper melodies.",
+    moods: ["Mystical", "Contemplative", "Deep", "Spacious"],
   }),
   handpan({
     id: "sig-d-aegean-10",
@@ -192,6 +195,7 @@ export const products: Product[] = [
     photoSlug: "trailhead-d-celtic-9",
     description:
       "D Aegean offers a luminous alternative to darker minor scales. Its open Lydian colour gives a floating, Mediterranean quality—excellent for peaceful improvisation and uplifting sound baths.",
+    moods: ["Open", "Bright", "Flowing", "Serene"],
   }),
   handpan({
     id: "sig-f-sharp-nordlys-14",
@@ -206,6 +210,7 @@ export const products: Product[] = [
     photoSlug: "nordlys-f-sharp-15",
     description:
       "Nordlys has a rare northern-light character: spacious, glassy and slightly mysterious. Built for cinematic ambience, experimental melody and a sound beyond the standard handpan vocabulary.",
+    moods: ["Cosmic", "Rare", "Suspended", "Cinematic"],
   }),
   handpan({
     id: "sig-f-sharp-low-pygmy-18",
@@ -220,6 +225,7 @@ export const products: Product[] = [
     photoSlug: "atelier-f-sharp-pygmy-17",
     description:
       "F# Low Pygmy expands the classic pentatonic feeling into a much wider field, allowing hypnotic ostinatos, long floating melodies and deep harmonic movement without becoming heavy.",
+    moods: ["Floating", "Ancient", "Hypnotic", "Emotional"],
   }),
 
   // —— Elements Origins (Xi · China) ——
@@ -236,6 +242,7 @@ export const products: Product[] = [
     photoSlug: "studio-handpan-d-kurd-10",
     description:
       "The Origins D Kurd 10 is the accessible foundation of the collection. Classic emotional pull of D minor with simple navigation—a strong choice for teaching, first-time buyers and daily practice.",
+    moods: ["Grounded", "Emotional", "Direct", "Warm"],
   }),
   handpan({
     id: "orig-d-kurd-18",
@@ -250,6 +257,7 @@ export const products: Product[] = [
     photoSlug: "ultimate-d-kurd-16",
     description:
       "A full extended D Kurd for players who want the classic minor language with a wider performance range. Bottom tones add body and grounding; upper notes give more melodic completion.",
+    moods: ["Rich", "Expressive", "Grounded", "Expansive"],
   }),
   handpan({
     id: "orig-f-low-pygmy-16",
@@ -264,6 +272,7 @@ export const products: Product[] = [
     photoSlug: "atelier-f-sharp-pygmy-17",
     description:
       "F Low Pygmy has a primal, earthy character with steady forward movement. Hypnotic quality that works especially well for trance-like playing, ceremony and deep meditative sound.",
+    moods: ["Earthy", "Ancient", "Hypnotic", "Warm"],
   }),
   handpan({
     id: "orig-d-aegean-18",
@@ -278,6 +287,7 @@ export const products: Product[] = [
     photoSlug: "trailhead-d-celtic-9",
     description:
       "The extended D Aegean is a wide, flowing instrument with an uplifting, almost oceanic quality. Bass extensions create a powerful foundation while upper notes keep the sound bright and open.",
+    moods: ["Luminous", "Flowing", "Open", "Elegant"],
   }),
   handpan({
     id: "orig-f-sharp-nordlys-15",
@@ -307,6 +317,7 @@ export const products: Product[] = [
     photoSlug: "atelier-f-sharp-pygmy-17",
     description:
       "A large-range F# Low Pygmy designed for serious exploration. Twenty-one notes give a full melodic landscape while keeping the ancient, hypnotic identity of the Pygmy family.",
+    moods: ["Immersive", "Floating", "Emotional", "Infinite"],
   }),
   handpan({
     id: "orig-e-amara-20",
@@ -321,6 +332,7 @@ export const products: Product[] = [
     photoSlug: "sanctuary-b-amara-9",
     description:
       "E Amara 20 is an expanded Celtic minor world that feels both emotional and accessible. Naturally song-like—friendly for voice, melody writing and teaching.",
+    moods: ["Gentle", "Uplifting", "Emotional", "Flowing"],
   }),
   handpan({
     id: "orig-b2-mystic-9",
@@ -335,6 +347,7 @@ export const products: Product[] = [
     photoSlug: "sanctuary-b-amara-9",
     description:
       "B2 Mystic 9 is a compact low-register instrument with a deep, inward pull. Dark and focused without overwhelming—ideal for grounding rituals and intimate meditative settings.",
+    moods: ["Dark", "Primal", "Focused", "Meditative"],
   }),
   handpan({
     id: "orig-d-ashakarian-16",
@@ -349,6 +362,7 @@ export const products: Product[] = [
     photoSlug: "trailhead-d-celtic-9",
     description:
       "D Ashakarian moves into a major, uplifting colour—open, optimistic and slightly emotional. Strong for breath-led playing, melodic storytelling and brighter ceremonial music.",
+    moods: ["Hopeful", "Open", "Bright", "Uplifting"],
   }),
 
   // —— Cases & accessories ——

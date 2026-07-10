@@ -19,10 +19,7 @@ export function CollectionExploreDual({ tiles }: { tiles: ExploreTile[] }) {
   const tm = useTranslations("mag");
 
   return (
-    <section
-      aria-label="Explore collections"
-      className="border-b border-border"
-    >
+    <section aria-label="Explore collections">
       <div className="grid grid-cols-1 md:grid-cols-2">
         {tiles.map((tile, index) => (
           <MotionScaleReveal key={tile.key} delay={index * 0.08}>
