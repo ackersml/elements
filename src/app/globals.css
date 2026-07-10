@@ -1676,7 +1676,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: min(64%, 660px);
+  width: min(48%, 470px);
   aspect-ratio: 1 / 1;
   z-index: 6;
   pointer-events: none;
@@ -1684,34 +1684,31 @@
 
 .element-wheel__ring-symbol {
   position: absolute;
-  width: 48px;
-  height: 48px;
+  width: 46px;
+  height: 46px;
   object-fit: contain;
+  transform: translate(-50%, -50%);
   filter: drop-shadow(0 1px 11px rgba(0, 0, 0, 0.6));
 }
 
 .element-wheel__ring-symbol--fire {
-  left: 0;
-  top: 43%;
-  transform: translate(-50%, -50%);
+  left: 10%;
+  top: 44%;
 }
 
 .element-wheel__ring-symbol--water {
-  right: 0;
-  top: 43%;
-  transform: translate(50%, -50%);
+  left: 90%;
+  top: 44%;
 }
 
 .element-wheel__ring-symbol--earth {
-  left: 15%;
-  bottom: 3%;
-  transform: translate(-50%, 50%);
+  left: 21%;
+  top: 78%;
 }
 
 .element-wheel__ring-symbol--air {
-  right: 15%;
-  bottom: 3%;
-  transform: translate(50%, 50%);
+  left: 79%;
+  top: 78%;
 }
 
 /* Space glyph sits at the base of its band, just above the handpan. */
@@ -1979,7 +1976,7 @@
 }
 
 .element-wheel-panel--space.element-wheel-panel--compact {
-  min-height: clamp(180px, 18vw, 240px);
+  min-height: clamp(240px, 22vw, 320px);
 }
 
 .element-wheel-panel--compact .element-wheel-panel__shade {
