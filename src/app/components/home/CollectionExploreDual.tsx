@@ -26,7 +26,7 @@ export function CollectionExploreDual({ tiles }: { tiles: ExploreTile[] }) {
             <Link
               href={tile.href}
               aria-label={`${tm("exploreCta")} ${tile.title}`}
-              className={`explore-dual-tile group relative flex min-h-[540px] flex-col items-center justify-end overflow-hidden p-8 md:min-h-[640px] md:p-12 ${
+              className={`explore-dual-tile group relative flex aspect-[1067/982] flex-col items-center justify-end overflow-hidden p-8 md:p-12 ${
                 tile.variant === "origins" ? "explore-dual-tile--origins" : ""
               }`}
             >
@@ -35,7 +35,7 @@ export function CollectionExploreDual({ tiles }: { tiles: ExploreTile[] }) {
                 alt={tile.title}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.02]"
+                className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
               />
               <div className="explore-dual-tile__shade" aria-hidden />
               <span className="btn-pill relative z-10 !bg-white !px-8 !text-[color:var(--ink)] font-medium shadow-lg transition group-hover:!bg-white/90">
