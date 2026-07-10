@@ -1661,6 +1661,15 @@
   filter: drop-shadow(0 1px 8px rgba(0, 0, 0, 0.5));
 }
 
+/* Exact Canva element glyphs (crescent, flame, droplet, leaf-sprig, swirl). */
+.element-wheel-panel__symbol {
+  width: 46px;
+  height: 46px;
+  margin-top: 0.7rem;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 10px rgba(0, 0, 0, 0.55));
+}
+
 .element-wheel__desktop {
   max-width: 56rem;
   margin-inline: auto;

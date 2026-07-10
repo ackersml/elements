@@ -16,13 +16,22 @@ import {
 
 const WHEEL_ORDER: BrandElementId[] = ["space", "fire", "water", "earth", "air"];
 
-/** Element line-icons — matches the Canva elements-wheel and mood-grid icons. */
+/** Element line-icons — used for the small bronze icons on the mood-grid cards. */
 export const ELEMENT_ICON: Record<BrandElementId, LucideIcon> = {
   space: Moon,
   fire: Flame,
   water: Droplet,
   earth: Leaf,
   air: Wind,
+};
+
+/** Exact Canva elements-wheel glyphs (extracted from the design). */
+const ELEMENT_SYMBOL: Record<BrandElementId, string> = {
+  space: "/images/canva/elements/symbols/space.webp",
+  fire: "/images/canva/elements/symbols/fire.webp",
+  water: "/images/canva/elements/symbols/water.webp",
+  earth: "/images/canva/elements/symbols/earth.webp",
+  air: "/images/canva/elements/symbols/air.webp",
 };
 
 const PANEL_SLOT: Record<BrandElementId, string> = {
@@ -35,7 +44,6 @@ const PANEL_SLOT: Record<BrandElementId, string> = {
 
 function ElementPanel({ id, compact }: { id: BrandElementId; compact?: boolean }) {
   const el = brandElements.find((e) => e.id === id)!;
-  const Icon = ELEMENT_ICON[id];
 
   return (
     <article
@@ -60,9 +68,12 @@ function ElementPanel({ id, compact }: { id: BrandElementId; compact?: boolean }
         <p className="mt-3 text-xs leading-relaxed text-white/75 md:text-sm">
           {el.description}
         </p>
-        <Icon
-          className="element-wheel-panel__icon"
-          strokeWidth={1.4}
+        <Image
+          src={ELEMENT_SYMBOL[id]}
+          alt=""
+          width={48}
+          height={48}
+          className="element-wheel-panel__symbol"
           aria-hidden
         />
       </div>
