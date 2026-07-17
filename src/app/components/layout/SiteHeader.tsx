@@ -1,13 +1,12 @@
 "use client";
 
 import * as Dropdown from "@radix-ui/react-dropdown-menu";
-import { ChevronDown, Coins, Globe, Menu, ShoppingBag, X } from "lucide-react";
+import { ChevronDown, Globe, Menu, ShoppingBag, X } from "lucide-react";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Link, usePathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
-import { checkoutCurrencies, type CheckoutCurrency } from "@/lib/currency";
 import { useCartStore } from "@/lib/cart-store";
 import {
   getCollectionPreviewImage,
@@ -29,8 +28,6 @@ export function SiteHeader({ variant = "sticky" }: { variant?: SiteHeaderVariant
   const t = useTranslations("nav");
   const pathname = usePathname();
   const locale = useLocale();
-  const setCurrency = useCartStore((s) => s.setCurrency);
-  const currency = useCartStore((s) => s.currency);
   const lines = useCartStore((s) => s.lines);
   const count = lines.reduce((n, l) => n + l.quantity, 0);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -156,28 +153,6 @@ export function SiteHeader({ variant = "sticky" }: { variant?: SiteHeaderVariant
                   >
                     {loc}
                   </Link>
-                </Dropdown.Item>
-              ))}
-            </Dropdown.Content>
-          </Dropdown.Root>
-
-          <Dropdown.Root>
-            <Dropdown.Trigger className={cn("inline-flex items-center gap-1", iconBtn)}>
-              <Coins size={14} aria-hidden />
-              {currency}
-            </Dropdown.Trigger>
-            <Dropdown.Content
-              className="z-[80] min-w-[100px] rounded-lg border border-border bg-white p-1 shadow-2xl"
-              align="end"
-              sideOffset={8}
-            >
-              {checkoutCurrencies.map((c) => (
-                <Dropdown.Item
-                  key={c}
-                  className="cursor-pointer rounded-md px-3 py-2 text-sm capitalize outline-none hover:bg-secondary"
-                  onSelect={() => setCurrency(c as CheckoutCurrency)}
-                >
-                  {c}
                 </Dropdown.Item>
               ))}
             </Dropdown.Content>

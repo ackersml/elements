@@ -3,7 +3,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { CheckoutCurrency } from "@/lib/currency";
-import { isCheckoutCurrency } from "@/lib/currency";
 
 export type CartLine = {
   slug: string;
@@ -59,11 +58,10 @@ export const useCartStore = create<CartState>()(
     }),
     {
       name: "elements-cart-v1",
+      // Currency is intentionally not persisted — the store is EUR-only, so it
+      // always falls back to the "eur" default rather than a stale saved value.
       partialize: (state) => ({
         lines: state.lines,
-        currency: isCheckoutCurrency(state.currency)
-          ? state.currency
-          : "eur",
       }),
     }
   )
