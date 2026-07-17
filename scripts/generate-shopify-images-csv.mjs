@@ -82,7 +82,10 @@ const productPhoto = [
   ["hct-hardcase-technologies", "road-case-carbon-weave", "HCT Hardcase Technologies"],
 ];
 
-const HEADERS = ["Handle", "Image Src", "Image Position", "Image Alt Text"];
+// Shopify's importer requires a Title column to exist. Title is set on each
+// product's first row only (standard CSV shape: continuation rows carry just
+// the handle + image) and matches the existing title, so it changes nothing.
+const HEADERS = ["Handle", "Title", "Image Src", "Image Position", "Image Alt Text"];
 const csvEscape = (v) => {
   const s = String(v ?? "");
   return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
@@ -93,6 +96,7 @@ for (const [handle, slug, title] of productPhoto) {
   filesFor(slug).forEach((file, i) => {
     rows.push({
       Handle: handle,
+      Title: i === 0 ? title : "",
       "Image Src": `${BASE}/products/${file}`,
       "Image Position": i + 1,
       "Image Alt Text": `${title} — Elements Handpans`,
