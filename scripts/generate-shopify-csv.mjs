@@ -78,6 +78,70 @@ const cases = [
   { id: "acc-hct-hardcase", slug: "hct-hardcase-technologies", title: "HCT Hardcase Technologies", priceEur: 200, weightKg: 3.5, dims: "58 × 35 × 35 cm", kind: "Upgrade", protection: "Waterproof, airline-travel protection, maximum travel-focused protection.", description: "Maximum travel-focused protection—waterproof, airline-ready hardcase from HCT Hardcase Technologies. The top-tier upgrade for touring musicians." },
 ];
 
+/**
+ * Product photos — mirrors src/lib/product-photos.ts + the photoSlug mapping in
+ * src/lib/products.ts. Shopify fetches each Image Src from the live site, so the
+ * store's photos match the storefront's.
+ */
+const BASE = "https://elements-snowy.vercel.app";
+
+const photoCounts = {
+  "nordlys-f-sharp-15": 4,
+  "trailhead-d-celtic-9": 3,
+  "copper-veil-d-kurd-12": 3,
+  "sanctuary-c-minor-15": 3,
+  "atelier-f-sharp-pygmy-17": 5,
+  "ultimate-d-kurd-16": 5,
+  "studio-handpan-d-kurd-10": 3,
+  "road-case-carbon-weave": 5,
+  "handpan-bag-black": 7,
+};
+
+/** Sets whose file order isn't a simple 01..n sequence. */
+const photoFiles = {
+  "sanctuary-b-amara-9": [
+    "sanctuary-b-amara-9-03.png",
+    "sanctuary-b-amara-9-02.png",
+    "sanctuary-b-amara-9-01.png",
+  ],
+};
+
+/** product handle -> photoSlug */
+const productPhotoSlug = {
+  "signature-d-kurd-10": "studio-handpan-d-kurd-10",
+  "signature-d-kurd-12": "copper-veil-d-kurd-12",
+  "signature-g-minor-14": "ultimate-d-kurd-16",
+  "signature-c-minor-15": "sanctuary-c-minor-15",
+  "signature-d-aegean-10": "trailhead-d-celtic-9",
+  "signature-f-sharp-nordlys-14": "nordlys-f-sharp-15",
+  "signature-f-sharp-low-pygmy-18": "atelier-f-sharp-pygmy-17",
+  "origins-d-kurd-10": "studio-handpan-d-kurd-10",
+  "origins-d-kurd-18": "ultimate-d-kurd-16",
+  "origins-f-low-pygmy-16": "atelier-f-sharp-pygmy-17",
+  "origins-d-aegean-18": "trailhead-d-celtic-9",
+  "origins-f-sharp-nordlys-15": "nordlys-f-sharp-15",
+  "origins-f-sharp-low-pygmy-21": "atelier-f-sharp-pygmy-17",
+  "origins-e-amara-20": "sanctuary-b-amara-9",
+  "origins-b2-mystic-9": "sanctuary-b-amara-9",
+  "origins-d-ashakarian-16": "trailhead-d-celtic-9",
+  "elements-softcase": "handpan-bag-black",
+  "elements-origins-hardcase": "handpan-bag-black",
+  "avaja-hardcase": "road-case-carbon-weave",
+  "hct-hardcase-technologies": "road-case-carbon-weave",
+};
+
+function imagesFor(handle) {
+  const slug = productPhotoSlug[handle];
+  if (!slug) return [];
+  const files =
+    photoFiles[slug] ??
+    Array.from(
+      { length: photoCounts[slug] },
+      (_, i) => `${slug}-${String(i + 1).padStart(2, "0")}.png`
+    );
+  return files.map((f) => `${BASE}/products/${f}`);
+}
+
 const HEADERS = [
   "Handle", "Title", "Body (HTML)", "Vendor", "Type", "Tags", "Published",
   "Option1 Name", "Option1 Value",
@@ -85,6 +149,7 @@ const HEADERS = [
   "Variant Inventory Policy", "Variant Fulfillment Service",
   "Variant Price", "Variant Requires Shipping", "Variant Taxable",
   "Variant Weight Unit", "Gift Card", "SEO Title", "SEO Description", "Status",
+  "Image Src", "Image Position", "Image Alt Text",
 ];
 
 const sku = (id) => "EH-" + id.toUpperCase().replace(/[^A-Z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -131,6 +196,29 @@ function caseBody(c) {
 
 const rows = [];
 
+/**
+ * Emit a product: the full record carries image 1; each extra photo becomes a
+ * continuation row (handle + image only), which is Shopify's standard shape for
+ * multi-image products.
+ */
+function pushProduct(row) {
+  const imgs = imagesFor(row.Handle);
+  const alt = `${row.Title} — Elements Handpans`;
+  if (imgs.length === 0) {
+    rows.push(row);
+    return;
+  }
+  rows.push({ ...row, "Image Src": imgs[0], "Image Position": 1, "Image Alt Text": alt });
+  for (let i = 1; i < imgs.length; i++) {
+    rows.push({
+      Handle: row.Handle,
+      "Image Src": imgs[i],
+      "Image Position": i + 1,
+      "Image Alt Text": alt,
+    });
+  }
+}
+
 for (const p of handpans) {
   const level = p.levels.map((l) => LEVEL_LABEL[l]).join(" to ");
   const tags = [
@@ -141,7 +229,7 @@ for (const p of handpans) {
     ...p.levels.map((l) => LEVEL_LABEL[l]),
     ...p.moods,
   ].join(", ");
-  rows.push({
+  pushProduct({
     Handle: p.slug,
     Title: `${p.scale} ${p.notes}`,
     "Body (HTML)": handpanBody(p),
@@ -168,7 +256,7 @@ for (const p of handpans) {
 }
 
 for (const c of cases) {
-  rows.push({
+  pushProduct({
     Handle: c.slug,
     Title: c.title,
     "Body (HTML)": caseBody(c),
@@ -201,5 +289,9 @@ const csv = lines.join("\r\n") + "\r\n";
 mkdirSync(dirname(OUT), { recursive: true });
 writeFileSync(OUT, csv, "utf8");
 
-console.log(`Wrote ${rows.length} products (${handpans.length} instruments + ${cases.length} cases) to:`);
+const imageRows = rows.filter((r) => r["Image Src"]).length;
+console.log(
+  `Wrote ${handpans.length + cases.length} products (${handpans.length} instruments + ` +
+    `${cases.length} cases), ${imageRows} images, ${rows.length} CSV rows to:`
+);
 console.log(`  ${OUT}`);
