@@ -82,10 +82,20 @@ const productPhoto = [
   ["hct-hardcase-technologies", "road-case-carbon-weave", "HCT Hardcase Technologies"],
 ];
 
-// Shopify's importer requires a Title column to exist. Title is set on each
-// product's first row only (standard CSV shape: continuation rows carry just
-// the handle + image) and matches the existing title, so it changes nothing.
-const HEADERS = ["Handle", "Title", "Image Src", "Image Position", "Image Alt Text"];
+// Shopify's importer needs a Title column, and the Option1 columns to identify
+// the variant it's updating ("Product options input is required when updating
+// variants"). All three match what's already on the products, so they're no-ops
+// — they only exist to satisfy the importer. They're set on each product's first
+// row; continuation rows carry just the handle + image (standard CSV shape).
+const HEADERS = [
+  "Handle",
+  "Title",
+  "Option1 Name",
+  "Option1 Value",
+  "Image Src",
+  "Image Position",
+  "Image Alt Text",
+];
 const csvEscape = (v) => {
   const s = String(v ?? "");
   return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
@@ -97,6 +107,8 @@ for (const [handle, slug, title] of productPhoto) {
     rows.push({
       Handle: handle,
       Title: i === 0 ? title : "",
+      "Option1 Name": i === 0 ? "Title" : "",
+      "Option1 Value": i === 0 ? "Default Title" : "",
       "Image Src": `${BASE}/products/${file}`,
       "Image Position": i + 1,
       "Image Alt Text": `${title} — Elements Handpans`,
