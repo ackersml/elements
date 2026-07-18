@@ -9,7 +9,7 @@ import { Link } from "@/i18n/navigation";
 import { useCartStore } from "@/lib/cart-store";
 import {
   CheckoutError,
-  redirectToStripeCheckout,
+  startCheckout,
 } from "@/lib/checkout-client";
 import {
   formatProductDisplay,
@@ -44,7 +44,7 @@ export function CartDrawer({ children }: { children: React.ReactNode }) {
     setLoading(true);
     setErr(null);
     try {
-      await redirectToStripeCheckout({
+      await startCheckout({
         items: lines.map((l) => ({
           slug: l.slug,
           quantity: l.quantity,

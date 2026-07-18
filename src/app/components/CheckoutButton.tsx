@@ -8,7 +8,7 @@ import { formatProductDisplay } from "@/lib/products";
 import { useCartStore } from "@/lib/cart-store";
 import {
   CheckoutError,
-  redirectToStripeCheckout,
+  startCheckout,
 } from "@/lib/checkout-client";
 
 export function CheckoutButton() {
@@ -21,7 +21,7 @@ export function CheckoutButton() {
     setLoading(true);
     setErr(null);
     try {
-      await redirectToStripeCheckout({
+      await startCheckout({
         items: [{ slug: product.slug, quantity: 1 }],
         currency,
         locale,

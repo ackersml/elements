@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useCartStore } from "@/lib/cart-store";
 import {
   CheckoutError,
-  redirectToStripeCheckout,
+  startCheckout,
 } from "@/lib/checkout-client";
 import { formatProductDisplay, getProductBySlug } from "@/lib/products";
 import { cn } from "@/lib/utils";
@@ -35,7 +35,7 @@ export function ProductBuyActions({
     setLoading(true);
     setErr(null);
     try {
-      await redirectToStripeCheckout({
+      await startCheckout({
         items: [{ slug, quantity: 1 }],
         currency,
         locale,

@@ -18,11 +18,35 @@ export class CheckoutError extends Error {
   }
 }
 
-/** Creates a Stripe Checkout session and redirects the browser. */
-export async function redirectToStripeCheckout(
+export type CheckoutProvider = "shopify" | "stripe";
+
+/**
+ * Which checkout the buy buttons hit. Defaults to Stripe so an unset env keeps
+ * the previous behaviour; set NEXT_PUBLIC_CHECKOUT_PROVIDER=shopify to move
+ * checkout onto Shopify (payments, tax and shipping then come from the store).
+ *
+ * Must be read as a full literal, not a variable — Next.js inlines
+ * NEXT_PUBLIC_* at build time by textual match.
+ */
+export function getCheckoutProvider(): CheckoutProvider {
+  return process.env.NEXT_PUBLIC_CHECKOUT_PROVIDER === "shopify"
+    ? "shopify"
+    : "stripe";
+}
+
+const ENDPOINTS: Record<CheckoutProvider, string> = {
+  shopify: "/api/shopify/checkout",
+  stripe: "/api/create-checkout-session",
+};
+
+/**
+ * Creates a checkout session with the configured provider and redirects the
+ * browser to it.
+ */
+export async function startCheckout(
   params: StartCheckoutParams
 ): Promise<void> {
-  const res = await fetch("/api/create-checkout-session", {
+  const res = await fetch(ENDPOINTS[getCheckoutProvider()], {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(params),
