@@ -52,7 +52,7 @@ Legal copy is yours to supply; we place it on the site.
 
 These are quick and we handle them:
 
-1. Set the **card-statement name** so customers recognise the charge on their statement (reduces disputes).
+1. ✅ **Done** — Set the **card-statement name** so customers recognise the charge on their statement (reduces disputes). *Now shows "ELEMENTS HANDPANS".*
 2. Add any **shipping / tax** handling you've decided on.
 3. **Connect your domain.**
 4. Run a **real test purchase** end-to-end, then refund it.
