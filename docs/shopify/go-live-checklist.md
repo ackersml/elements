@@ -55,8 +55,8 @@ These are quick and we handle them:
 1. ✅ **Done** — Set the **card-statement name** so customers recognise the charge on their statement (reduces disputes). *Now shows "ELEMENTS HANDPANS".*
 2. Add any **shipping / tax** handling you've decided on.
 3. **Connect your domain.**
-4. Run a **real test purchase** end-to-end, then refund it.
-5. Confirm the order **lands in the database** and is ready for your dropshipping fulfilment.
+4. Run a **real test purchase** end-to-end (live mode, real card), then refund it.
+5. ✅ **Done (test mode)** — Confirmed an order **lands in the database** end-to-end and is ready for dropshipping fulfilment. *A Stripe test-mode purchase (test card) wrote a correct order row — €1,300, customer, shipping address, `manual_fulfillment_pending` status. The live real-money version (step 4) still runs at go-live.*
 
 ---
 
@@ -66,8 +66,8 @@ The store is live when **all** of these pass:
 
 - [ ] A real customer can add a handpan to the cart and **pay successfully** (real money).
 - [ ] The order shows the correct **EUR price**, plus **shipping** and **tax** lines where applicable.
-- [ ] The order is **recorded in the orders database** with the customer's email and shipping address, ready for you to fulfil.
-- [ ] A test order was placed and refunded without errors.
+- [x] The order is **recorded in the orders database** with the customer's email and shipping address, ready for you to fulfil. ✅ *Verified via a Stripe test-mode purchase — a correct order row (€1,300, customer, Berlin shipping address) was written and confirmed.*
+- [ ] A test order was placed **in live mode (real card)** and refunded without errors.
 - [ ] **The first real order lands end-to-end** — verify that once the first genuine customer pays, the payment shows in Stripe *and* the matching order row appears in the database. (We'll check this together the moment it happens.)
 - [ ] Policies and domain are live on the site.
 
