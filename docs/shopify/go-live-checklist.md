@@ -1,7 +1,7 @@
 # Elements Handpans — Go-Live Checklist
 
 **For:** Dany · **Storefront:** elements-snowy.vercel.app *(custom domain pending)*
-**Status:** The store already takes a paid order end-to-end — card payment and order-recording are live and tested. What's left is a short list of **decisions** (shipping, tax) and **polish** (policies, domain) before you actively promote it. There's no hard technical blocker remaining.
+**Status:** The store already takes a paid order end-to-end — card payment and order-recording are live and tested. Tax is settled (nothing to charge at checkout). What's left is your **shipping rates**, confirming **who covers import duties**, and **polish** (policies, domain). There's no hard technical blocker remaining.
 
 ---
 
@@ -23,13 +23,13 @@
 The checkout currently charges the **product price only**, with no separate shipping line.
 
 - [ ] Decide: is shipping **included in the price** (free shipping), or **charged on top**? If charged, tell us your rates (e.g. a flat "Europe" rate) and we'll add a shipping step to the checkout. *Your makers ship direct, so the simplest way to get the number is to ask Amir and Xi what they charge to send one instrument to Europe.*
-- [ ] Decide **who pays import duties and VAT on delivery**. Instruments ship from outside the EU, so customers can be charged import VAT and customs duty when the parcel arrives — this is **separate from the shipping fee** and is set by the destination country. Either you cover it (**DDP** — billed to you) or the customer pays the courier on delivery (**DAP**). Whichever you pick, we'll state it plainly at checkout and in the shipping policy: unexpected customs bills are the single most common cause of complaints and chargebacks on high-value instruments.
+- [ ] Confirm **who pays import duties and VAT on delivery**. Because you're not VAT-registered in the EU, these are collected at the border rather than at checkout (see item 2). **The default is DAP** — the customer pays the courier on delivery. On a €1,300 instrument into a country with 19–21% VAT that's roughly **€250–270 on top**, plus any duty — a large surprise if it isn't flagged up front. The alternative is **DDP**: you pre-pay through the courier and build it into your prices (you *can* do this without being VAT-registered — it simply costs more and adds admin). Either way we'll state it plainly at checkout and in the shipping policy, because an unexpected customs bill on a high-value instrument is the most common cause of refund demands and chargebacks.
 
-### 2. 🟡 Tax / VAT
+### 2. ✅ Tax / VAT — decided, nothing to do
 
-No tax is currently added at checkout.
+**No tax is charged at checkout, and none should be.** You're not VAT-registered in the EU, and IOSS — the scheme that lets a seller collect EU VAT at checkout — only covers consignments up to **€150**, far below these instruments. EU VAT and duty are therefore collected **at the border** by the courier on delivery, not by us.
 
-- [ ] Decide how **EU VAT** is handled — e.g. customers pay import VAT/duties on delivery, or you register (IOSS) and we collect it at checkout. Worth a quick word with an accountant, since you're selling into the EU. Tell us the approach and we'll configure to match.
+Nothing to configure: the store already works this way. It does make the duties wording in item 1 important — if we charged VAT at checkout *as well*, customers would pay it twice and we'd be dealing with refund demands.
 
 ### 3. 🟢 Policies
 
@@ -76,4 +76,4 @@ The store is live when **all** of these pass:
 
 ### Where things stand
 
-**No hard blocker is left** — the store can already take a paid order today, with the money captured and the order recorded. The pre-launch list is **decisions** (shipping, tax) and **polish** (policies, domain). Once you send those over, we can go live within a day.
+**No hard blocker is left** — the store can already take a paid order today, with the money captured and the order recorded. Tax is now settled (nothing to charge at checkout). What remains is your **shipping rates**, confirming **who covers duties**, and **polish** (policies, domain). Once those come over, we can go live within a day.
