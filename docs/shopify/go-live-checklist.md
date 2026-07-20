@@ -22,7 +22,8 @@
 
 The checkout currently charges the **product price only**, with no separate shipping line.
 
-- [ ] Decide: is shipping **included in the price** (free shipping), or **charged on top**? If charged, tell us your rates (e.g. a flat "Europe" rate) and we'll add a shipping step to the checkout.
+- [ ] Decide: is shipping **included in the price** (free shipping), or **charged on top**? If charged, tell us your rates (e.g. a flat "Europe" rate) and we'll add a shipping step to the checkout. *Your makers ship direct, so the simplest way to get the number is to ask Amir and Xi what they charge to send one instrument to Europe.*
+- [ ] Decide **who pays import duties and VAT on delivery**. Instruments ship from outside the EU, so customers can be charged import VAT and customs duty when the parcel arrives — this is **separate from the shipping fee** and is set by the destination country. Either you cover it (**DDP** — billed to you) or the customer pays the courier on delivery (**DAP**). Whichever you pick, we'll state it plainly at checkout and in the shipping policy: unexpected customs bills are the single most common cause of complaints and chargebacks on high-value instruments.
 
 ### 2. 🟡 Tax / VAT
 
