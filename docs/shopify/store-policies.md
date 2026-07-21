@@ -56,7 +56,7 @@ These are estimates from our carrier, not guarantees. Customs inspection can add
 
 ## 3. Privacy Policy
 
-**Who we are.** Elements Handpans is a trading name of **Cornerstone Devs, [registered legal name + Canadian business address]**. For any privacy question, contact **hello@elementshandpans.com**.
+**Who we are.** Elements Handpans is a trading name of **Cornerstone Devs (Michelle Ackers), 525 Adelaide St W, Toronto, ON M5V 0N7, Canada**. For any privacy question, contact **hello@elementshandpans.com**.
 
 **What we collect.** When you buy from us: your name, email, shipping and billing address, phone number (if given), order contents, and the information needed to deliver and to clear customs. We do **not** see or store your full card details — those go directly to our payment providers.
 
@@ -99,7 +99,7 @@ We don't sell your personal data.
 
 **Liability.** We don't exclude liability for death or personal injury caused by our negligence, for fraud, or for anything else that can't lawfully be excluded. Beyond that, our liability for any order is limited to what you paid for it. Nothing here affects your statutory consumer rights.
 
-**Governing law.** These terms are governed by the laws of **Canada (Province of [your province])**, where the business is established. If you're a consumer, you keep the protection of the mandatory laws of the country where you live.
+**Governing law.** These terms are governed by the laws of **the Province of Ontario, Canada**, where the business is established. If you're a consumer, you keep the protection of the mandatory laws of the country where you live.
 
 **Contact.** **hello@elementshandpans.com** *(email support only at launch — no phone line offered)*
 
@@ -107,15 +107,13 @@ We don't sell your personal data.
 
 ## Open items before publishing
 
-Most blanks are now filled with our decisions (Canadian merchant of record, 432 Hz = standard returns, EU-only shipping, ship-from China). What's left is a short list of **hard facts to drop in** and a **provisional number to confirm**:
+All the legal facts are now in. What remains is confirm-later items already covered by things in motion — **none block a legal review**:
 
 | # | Item | Status |
 |---|---|---|
-| 1 | **Exact registered legal name + Canadian business address** for Cornerstone Devs (Privacy §3). | 🔴 Need the fact |
-| 2 | **Province** for the governing-law line (Terms §4) — e.g. Ontario, BC. | 🔴 Need the fact |
-| 3 | **Support email** — draft uses `hello@elementshandpans.com`. Confirm once the domain is chosen; if the domain differs, swap it everywhere. | 🟡 Confirm with domain |
-| 4 | **Dispatch + EU delivery times** — draft uses 7-day dispatch / 5–8-day EU transit as provisional. Confirm against the maker's (Xi's) real times; the supplier message asks for these. | 🟡 Confirm with Xi |
-| 5 | **Origins ship-from + steel grade** — draft says made in China; confirm with Xi (same supplier message). | 🟡 Confirm with Xi |
-| 6 | Governing law = Canada, 432 Hz = standard 14-day returns, phone = none, EU-only shipping. | ✅ Decided |
+| 1 | **Support email** — draft uses `hello@elementshandpans.com`. Confirm once the domain is chosen; if the domain differs, swap it everywhere. | 🟡 Confirm with domain |
+| 2 | **Dispatch + EU delivery times** — draft uses 7-day dispatch / 5–8-day EU transit as provisional. Confirm against the maker's (Xi's) real times; the supplier message asks for these. | 🟡 Confirm with Xi |
+| 3 | **Origins ship-from + steel grade** — draft says made in China; confirm with Xi (same supplier message). | 🟡 Confirm with Xi |
+| 4 | Merchant of record = Cornerstone Devs (Michelle Ackers), Toronto, ON; governing law = Ontario, Canada; 432 Hz = standard 14-day returns; phone = none; EU-only shipping. | ✅ Decided |
 
 > **Note on Iran / Signature:** these policies intentionally cover **Origins only**. The Signature Series (made in Iran) is shelved for launch — Iranian-origin goods entering the EU carry sanctions and import considerations a normal store never hits. Before Signature is ever re-listed, that needs a proper answer from whoever handles freight, and this document will need an Iran ship-from line added back.
