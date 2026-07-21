@@ -2,15 +2,17 @@
 
 **For:** Dany · **Storefront:** elements-snowy.vercel.app *(custom domain pending)*
 **Checkout:** Shopify hosted checkout — payments, shipping, duties and orders all run natively in Shopify.
-**Status:** The store is **mechanically complete and verified** — payments, EU shipping, duties, tax and the Shopify checkout are all live, and a test EU checkout confirmed they render correctly together (€79 shipping + duties + import VAT + PayPal/Google Pay). It's held behind Shopify's **"Opening soon" password page**, so it's **not public yet** — a deliberate safety gate. Removing that password is the final go-live switch, gated on: **confirming where instruments ship from** (§2), policy details + legal review (§3), and the domain (§4).
+**Launch scope:** **Origins collection + accessories only.** The **Signature Series is shelved for launch** — it's made in Iran, which carries EU sanctions/import questions we're resolving separately (see §2). It's hidden on the storefront and set to Draft in Shopify, so it can't be seen or bought; bringing it back later is a one-line toggle.
+
+**Status:** The store is **mechanically complete and verified** — payments, EU shipping, duties, tax and the Shopify checkout are all live, and a test EU checkout confirmed they render correctly together (€79 shipping + duties + import VAT + PayPal/Google Pay). It's held behind Shopify's **"Opening soon" password page**, so it's **not public yet** — a deliberate safety gate. With Signature shelved, the **Iran sanctions question no longer blocks launch.** Removing the password is the final go-live switch, now gated only on: policy details + legal review (§3), and the domain (§4).
 
 ---
 
 ## Already done (no action needed)
 
-- ✅ **All 20 products** — descriptions, specs, prices, photos, SEO.
+- ✅ **All products** — descriptions, specs, prices, photos, SEO. *(Launch shows the 9 Origins builds + accessories; the 7 Signature instruments are built but hidden — see launch scope above.)*
 - ✅ **Base currency = EUR.** Prices show and charge in euros (e.g. €1,300).
-- ✅ **Collections** — Signature Series, Origins, Cases & Accessories.
+- ✅ **Collections** — Origins and Cases & Accessories are live. *(Signature Series is hidden on the storefront and Draft in Shopify — shelved for launch, restorable with a one-line toggle.)*
 - ✅ **Payments are live.** Shopify checkout takes cards via **Stripe** (connected to your Cornerstone Devs account) and **PayPal**. Live mode, cards + PayPal enabled.
 - ✅ **Duties & import taxes set up (DDP).** For the **EU and Indonesia**, import duty and VAT are calculated by Avalara and **added as separate lines at checkout** (0.5% Shopify fee on those orders). The customer pays them up front, so **no surprise customs bill on delivery** — a genuine selling point for high-value instruments.
 - ✅ **Tax handling decided + set.** You keep your listed price; import VAT is added on top at checkout (not absorbed). Sales tax is correctly set to "not collecting" (you're not EU VAT-registered).
@@ -21,7 +23,7 @@
 
 > **Note on orders:** with Shopify checkout, every paid order lands in your **Shopify admin ▸ Orders**, with the customer's details and shipping address, ready for you to fulfil by hand. (The earlier database order-recording we built was for a different checkout approach and is now on standby.)
 
-> **Note on going public:** the store sits behind Shopify's password page, so no real customer can buy yet. Removing it (Online Store ▸ Preferences) is the final "go live" switch — do it only after §2 (origin/sanctions) is cleared.
+> **Note on going public:** the store sits behind Shopify's password page, so no real customer can buy yet. Removing it (Online Store ▸ Preferences) is the final "go live" switch. With Signature shelved, the Iran sanctions blocker is off the launch path — go-live now just needs your policy details (§3) and, ideally, the domain (§4).
 
 ---
 
@@ -38,14 +40,17 @@ Two things to firm up — neither blocks launch:
 
 > Since duties are collected separately at checkout, the €79 should reflect the **all-in carrier cost including the DDP surcharge** — not the duty itself.
 
-### 2. 🔴 Product origin & steel grade — needs a real answer
+### 2. 🟡 Product origin & steel grade
 
-Getting this right matters more than usual: **country of origin is declared to customs and drives the duty calculation**, and it's stated to customers in the policies.
+Getting this right matters: **country of origin is declared to customs and drives the duty calculation**, and it's stated to customers in the policies. **None of this blocks launch anymore** — the one item that was a red flag (Iran) only applies to Signature, which is now shelved.
 
-- [ ] **Confirm ship-from country per collection.** Your 2026 catalogue states **Signature Series = made by Amir Raga in Iran**, **Origins = made by Xi in China**. You mentioned "from China" — these need to agree. *(The store's fulfilment location is currently set to Bali, Indonesia, which is a third answer — we'll align it to whatever's correct.)*
-- [ ] **Origins steel grade** — your catalogue lists it as *"stainless steel — final supplier grade to confirm."* Get the grade from Xi so the specs are final. *(Signature's "high-grade stainless steel" is already confirmed and correct.)*
+**For the Origins launch (needed to finish specs, not to go live):**
 
-> ⚠️ **Iran-origin flag:** the Signature instruments being made in Iran carries EU sanctions and import considerations a normal store never hits. Please confirm this with whoever handles your freight before we open EU sales for those instruments.
+- [ ] **Confirm Origins ship-from country + steel grade with Xi.** The catalogue says Origins = made by Xi in China; you mentioned "from China." We need the exact **stainless steel grade** (catalogue currently says *"final supplier grade to confirm"*) and confirmation of **where each order ships from** to the customer. *(The store's fulfilment location is currently set to Bali, Indonesia — we'll align it to whatever's correct.)* A supplier message covering this is drafted and ready to send.
+
+**Before Signature ever comes back (parked, not on the launch path):**
+
+- [ ] ⚠️ **Iran-origin sanctions check.** The Signature instruments are made by Amir Raga in Iran, which carries EU sanctions and import considerations a normal store never hits. Confirm this with whoever handles freight **before** re-listing Signature. A supplier message to Amir asking about EU customs history is drafted and ready to send. Until this is cleared, Signature stays hidden.
 
 ### 3. 🟢 Policy details + legal review
 
@@ -69,7 +74,7 @@ Once your inputs land, these are quick and we handle them:
 3. **Validate the €79 rate** and add Indonesia/other regions once numbers are confirmed (§1).
 4. **Place your policy text** on the site.
 5. **Connect your domain**, then enable **Apple Pay / Google Pay** (they lift mobile conversion; they need the domain verified first).
-6. **Remove the "Opening soon" password** to go public — the final switch, only after §2 (origin/sanctions) is cleared.
+6. **Remove the "Opening soon" password** to go public — the final switch. With Signature shelved, this only waits on your policy details (§3); the Iran/§2 blocker no longer applies to an Origins-only launch.
 7. Run a **real test purchase** through the live checkout, confirm it lands in Shopify Orders, then refund it.
 
 ---
@@ -89,4 +94,4 @@ The store is live when **all** of these pass:
 
 ### Where things stand
 
-**The build is done and verified** — payments, EU shipping, duties, tax and the Shopify checkout all work end-to-end, confirmed with a real gated EU test checkout. What's left isn't technical: **confirm where instruments ship from** (§2 — it drives duty accuracy and the Iran sanctions question), **policy details + legal review** (§3), and the **domain** (§4). Clear those, remove the "Opening soon" password, and you're live.
+**The build is done and verified** — payments, EU shipping, duties, tax and the Shopify checkout all work end-to-end, confirmed with a real gated EU test checkout. We're launching **Origins-only** and shelving Signature until its Iran-origin customs question is cleared, which **takes the one hard blocker off the launch path.** What's left isn't technical: **policy details + legal review** (§3) and the **domain** (§4). Clear those, remove the "Opening soon" password, and you're live. (§2 — Origins steel grade from Xi — finishes the specs but doesn't hold up launch.)
