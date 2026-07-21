@@ -77,7 +77,7 @@ export function CollectionView({
     },
     ...shopNavCollections.map((c) => ({
       key: c.collection,
-      label: tn(c.key as "shopSignature"),
+      label: tn(c.key as "shopOrigins"),
       href: shopCollectionHref(c.collection),
       active: activeCollection === c.collection,
     })),

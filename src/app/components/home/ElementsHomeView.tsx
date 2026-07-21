@@ -32,7 +32,6 @@ function HomePageFooter() {
   const year = new Date().getFullYear();
 
   const shopLinks: { label: string; href: string }[] = [
-    { label: tn("shopSignature"), href: shopCollectionHref("signature") },
     { label: tn("shopOrigins"), href: shopCollectionHref("origins") },
     { label: tn("shopAccessories"), href: shopCollectionHref("accessories") },
   ];
@@ -116,14 +115,17 @@ export function ElementsHomeView() {
   const id = useId();
 
   // Canva homepage — section order mirrors "elements canva design.pdf".
-  const signature = getProductsByCollection("signature");
+  // Signature Series is temporarily hidden (Iran-origin / EU shipping on hold),
+  // so the homepage features Origins throughout — see HIDDEN_COLLECTIONS in
+  // src/lib/products.ts.
   const origins = getProductsByCollection("origins");
-  const featuredDkurd = getProductBySlug("signature-d-kurd-10");
+  const accessories = getProductsByCollection("accessories");
+  const featuredDkurd = getProductBySlug("origins-d-kurd-10");
 
-  // Highlights & Rarities — the four one-off / rare builds from the Canva comp.
+  // Highlights & Rarities — four Origins builds while Signature is on hold.
   const highlightSlugs = [
-    "signature-d-kurd-12",
-    "signature-f-sharp-low-pygmy-18",
+    "origins-d-kurd-18",
+    "origins-f-sharp-low-pygmy-21",
     "origins-f-sharp-nordlys-15",
     "origins-b2-mystic-9",
   ];
@@ -132,7 +134,7 @@ export function ElementsHomeView() {
     .filter((p): p is NonNullable<typeof p> => Boolean(p));
 
   const moodProducts = [
-    getProductBySlug("signature-d-kurd-10"),
+    getProductBySlug("origins-d-kurd-10"),
     getProductBySlug("origins-f-sharp-nordlys-15"),
   ].filter((p): p is NonNullable<typeof p> => Boolean(p));
 
@@ -142,12 +144,6 @@ export function ElementsHomeView() {
     href: string;
     image: string;
   }[] = [
-    {
-      key: "signature",
-      title: tn("shopSignature"),
-      href: shopCollectionHref("signature"),
-      image: canvaAssets.series.elements,
-    },
     {
       key: "origins",
       title: tn("shopOrigins"),
@@ -169,12 +165,12 @@ export function ElementsHomeView() {
   ];
 
   const exploreTiles = defaultExploreTiles(
-    tn("shopSignature"),
     tn("shopOrigins"),
-    shopCollectionHref("signature"),
+    tn("shopAccessories"),
     shopCollectionHref("origins"),
-    signature.slice(0, 2).map((p) => p.heroImageUrl),
-    origins.slice(0, 2).map((p) => p.heroImageUrl)
+    shopCollectionHref("accessories"),
+    origins.slice(0, 2).map((p) => p.heroImageUrl),
+    accessories.slice(0, 2).map((p) => p.heroImageUrl)
   );
 
   return (
@@ -211,7 +207,7 @@ export function ElementsHomeView() {
       {/* 5 — Highlights and Rarities */}
       <HighlightsRaritiesSection
         id={`${id}-highlights`}
-        products={highlightProducts.length > 0 ? highlightProducts : signature}
+        products={highlightProducts.length > 0 ? highlightProducts : origins}
       />
 
       {/* 6 — Series cards */}

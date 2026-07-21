@@ -96,7 +96,7 @@ export function HomeHero(props: HomeHeroProps) {
               <Link href="/shop" className="btn-pill btn-primary">
                 {ctaPrimary} <ArrowRight size={16} aria-hidden />
               </Link>
-              <Link href="/collections/signature" className="btn-pill btn-ghost-on-dark">
+              <Link href="/collections/origins" className="btn-pill btn-ghost-on-dark">
                 {ctaSecondary}
               </Link>
             </div>

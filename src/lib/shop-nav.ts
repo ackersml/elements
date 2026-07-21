@@ -1,8 +1,9 @@
 import { getProductsByCollection } from "@/lib/products";
 
 /** Shop collections linked in header / footer (excludes paused categories). */
+// Signature Series is temporarily hidden (Iran-origin / EU shipping on hold) —
+// see HIDDEN_COLLECTIONS in src/lib/products.ts. Restore the entry to bring back.
 export const shopNavCollections = [
-  { key: "shopSignature", collection: "signature" },
   { key: "shopOrigins", collection: "origins" },
   { key: "shopAccessories", collection: "accessories" },
 ] as const;

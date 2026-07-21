@@ -107,7 +107,7 @@ export function SiteHeader({ variant = "sticky" }: { variant?: SiteHeaderVariant
                           ) : null}
                         </div>
                         <span className="mt-2 block text-center text-xs leading-tight text-foreground transition group-hover/item:text-[color:var(--sale-bg)]">
-                          {t(item.key as "shopSignature")}
+                          {t(item.key as "shopOrigins")}
                         </span>
                       </Link>
                     );
@@ -218,7 +218,7 @@ export function SiteHeader({ variant = "sticky" }: { variant?: SiteHeaderVariant
                 className="block py-2 pl-4 text-muted-foreground"
                 onClick={() => setMobileOpen(false)}
               >
-                {t(item.key as "shopSignature")}
+                {t(item.key as "shopOrigins")}
               </Link>
             </li>
           ))}

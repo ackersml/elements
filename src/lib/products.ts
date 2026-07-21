@@ -488,17 +488,33 @@ export function formatProductDisplay(
   return formatMoney(smallest, displayCurrency);
 }
 
+/**
+ * Collections temporarily hidden from the storefront and checkout. Signature
+ * Series is on hold pending confirmation that its Iran-made instruments can be
+ * shipped into the EU — the store launches with Origins + Accessories first.
+ * To bring Signature back: remove "signature" here AND re-publish those
+ * products in Shopify. No other code change is needed.
+ */
+export const HIDDEN_COLLECTIONS: string[] = ["signature"];
+
+function isHiddenProduct(p: Product): boolean {
+  return p.collections.some((c) => HIDDEN_COLLECTIONS.includes(c));
+}
+
+/** Catalog minus hidden collections — the set shown and sold on the storefront. */
+const visibleProducts = products.filter((p) => !isHiddenProduct(p));
+
 export function getProducts(): Product[] {
-  return products;
+  return visibleProducts;
 }
 
 export function getProductBySlug(slug: string): Product | undefined {
-  return products.find((p) => p.slug === slug);
+  return visibleProducts.find((p) => p.slug === slug);
 }
 
 /** Default listing used by legacy single-product flows */
 export function getDefaultProduct(): Product {
-  const found = getProductBySlug("signature-d-kurd-10");
+  const found = getProductBySlug("origins-d-kurd-10");
   if (!found) {
     throw new Error("Default product missing from catalog");
   }
@@ -506,17 +522,17 @@ export function getDefaultProduct(): Product {
 }
 
 export function getProductsByCollection(collection: string): Product[] {
-  return products.filter((p) => p.collections.includes(collection));
+  return visibleProducts.filter((p) => p.collections.includes(collection));
 }
 
 export function getProductsByTag(tag: string): Product[] {
-  return products.filter((p) => p.tags.includes(tag));
+  return visibleProducts.filter((p) => p.tags.includes(tag));
 }
 
-/** Homepage collection row — signature and origins highlights. */
+/** Homepage collection row — Origins highlights (Signature on hold). */
 const COLLECTION_SHOWCASE_SLUGS = [
-  "signature-d-aegean-10",
-  "signature-d-kurd-10",
+  "origins-d-aegean-18",
+  "origins-d-kurd-10",
   "origins-b2-mystic-9",
 ] as const;
 
