@@ -1,7 +1,8 @@
 # Elements Handpans — Go-Live Checklist
 
 **For:** Dany · **Storefront:** elements-snowy.vercel.app *(custom domain pending)*
-**Status:** The store already takes a paid order end-to-end — card payment and order-recording are live and tested. Tax is settled (nothing to charge at checkout). What's left is your **shipping rates**, confirming **who covers import duties**, and **polish** (policies, domain). There's no hard technical blocker remaining.
+**Checkout:** Shopify hosted checkout — payments, shipping, duties and orders all run natively in Shopify.
+**Status:** Payments, duties and tax are configured and live. **The one thing blocking launch is your shipping rates** — until they're set, customers in most of the EU can't complete an order. Product-origin details also need a proper confirmation (see §2). Everything else is polish.
 
 ---
 
@@ -10,54 +11,64 @@
 - ✅ **All 20 products** — descriptions, specs, prices, photos, SEO.
 - ✅ **Base currency = EUR.** Prices show and charge in euros (e.g. €1,300).
 - ✅ **Collections** — Signature Series, Origins, Cases & Accessories.
-- ✅ **Payments are live.** Secure card checkout via **Stripe**, in live mode, tested end-to-end with a real €1,300 EUR checkout.
-- ✅ **Order storage is live.** Every paid order is recorded in a database with the customer's **email and shipping address**. The payment → order pipeline is wired and connection-verified.
-- ✅ **Checkout is wired** to the buy buttons across the whole site.
+- ✅ **Payments are live.** Shopify checkout takes cards via **Stripe** (connected to your Cornerstone Devs account) and **PayPal**. Live mode, cards + PayPal enabled.
+- ✅ **Duties & import taxes set up (DDP).** For the **EU and Indonesia**, import duty and VAT are calculated by Avalara and **added as separate lines at checkout** (0.5% Shopify fee on those orders). The customer pays them up front, so **no surprise customs bill on delivery** — a genuine selling point for high-value instruments.
+- ✅ **Tax handling decided + set.** You keep your listed price; import VAT is added on top at checkout (not absorbed). Sales tax is correctly set to "not collecting" (you're not EU VAT-registered).
+- ✅ **Card-statement name** shows **ELEMENTS HANDPANS** (reduces disputes).
+- ✅ **Policies drafted** — Shipping, Refunds/Returns, Privacy, Terms are written and ready for your details + a legal review (see §3).
+
+> **Note on orders:** with Shopify checkout, every paid order lands in your **Shopify admin ▸ Orders**, with the customer's details and shipping address, ready for you to fulfil by hand. (The earlier database order-recording we built was for a different checkout approach and is now on standby.)
 
 ---
 
-## Your decisions — before you promote the store
+## What we need from you
 
-### 1. 🟡 Shipping
+### 1. 🔴 Shipping rates — the one blocker
 
-The checkout currently charges the **product price only**, with no separate shipping line.
+This is the only thing stopping go-live. Two problems:
 
-- [ ] Decide: is shipping **included in the price** (free shipping), or **charged on top**? If charged, tell us your rates (e.g. a flat "Europe" rate) and we'll add a shipping step to the checkout. *Your makers ship direct, so the simplest way to get the number is to ask Amir and Xi what they charge to send one instrument to Europe.*
-- [ ] Confirm **who pays import duties and VAT on delivery**. Because you're not VAT-registered in the EU, these are collected at the border rather than at checkout (see item 2). **The default is DAP** — the customer pays the courier on delivery. On a €1,300 instrument into a country with 19–21% VAT that's roughly **€250–270 on top**, plus any duty — a large surprise if it isn't flagged up front. The alternative is **DDP**: you pre-pay through the courier and build it into your prices (you *can* do this without being VAT-registered — it simply costs more and adds admin). Either way we'll state it plainly at checkout and in the shipping policy, because an unexpected customs bill on a high-value instrument is the most common cause of refund demands and chargebacks.
+- The rates currently in the store are **leftover placeholders in rupiah** from before the euro switch — e.g. ~€19 to ship worldwide, which is far below the real cost of sending a 4.5 kg instrument. They can't be used.
+- **13 of the 27 EU countries have no shipping rate at all**, so those customers literally cannot check out.
 
-### 2. ✅ Tax / VAT — decided, nothing to do
+We're using **fixed rates** (you set the prices; the customer picks the option at checkout). *Live carrier rates — real-time DHL/UPS quotes — need Shopify's Advanced plan (~$399/mo vs your current $65), so we've held off; we can revisit once there's revenue.*
 
-**No tax is charged at checkout, and none should be.** You're not VAT-registered in the EU, and IOSS — the scheme that lets a seller collect EU VAT at checkout — only covers consignments up to **€150**, far below these instruments. EU VAT and duty are therefore collected **at the border** by the courier on delivery, not by us.
+- [ ] Send us your shipping cost for one instrument (and a case, if different) for: **EU**, **Indonesia (domestic)**, and **rest of world** (or "not shipping there yet").
+- [ ] How many options per region? e.g. just **Standard**, or **Standard + Express** so the customer chooses.
 
-Nothing to configure: the store already works this way. It does make the duties wording in item 1 important — if we charged VAT at checkout *as well*, customers would pay it twice and we'd be dealing with refund demands.
+> Since duties are now collected separately at checkout, these should be your **all-in carrier cost including the DDP surcharge** — not the duty itself.
 
-### 3. 🟢 Policies
+### 2. 🔴 Product origin & steel grade — needs a real answer
 
-Legal copy is yours to supply; we place it on the site.
+Getting this right matters more than usual: **country of origin is declared to customs and drives the duty calculation**, and it's stated to customers in the policies.
 
-- [ ] **Refund / returns policy**
-- [ ] **Shipping policy** (dispatch times, who pays duties)
-- [ ] **Privacy policy** and **Terms of service**
+- [ ] **Confirm ship-from country per collection.** Your 2026 catalogue states **Signature Series = made by Amir Raga in Iran**, **Origins = made by Xi in China**. You mentioned "from China" — these need to agree. *(The store's fulfilment location is currently set to Bali, Indonesia, which is a third answer — we'll align it to whatever's correct.)*
+- [ ] **Origins steel grade** — your catalogue lists it as *"stainless steel — final supplier grade to confirm."* Get the grade from Xi so the specs are final. *(Signature's "high-grade stainless steel" is already confirmed and correct.)*
+
+> ⚠️ **Iran-origin flag:** the Signature instruments being made in Iran carries EU sanctions and import considerations a normal store never hits. Please confirm this with whoever handles your freight before we open EU sales for those instruments.
+
+### 3. 🟢 Policy details + legal review
+
+The policies are drafted; they need your inputs and a professional review before publishing.
+
+- [ ] Fill the blanks: **support email** (and phone if offered), **full legal business name + address**, **dispatch/delivery times per region**, **governing-law country**, and whether **432 Hz counts as a custom order**.
+- [ ] Have them **reviewed by someone qualified** — they touch EU consumer law, GDPR and customs.
 
 ### 4. 🟢 Domain
 
-- [ ] Do you have a domain (e.g. `elementshandpans.com`)? Send it and we'll connect it — the store currently runs on a temporary web address. If not, we can help you buy one.
-
-### 5. 🟢 Final product detail
-
-- [ ] Confirm the **Origins steel grade** (left as "to confirm" in the catalogue) so the product specs are final.
+- [ ] Do you have a domain (e.g. `elementshandpans.com`)? Send it and we'll connect it — the store runs on a temporary address for now. If not, we can help you buy one.
 
 ---
 
 ## Launch steps — our side
 
-These are quick and we handle them:
+Once your inputs land, these are quick and we handle them:
 
-1. ✅ **Done** — Set the **card-statement name** so customers recognise the charge on their statement (reduces disputes). *Now shows "ELEMENTS HANDPANS".*
-2. Add any **shipping / tax** handling you've decided on.
-3. **Connect your domain.**
-4. Run a **real test purchase** end-to-end (live mode, real card), then refund it.
-5. ✅ **Done (test mode)** — Confirmed an order **lands in the database** end-to-end and is ready for dropshipping fulfilment. *A Stripe test-mode purchase (test card) wrote a correct order row — €1,300, customer, shipping address, `manual_fulfillment_pending` status. The live real-money version (step 4) still runs at go-live.*
+1. ✅ **Done** — Payments (Stripe + PayPal), duties/DDP, tax display, statement descriptor.
+2. **Enter your shipping rates** and fix the zone/market coverage so all EU countries (and anywhere else you ship) can check out.
+3. **Place your policy text** on the site.
+4. **Connect your domain**, then enable **Apple Pay / Google Pay** (they lift mobile conversion; they need the domain verified first).
+5. **Switch the storefront over to Shopify checkout** (one config change + redeploy).
+6. Run a **real test purchase** through the live checkout, confirm it appears in Shopify Orders, then refund it.
 
 ---
 
@@ -65,15 +76,15 @@ These are quick and we handle them:
 
 The store is live when **all** of these pass:
 
-- [ ] A real customer can add a handpan to the cart and **pay successfully** (real money).
-- [ ] The order shows the correct **EUR price**, plus **shipping** and **tax** lines where applicable.
-- [x] The order is **recorded in the orders database** with the customer's email and shipping address, ready for you to fulfil. ✅ *Verified via a Stripe test-mode purchase — a correct order row (€1,300, customer, Berlin shipping address) was written and confirmed.*
-- [ ] A test order was placed **in live mode (real card)** and refunded without errors.
-- [ ] **The first real order lands end-to-end** — verify that once the first genuine customer pays, the payment shows in Stripe *and* the matching order row appears in the database. (We'll check this together the moment it happens.)
+- [ ] A real customer can add a handpan to the cart and **pay successfully** (real card or PayPal).
+- [ ] Checkout shows the correct **EUR price**, a **shipping** option, and the **duty + import-tax** lines.
+- [ ] The order appears in **Shopify admin ▸ Orders** with the customer's email and shipping address, ready to fulfil.
+- [ ] A test order was placed through the live Shopify checkout and refunded without errors.
+- [ ] **The first real order** completes end-to-end — payment in Stripe, order in Shopify, ready to ship.
 - [ ] Policies and domain are live on the site.
 
 ---
 
 ### Where things stand
 
-**No hard blocker is left** — the store can already take a paid order today, with the money captured and the order recorded. Tax is now settled (nothing to charge at checkout). What remains is your **shipping rates**, confirming **who covers duties**, and **polish** (policies, domain). Once those come over, we can go live within a day.
+**The heavy lifting is done** — payments, duties, tax and the checkout itself are configured and working. The store is one step from taking orders. That step is **your shipping rates** (§1), and alongside it the **origin/steel confirmation** (§2), which we need correct before instruments cross a border. Send those over and we can finish coverage, run a live test, and go live within a day.
