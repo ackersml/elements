@@ -2,7 +2,7 @@
 
 **For:** Dany · **Storefront:** elements-snowy.vercel.app *(custom domain pending)*
 **Checkout:** Shopify hosted checkout — payments, shipping, duties and orders all run natively in Shopify.
-**Status:** Payments, duties, tax and **EU shipping** are all configured and live — the store can take an EU order end-to-end. What's left before flipping it on: **confirming where instruments ship from** (see §2), the final storefront switch + a live test purchase, and polish (policy details, domain).
+**Status:** The store is **mechanically complete and verified** — payments, EU shipping, duties, tax and the Shopify checkout are all live, and a test EU checkout confirmed they render correctly together (€79 shipping + duties + import VAT + PayPal/Google Pay). It's held behind Shopify's **"Opening soon" password page**, so it's **not public yet** — a deliberate safety gate. Removing that password is the final go-live switch, gated on: **confirming where instruments ship from** (§2), policy details + legal review (§3), and the domain (§4).
 
 ---
 
@@ -17,8 +17,11 @@
 - ✅ **Card-statement name** shows **ELEMENTS HANDPANS** (reduces disputes).
 - ✅ **EU shipping is set up.** A flat **€79 "Standard"** rate covers all 27 EU countries — the coverage gap that blocked checkout is fixed. Rest-of-world is intentionally off for launch. *(€79 and the "5–8 business day" estimate are provisional placeholders — confirm against a real carrier quote + actual dispatch times.)*
 - ✅ **Policies drafted** — Shipping, Refunds/Returns, Privacy, Terms are written and ready for your details + a legal review (see §3).
+- ✅ **Storefront flipped to Shopify checkout + verified end-to-end.** Buy buttons now route to Shopify's hosted checkout. A test EU (Germany) checkout rendered correctly: €1,300 product · **€79 shipping** · **€89.64 duties** · **€279.04 import VAT** (19%, added on top) · **Total €1,747.68**, with **PayPal + Google Pay** and cards offered. *(No payment taken — we verified the checkout renders, we didn't transact.)*
 
 > **Note on orders:** with Shopify checkout, every paid order lands in your **Shopify admin ▸ Orders**, with the customer's details and shipping address, ready for you to fulfil by hand. (The earlier database order-recording we built was for a different checkout approach and is now on standby.)
+
+> **Note on going public:** the store sits behind Shopify's password page, so no real customer can buy yet. Removing it (Online Store ▸ Preferences) is the final "go live" switch — do it only after §2 (origin/sanctions) is cleared.
 
 ---
 
@@ -62,11 +65,12 @@ The policies are drafted; they need your inputs and a professional review before
 Once your inputs land, these are quick and we handle them:
 
 1. ✅ **Done** — Payments (Stripe + PayPal), duties/DDP, tax display, statement descriptor, **EU shipping (€79) + coverage fix**.
-2. **Validate the €79 rate** and add Indonesia/other regions once numbers are confirmed (§1).
-3. **Place your policy text** on the site.
-4. **Connect your domain**, then enable **Apple Pay / Google Pay** (they lift mobile conversion; they need the domain verified first).
-5. **Switch the storefront over to Shopify checkout** (one config change + redeploy).
-6. Run a **real test purchase** through the live checkout, confirm it appears in Shopify Orders, then refund it.
+2. ✅ **Done** — **Storefront switched to Shopify checkout and verified end-to-end** (gated EU test showed shipping + duties + VAT + wallets rendering correctly).
+3. **Validate the €79 rate** and add Indonesia/other regions once numbers are confirmed (§1).
+4. **Place your policy text** on the site.
+5. **Connect your domain**, then enable **Apple Pay / Google Pay** (they lift mobile conversion; they need the domain verified first).
+6. **Remove the "Opening soon" password** to go public — the final switch, only after §2 (origin/sanctions) is cleared.
+7. Run a **real test purchase** through the live checkout, confirm it lands in Shopify Orders, then refund it.
 
 ---
 
@@ -75,7 +79,7 @@ Once your inputs land, these are quick and we handle them:
 The store is live when **all** of these pass:
 
 - [ ] A real customer can add a handpan to the cart and **pay successfully** (real card or PayPal).
-- [ ] Checkout shows the correct **EUR price**, a **shipping** option, and the **duty + import-tax** lines.
+- [x] Checkout shows the correct **EUR price**, a **shipping** option, and the **duty + import-tax** lines. ✅ *Verified via a gated EU test checkout — €79 shipping, €89.64 duty, €279.04 import VAT, total €1,747.68.*
 - [ ] The order appears in **Shopify admin ▸ Orders** with the customer's email and shipping address, ready to fulfil.
 - [ ] A test order was placed through the live Shopify checkout and refunded without errors.
 - [ ] **The first real order** completes end-to-end — payment in Stripe, order in Shopify, ready to ship.
@@ -85,4 +89,4 @@ The store is live when **all** of these pass:
 
 ### Where things stand
 
-**The heavy lifting is done** — payments, duties, tax, EU shipping and the checkout itself are all configured and working. The store can take an EU order end-to-end today. The remaining gate is the **origin confirmation** (§2) — we need to know where instruments actually ship from before they cross a border (it drives duty accuracy and the Iran sanctions question). Once that's clear, we flip the storefront to Shopify checkout, run a live test, and go live — realistically within a day.
+**The build is done and verified** — payments, EU shipping, duties, tax and the Shopify checkout all work end-to-end, confirmed with a real gated EU test checkout. What's left isn't technical: **confirm where instruments ship from** (§2 — it drives duty accuracy and the Iran sanctions question), **policy details + legal review** (§3), and the **domain** (§4). Clear those, remove the "Opening soon" password, and you're live.
