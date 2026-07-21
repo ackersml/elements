@@ -2,7 +2,7 @@
 
 **For:** Dany · **Storefront:** elements-snowy.vercel.app *(custom domain pending)*
 **Checkout:** Shopify hosted checkout — payments, shipping, duties and orders all run natively in Shopify.
-**Status:** Payments, duties and tax are configured and live. **The one thing blocking launch is your shipping rates** — until they're set, customers in most of the EU can't complete an order. Product-origin details also need a proper confirmation (see §2). Everything else is polish.
+**Status:** Payments, duties, tax and **EU shipping** are all configured and live — the store can take an EU order end-to-end. What's left before flipping it on: **confirming where instruments ship from** (see §2), the final storefront switch + a live test purchase, and polish (policy details, domain).
 
 ---
 
@@ -15,6 +15,7 @@
 - ✅ **Duties & import taxes set up (DDP).** For the **EU and Indonesia**, import duty and VAT are calculated by Avalara and **added as separate lines at checkout** (0.5% Shopify fee on those orders). The customer pays them up front, so **no surprise customs bill on delivery** — a genuine selling point for high-value instruments.
 - ✅ **Tax handling decided + set.** You keep your listed price; import VAT is added on top at checkout (not absorbed). Sales tax is correctly set to "not collecting" (you're not EU VAT-registered).
 - ✅ **Card-statement name** shows **ELEMENTS HANDPANS** (reduces disputes).
+- ✅ **EU shipping is set up.** A flat **€79 "Standard"** rate covers all 27 EU countries — the coverage gap that blocked checkout is fixed. Rest-of-world is intentionally off for launch. *(€79 and the "5–8 business day" estimate are provisional placeholders — confirm against a real carrier quote + actual dispatch times.)*
 - ✅ **Policies drafted** — Shipping, Refunds/Returns, Privacy, Terms are written and ready for your details + a legal review (see §3).
 
 > **Note on orders:** with Shopify checkout, every paid order lands in your **Shopify admin ▸ Orders**, with the customer's details and shipping address, ready for you to fulfil by hand. (The earlier database order-recording we built was for a different checkout approach and is now on standby.)
@@ -23,19 +24,16 @@
 
 ## What we need from you
 
-### 1. 🔴 Shipping rates — the one blocker
+### 1. ✅ Shipping — EU done
 
-This is the only thing stopping go-live. Two problems:
+**EU shipping is live:** a flat **€79 "Standard"** rate now covers all 27 EU countries, fixing the checkout-coverage gap (13 EU countries previously had no rate and couldn't check out; the old rupiah placeholders are gone). Rest-of-world is off at launch by design — we'll add regions deliberately once there's revenue. *Live carrier rates (real-time DHL/UPS quotes) need Shopify's Advanced plan (~$399/mo vs current $65), so we're on fixed rates for now.*
 
-- The rates currently in the store are **leftover placeholders in rupiah** from before the euro switch — e.g. ~€19 to ship worldwide, which is far below the real cost of sending a 4.5 kg instrument. They can't be used.
-- **13 of the 27 EU countries have no shipping rate at all**, so those customers literally cannot check out.
+Two things to firm up — neither blocks launch:
 
-We're using **fixed rates** (you set the prices; the customer picks the option at checkout). *Live carrier rates — real-time DHL/UPS quotes — need Shopify's Advanced plan (~$399/mo vs your current $65), so we've held off; we can revisit once there's revenue.*
+- [ ] **Validate the €79** against one real DHL/UPS quote for a ~6 kg parcel. It's sized to protect margin; better to trim it down later than to lose money on it now.
+- [ ] **Indonesia domestic rate + real transit times.** These depend on the ship-from answer in §2 — if instruments dispatch from China, an Indonesian order is *also* an import, not a domestic one. The "5–8 day" delivery estimate is a placeholder until you give actual dispatch + transit times.
 
-- [ ] Send us your shipping cost for one instrument (and a case, if different) for: **EU**, **Indonesia (domestic)**, and **rest of world** (or "not shipping there yet").
-- [ ] How many options per region? e.g. just **Standard**, or **Standard + Express** so the customer chooses.
-
-> Since duties are now collected separately at checkout, these should be your **all-in carrier cost including the DDP surcharge** — not the duty itself.
+> Since duties are collected separately at checkout, the €79 should reflect the **all-in carrier cost including the DDP surcharge** — not the duty itself.
 
 ### 2. 🔴 Product origin & steel grade — needs a real answer
 
@@ -63,8 +61,8 @@ The policies are drafted; they need your inputs and a professional review before
 
 Once your inputs land, these are quick and we handle them:
 
-1. ✅ **Done** — Payments (Stripe + PayPal), duties/DDP, tax display, statement descriptor.
-2. **Enter your shipping rates** and fix the zone/market coverage so all EU countries (and anywhere else you ship) can check out.
+1. ✅ **Done** — Payments (Stripe + PayPal), duties/DDP, tax display, statement descriptor, **EU shipping (€79) + coverage fix**.
+2. **Validate the €79 rate** and add Indonesia/other regions once numbers are confirmed (§1).
 3. **Place your policy text** on the site.
 4. **Connect your domain**, then enable **Apple Pay / Google Pay** (they lift mobile conversion; they need the domain verified first).
 5. **Switch the storefront over to Shopify checkout** (one config change + redeploy).
@@ -87,4 +85,4 @@ The store is live when **all** of these pass:
 
 ### Where things stand
 
-**The heavy lifting is done** — payments, duties, tax and the checkout itself are configured and working. The store is one step from taking orders. That step is **your shipping rates** (§1), and alongside it the **origin/steel confirmation** (§2), which we need correct before instruments cross a border. Send those over and we can finish coverage, run a live test, and go live within a day.
+**The heavy lifting is done** — payments, duties, tax, EU shipping and the checkout itself are all configured and working. The store can take an EU order end-to-end today. The remaining gate is the **origin confirmation** (§2) — we need to know where instruments actually ship from before they cross a border (it drives duty accuracy and the Iran sanctions question). Once that's clear, we flip the storefront to Shopify checkout, run a live test, and go live — realistically within a day.
