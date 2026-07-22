@@ -1,6 +1,6 @@
 # Elements Handpans — Store Policies (DRAFT)
 
-> **⚠️ These are drafts, not legal advice.** They're written to be sensible and specific to how this store actually operates (Canadian merchant of record — Cornerstone Devs — selling handmade instruments made in China, shipping to the EU, DDP with duties collected at checkout). Because that combination touches EU consumer law, GDPR and cross-border customs, **have them reviewed by someone qualified before publishing.** Anything still in `[BRACKETS]` is a fact we still need to drop in.
+> **⚠️ Drafts — reviewed against Ontario/Canada frameworks, not a substitute for a lawyer.** These are written to be sensible and specific to how this store actually operates (Canadian merchant of record — Cornerstone Devs — selling handmade instruments made in China, shipping to the EU, DDP with duties collected at checkout). They've been reviewed against **PIPEDA, CASL, Ontario's *Consumer Protection Act, 2002*, the *Sale of Goods Act*** and EU consumer law, and updated accordingly. Two items still open: confirm the **exact legal entity form** (incorporated vs. sole-proprietor trade name) and check whether **GDPR Art. 27** requires an EU representative. Anything still in `[BRACKETS]` is a fact we still need to drop in.
 >
 > **Launch scope:** the store launches **Origins-only** (made in China). The Signature Series (made in Iran) is shelved, so these policies deliberately don't mention Iran — add it back only when Signature returns and its customs position is confirmed.
 >
@@ -36,6 +36,8 @@ These are estimates from our carrier, not guarantees. Customs inspection can add
 
 **Your right to cancel (EU/EEA customers).** If you're a consumer in the EU or EEA, you have the right to cancel your order within **14 days** of receiving your instrument, without giving a reason. To use it, tell us in writing at **hello@elementshandpans.com** within those 14 days. You then have a further 14 days to send the instrument back.
 
+**Canadian customers.** Where Ontario's *Consumer Protection Act, 2002* applies to your order, you may cancel if we don't deliver your instrument within **30 days** of the delivery date we gave you (unless you agree to a new date). These statutory rights are in addition to the returns terms below and can't be waived.
+
 **Condition.** Instruments must come back in their original condition and original case, unmarked and showing no signs of play wear beyond what's needed to reasonably try the instrument. We may reduce your refund to reflect any loss in value caused by handling beyond that.
 
 **Return shipping.** Unless the instrument is faulty or was sent in error, **you pay return shipping.** For a high-value instrument we strongly recommend an insured, tracked service — until it reaches us, it remains your responsibility.
@@ -48,7 +50,7 @@ These are estimates from our carrier, not guarantees. Customs inspection can add
 
 **Tuning.** Handpans are acoustic instruments and settle with playing and temperature. Minor tuning drift is normal and isn't a fault. Every instrument is tuning-checked before dispatch and carries a **1-year warranty** — see below.
 
-**Warranty.** Each instrument carries a **1-year warranty** against manufacturing defects. This covers workmanship and materials. It does not cover accidental damage, drops, rust from moisture exposure, or normal tuning drift.
+**Warranty.** Each instrument carries a **1-year warranty** against manufacturing defects. This covers workmanship and materials. It does not cover accidental damage, drops, rust from moisture exposure, or normal tuning drift. This warranty is in addition to, and does not limit, your rights under applicable consumer law — including, for Ontario customers, the implied conditions of the *Sale of Goods Act* and the *Consumer Protection Act, 2002*.
 
 **Custom orders.** A 432 Hz tuning request is treated as a **standard tuning option, not a bespoke/custom order.** The full 14-day right to cancel above applies to every instrument, including those tuned to 432 Hz.
 
@@ -60,7 +62,7 @@ These are estimates from our carrier, not guarantees. Customs inspection can add
 
 **What we collect.** When you buy from us: your name, email, shipping and billing address, phone number (if given), order contents, and the information needed to deliver and to clear customs. We do **not** see or store your full card details — those go directly to our payment providers.
 
-**Why we collect it.** To take and fulfil your order, to handle customs clearance, to provide support and warranty service, and to meet our legal and accounting obligations. If you opt in, to send you marketing — and you can unsubscribe at any time.
+**Why we collect it.** To take and fulfil your order, to handle customs clearance, to provide support and warranty service, and to meet our legal and accounting obligations. We only send you marketing if you have given us express consent; every marketing email identifies us as the sender and includes an unsubscribe link, and you can withdraw your consent at any time.
 
 **Who we share it with.** Only those who need it to fulfil your order:
 
@@ -75,7 +77,9 @@ We don't sell your personal data.
 
 **How long we keep it.** As long as needed to fulfil your order and honour the warranty, and after that for as long as tax and accounting law requires.
 
-**Your rights.** If you're in the EU/EEA or UK, you can ask for a copy of your data, correct it, ask us to delete it, object to processing, or ask for it to be transferred. Contact **hello@elementshandpans.com** and we'll respond within one month. You also have the right to complain to your local data protection authority.
+**How we protect it.** We use appropriate technical and organisational safeguards to protect your personal data, and we require the providers we share it with to do the same.
+
+**Your rights.** You can ask for a copy of the personal data we hold about you and ask us to correct it. If you're in the EU/EEA or UK, you can also ask us to delete it, object to processing, or ask for it to be transferred. Contact **hello@elementshandpans.com** and we'll respond within one month (or the timeframe your local law requires). If you're unhappy with how we've handled your data, you can complain to the **Office of the Privacy Commissioner of Canada**, or — if you're in the EU/EEA or UK — to your local data protection authority.
 
 **Cookies.** We use cookies to run the store, remember your cart, and understand how the site is used. You can manage these through the cookie banner or your browser settings.
 
@@ -99,7 +103,7 @@ We don't sell your personal data.
 
 **Liability.** We don't exclude liability for death or personal injury caused by our negligence, for fraud, or for anything else that can't lawfully be excluded. Beyond that, our liability for any order is limited to what you paid for it. Nothing here affects your statutory consumer rights.
 
-**Governing law.** These terms are governed by the laws of **the Province of Ontario, Canada**, where the business is established. If you're a consumer, you keep the protection of the mandatory laws of the country where you live.
+**Governing law.** These terms are governed by the laws of **the Province of Ontario, Canada**, where the business is established, and the courts of Ontario have jurisdiction over any dispute. If you're a consumer, you keep the protection of the mandatory laws of the country where you live and may be entitled to bring proceedings in your own country's courts.
 
 **Contact.** **hello@elementshandpans.com** *(email support only at launch — no phone line offered)*
 
@@ -114,6 +118,8 @@ All the legal facts are now in. What remains is confirm-later items already cove
 | 1 | **Support email** — draft uses `hello@elementshandpans.com`. Confirm once the domain is chosen; if the domain differs, swap it everywhere. | 🟡 Confirm with domain |
 | 2 | **Dispatch + EU delivery times** — draft uses 7-day dispatch / 5–8-day EU transit as provisional. Confirm against the maker's (Xi's) real times; the supplier message asks for these. | 🟡 Confirm with Xi |
 | 3 | **Origins ship-from + steel grade** — draft says made in China; confirm with Xi (same supplier message). | 🟡 Confirm with Xi |
-| 4 | Merchant of record = Cornerstone Devs (Michelle Ackers), Toronto, ON; governing law = Ontario, Canada; 432 Hz = standard 14-day returns; phone = none; EU-only shipping. | ✅ Decided |
+| 4 | **Exact legal entity form** — "Cornerstone Devs Inc./Ltd." (if incorporated) or "Michelle Ackers, o/a Cornerstone Devs" (if a registered trade name). Sets the named merchant + data controller. | 🔴 Confirm |
+| 5 | **GDPR Art. 27 EU representative** — as a Canadian controller shipping into the EU, you may need to appoint (and name) an EU representative. Check before going public. | 🟡 Check |
+| 6 | Merchant of record = Cornerstone Devs (Michelle Ackers), Toronto, ON; governing law = Ontario, Canada; 432 Hz = standard 14-day returns; phone = none; EU-only shipping; reviewed vs. PIPEDA/CASL/Ontario CPA/SGA. | ✅ Decided |
 
 > **Note on Iran / Signature:** these policies intentionally cover **Origins only**. The Signature Series (made in Iran) is shelved for launch — Iranian-origin goods entering the EU carry sanctions and import considerations a normal store never hits. Before Signature is ever re-listed, that needs a proper answer from whoever handles freight, and this document will need an Iran ship-from line added back.
