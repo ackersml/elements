@@ -1,6 +1,6 @@
 # Elements Handpans — Store Policies (DRAFT)
 
-> **⚠️ Drafts — reviewed against Ontario/Canada frameworks, not a substitute for a lawyer.** These are written to be sensible and specific to how this store actually operates (Canadian merchant of record — Cornerstone Devs — selling handmade instruments made in China, shipping to the EU, DDP with duties collected at checkout). They've been reviewed against **PIPEDA, CASL, Ontario's *Consumer Protection Act, 2002*, the *Sale of Goods Act*** and EU consumer law, and updated accordingly. Two items still open: confirm the **exact legal entity form** (incorporated vs. sole-proprietor trade name) and check whether **GDPR Art. 27** requires an EU representative. Anything still in `[BRACKETS]` is a fact we still need to drop in.
+> **⚠️ Drafts — reviewed against Ontario/Canada frameworks, not a substitute for a lawyer.** These are written to be sensible and specific to how this store actually operates (Canadian merchant of record — **Michelle Ackers, sole proprietor carrying on business as Cornerstone Devs** — selling handmade instruments made in China, shipping to the EU, DDP with duties collected at checkout). They've been reviewed against **PIPEDA, CASL, Ontario's *Consumer Protection Act, 2002*, the *Sale of Goods Act*** and EU consumer law, and updated accordingly. One item still open: check whether **GDPR Art. 27** requires an EU representative. Anything still in `[BRACKETS]` is a fact we still need to drop in.
 >
 > **Launch scope:** the store launches **Origins-only** (made in China). The Signature Series (made in Iran) is shelved, so these policies deliberately don't mention Iran — add it back only when Signature returns and its customs position is confirmed.
 >
@@ -58,7 +58,7 @@ These are estimates from our carrier, not guarantees. Customs inspection can add
 
 ## 3. Privacy Policy
 
-**Who we are.** Elements Handpans is a trading name of **Cornerstone Devs (Michelle Ackers), 525 Adelaide St W, Toronto, ON M5V 0N7, Canada**. For any privacy question, contact **hello@elementshandpans.com**.
+**Who we are.** Elements Handpans is operated by **Michelle Ackers, a sole proprietor carrying on business as Cornerstone Devs**, at **525 Adelaide St W, Toronto, ON M5V 0N7, Canada**. For any privacy question, contact **hello@elementshandpans.com**.
 
 **What we collect.** When you buy from us: your name, email, shipping and billing address, phone number (if given), order contents, and the information needed to deliver and to clear customs. We do **not** see or store your full card details — those go directly to our payment providers.
 
@@ -118,8 +118,7 @@ All the legal facts are now in. What remains is confirm-later items already cove
 | 1 | **Support email** — draft uses `hello@elementshandpans.com`. Confirm once the domain is chosen; if the domain differs, swap it everywhere. | 🟡 Confirm with domain |
 | 2 | **Dispatch + EU delivery times** — draft uses 7-day dispatch / 5–8-day EU transit as provisional. Confirm against the maker's (Xi's) real times; the supplier message asks for these. | 🟡 Confirm with Xi |
 | 3 | **Origins ship-from + steel grade** — draft says made in China; confirm with Xi (same supplier message). | 🟡 Confirm with Xi |
-| 4 | **Exact legal entity form** — "Cornerstone Devs Inc./Ltd." (if incorporated) or "Michelle Ackers, o/a Cornerstone Devs" (if a registered trade name). Sets the named merchant + data controller. | 🔴 Confirm |
-| 5 | **GDPR Art. 27 EU representative** — as a Canadian controller shipping into the EU, you may need to appoint (and name) an EU representative. Check before going public. | 🟡 Check |
-| 6 | Merchant of record = Cornerstone Devs (Michelle Ackers), Toronto, ON; governing law = Ontario, Canada; 432 Hz = standard 14-day returns; phone = none; EU-only shipping; reviewed vs. PIPEDA/CASL/Ontario CPA/SGA. | ✅ Decided |
+| 4 | **GDPR Art. 27 EU representative** — as a Canadian controller shipping into the EU, you may need to appoint (and name) an EU representative. Check before going public. | 🟡 Check |
+| 5 | Legal entity = **Michelle Ackers, sole proprietor carrying on business as Cornerstone Devs** (Ontario) — named as merchant of record + data controller; governing law = Ontario, Canada; 432 Hz = standard 14-day returns; phone = none; EU-only shipping; reviewed vs. PIPEDA/CASL/Ontario CPA/SGA. | ✅ Decided |
 
 > **Note on Iran / Signature:** these policies intentionally cover **Origins only**. The Signature Series (made in Iran) is shelved for launch — Iranian-origin goods entering the EU carry sanctions and import considerations a normal store never hits. Before Signature is ever re-listed, that needs a proper answer from whoever handles freight, and this document will need an Iran ship-from line added back.
