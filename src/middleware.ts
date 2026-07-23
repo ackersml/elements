@@ -1,10 +1,22 @@
 import createMiddleware from "next-intl/middleware";
-import type { NextRequest } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 import { routing } from "./i18n/routing";
 
 const intlMiddleware = createMiddleware(routing);
 
 export default function middleware(request: NextRequest) {
+  // Canonicalise on the bare domain: www.* -> apex, before locale handling, so
+  // visitors get one clean 308 instead of chaining through a locale redirect.
+  // Host-agnostic on purpose — works for any domain the site is served on.
+  const host = request.headers.get("host");
+  if (host?.startsWith("www.")) {
+    const url = request.nextUrl.clone();
+    url.protocol = "https:";
+    url.port = "";
+    url.host = host.slice(4);
+    return NextResponse.redirect(url, 308);
+  }
+
   return intlMiddleware(request);
 }
 
