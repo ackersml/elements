@@ -1,13 +1,12 @@
 /**
  * Master switch for whether search engines may index the storefront.
  *
- * Currently `false`. The store is publicly reachable at elementshandpans.com,
- * but the Shopify checkout is still behind the "Opening soon" password — so we
- * don't want Google indexing a shop that can't take orders yet. Keeping it
- * unindexed also means no half-finished pages get cached in search results.
+ * `true` as of launch (2026-07-23): robots.txt allows crawling and advertises
+ * the sitemap, and no `noindex` meta tag is emitted. Paired with removing
+ * Shopify's "Opening soon" password — the store is open for orders.
  *
- * TO GO LIVE: set this to `true` and redeploy. That re-enables indexing in
- * robots.txt and drops the `noindex` meta tag from every page. Do it at the
- * same time as removing Shopify's "Opening soon" password.
+ * Set back to `false` and redeploy to pull the store out of search results
+ * (e.g. if you need to take it down or re-gate it for a rebuild). That restores
+ * the robots.txt disallow and the site-wide `noindex, nofollow`.
  */
-export const SITE_INDEXABLE = false;
+export const SITE_INDEXABLE = true;
