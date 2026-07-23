@@ -35,6 +35,12 @@ const MOOD_MEDIA: Record<
     rectPoster: "/videos/featured-d-kurd-10.jpg",
     circle: "/videos/mood-d-kurd-circle.webp",
   },
+  // Same instrument, Origins slug — the one in use while Signature is hidden.
+  "origins-d-kurd-10": {
+    rectVideo: "/videos/featured-d-kurd-10.mp4",
+    rectPoster: "/videos/featured-d-kurd-10.jpg",
+    circle: "/videos/mood-d-kurd-circle.webp",
+  },
   "origins-f-sharp-nordlys-15": {
     rectVideo: "/videos/mood-nordlys-rect.mp4",
     rectPoster: "/images/canva/mood-nordlys-lifestyle.webp",

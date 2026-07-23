@@ -10,9 +10,18 @@ import { canvaAssets } from "@/lib/canva-assets";
 import { brandLockup } from "@/lib/brand/elements-brand";
 import type { Product } from "@/lib/products";
 
-/** Looping demo clip for the featured stage (extracted from the Drive demo). */
+/**
+ * Looping demo clip for the featured stage (extracted from the Drive demo).
+ * Keyed by slug — the D Kurd 10 clip is the same instrument in both series, so
+ * both slugs map to it. The Origins key is the one in use while Signature is
+ * hidden; keep the Signature key so the clip returns with the series.
+ */
 const FEATURED_VIDEOS: Record<string, { src: string; poster: string }> = {
   "signature-d-kurd-10": {
+    src: "/videos/featured-d-kurd-10.mp4",
+    poster: "/videos/featured-d-kurd-10.jpg",
+  },
+  "origins-d-kurd-10": {
     src: "/videos/featured-d-kurd-10.mp4",
     poster: "/videos/featured-d-kurd-10.jpg",
   },
